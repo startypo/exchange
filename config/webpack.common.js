@@ -27,7 +27,7 @@ const ngcWebpack = require('ngc-webpack');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'Livro que Segue...',
+  title: 'Livro que Segue',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
@@ -59,7 +59,9 @@ module.exports = function (options) {
     entry: {
 
       'polyfills': './src/polyfills.browser.ts',
-      'main':      AOT ? './src/main.client.aot.ts' : './src/main.client.ts'
+      'main':      AOT ? './src/main.browser.aot.ts' :
+                  './src/main.browser.ts'
+
     },
 
     /*
@@ -266,6 +268,8 @@ module.exports = function (options) {
         { from: 'src/assets', to: 'assets' },
         { from: 'src/meta'}
       ]),
+
+
       /*
        * Plugin: HtmlWebpackPlugin
        * Description: Simplifies creation of HTML files to serve your webpack bundles.

@@ -1,17 +1,9 @@
+# Conteúdo
+* [Nome](#link)
+
+
 
 ### Quick start
-**Make sure you have Node version >= 5.0 and NPM >= 3**
-
-
-# clone our repo
-# --depth 1 removes all but one .git commit history
-git clone --depth 1 
-
-# change directory to our repo
-cd exchanges
-
-# install the repo with npm
-npm install
 
 # start the server
 npm start
@@ -20,21 +12,7 @@ npm start
 npm run server:dev:hmr
 
 
-# Table of Contents
-* [File Structure](#file-structure)
-* [Getting Started](#getting-started)
-    * [Dependencies](#dependencies)
-    * [Installing](#installing)
-    * [Running the app](#running-the-app)
-* [Configuration](#configuration)
-* [AoT Don'ts](#aot-donts)
-* [External Stylesheets](#external-stylesheets)
-* [Contributing](#contributing)
-* [TypeScript](#typescript)
-* [@Types](#types)
-* [Frequently asked questions](#frequently-asked-questions)
-* [Support, Questions, or Feedback](#support-questions-or-feedback)
-* [License](#license)
+
 
 
 ## File Structure

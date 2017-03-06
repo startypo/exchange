@@ -112,12 +112,12 @@ npm run server:prod
 
 ### build files
 
-#### development: 
+#### development
 ```bash
 npm run build:dev
 ```
 
-#### production (jit):
+#### production (jit)
 ```bash
 npm run build:prod
 ```
@@ -127,12 +127,12 @@ npm run build:prod
 npm run build:aot
 ```
 
-### hot module replacement
+#### hot module replacement
 ```bash
 npm run server:dev:hmr
 ```
 
-### watch and build files
+#### watch and build files
 ```bash
 npm run watch
 ```
@@ -142,22 +142,25 @@ npm run watch
 npm run test
 ```
 
-### watch and run our tests
+#### watch and run our tests
 ```bash
 npm run watch:test
 ```
 
 ### run end-to-end tests
+
+#### update Webdriver (optional, done automatically by postinstall script)
 ```bash
-# update Webdriver (optional, done automatically by postinstall script)
 npm run webdriver:update
-# this will start a test server and launch Protractor
+```
+
+#### this will start a test server and launch Protractor
+```bash
 npm run e2e
 ```
 
-### continuous integration (run unit tests and e2e tests together)
+#### continuous integration (run unit tests and e2e tests together)
 ```bash
-# this will test both your JIT and AoT builds
 npm run ci
 ```
 

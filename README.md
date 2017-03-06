@@ -5,14 +5,14 @@ Bem vindo ao Exchanges!
 
 ----------
 
-### Conteúdo
+## Conteúdo
 * [Nome](#link)
 
 
 
-### Quick start
+## Quick start
 
-##### start the server
+#### start the server
 npm start
 
 # use Hot Module Replacement

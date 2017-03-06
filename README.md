@@ -111,12 +111,19 @@ npm run server:prod
 ## Other commands
 
 ### build files
+
+#### development: 
 ```bash
-# development
 npm run build:dev
-# production (jit)
+```
+
+#### production (jit):
+```bash
 npm run build:prod
-# AoT
+```
+
+#### AoT
+```bash
 npm run build:aot
 ```
 

@@ -2,7 +2,7 @@
 ### Quick start
 **Make sure you have Node version >= 5.0 and NPM >= 3**
 
-```bash
+
 # clone our repo
 # --depth 1 removes all but one .git commit history
 git clone --depth 1 
@@ -39,7 +39,7 @@ npm run server:dev:hmr
 
 ## File Structure
 We use the component approach in our starter. This is the new standard for developing Angular apps and a great way to ensure maintainable code by encapsulation of our behavior logic. A component is basically a self contained app usually in a single file or a folder with each concern as a file: style, template, specs, e2e, and component class. Here's how it looks:
-```
+
 angular2-webpack-starter/
  ├──config/                        * our configuration
  |   ├──helpers.js                 * helper functions for our configuration files
@@ -76,7 +76,7 @@ angular2-webpack-starter/
  ├──package.json                   * what npm uses to manage it's dependencies
  └──webpack.config.js              * webpack main configuration file
 
-```
+
 
 # Getting Started
 ## Dependencies

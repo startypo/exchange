@@ -15,7 +15,7 @@ Bem vindo ao Exchanges!
 #### start the server
 npm start
 
-# use Hot Module Replacement
+#### use Hot Module Replacement
 npm run server:dev:hmr
 
 

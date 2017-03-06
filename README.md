@@ -40,6 +40,7 @@ npm run server:dev:hmr
 ## File Structure
 We use the component approach in our starter. This is the new standard for developing Angular apps and a great way to ensure maintainable code by encapsulation of our behavior logic. A component is basically a self contained app usually in a single file or a folder with each concern as a file: style, template, specs, e2e, and component class. Here's how it looks:
 
+```bash
 angular2-webpack-starter/
  ├──config/                        * our configuration
  |   ├──helpers.js                 * helper functions for our configuration files
@@ -75,7 +76,7 @@ angular2-webpack-starter/
  ├──tsconfig.webpack.json          * config that webpack uses for typescript
  ├──package.json                   * what npm uses to manage it's dependencies
  └──webpack.config.js              * webpack main configuration file
-
+```
 
 
 # Getting Started

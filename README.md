@@ -12,14 +12,13 @@ Bem vindo ao Exchanges!
 
 ## Quick start
 
-#### start the server
+### start the server
 npm start
 
-#### use Hot Module Replacement
+### use Hot Module Replacement
 npm run server:dev:hmr
 
 
-# Getting Started
 ## Dependencies
 What you need to run this app:
 * `node` and `npm` (`apt-get install node`)

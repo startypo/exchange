@@ -12,7 +12,7 @@ Bem vindo ao Exchanges!
 
 ### Quick start
 
-# start the server
+## start the server
 npm start
 
 # use Hot Module Replacement

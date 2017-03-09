@@ -58,7 +58,7 @@ module.exports = function (env) {
        *
        * See: http://webpack.github.io/docs/configuration.html#output-path
        */
-      path: helpers.root('dist'),
+      path: helpers.root('dist/public'),
 
       /**
        * Specifies the name of each output file on disk.
@@ -270,23 +270,6 @@ module.exports = function (env) {
       //   regExp: /\.css$|\.html$|\.js$|\.map$/,
       //   threshold: 2 * 1024
       // })
-
-
-      /*
-       * Plugin: CopyWebpackPlugin
-       * Description: Copy files and directories in webpack.
-       *
-       * Copies angular universal server files.
-       *
-       * See: https://www.npmjs.com/package/copy-webpack-plugin
-       */
-       new CopyWebpackPlugin([
-          { from: AOT ? 'src/server.ts' : 'src/server.aot.ts'},
-          { from: 'src/server.routes.ts' },
-          { from: 'src/server.module.ts'},
-          { from: 'src/cache.service.ts'},
-          { from: 'src/angular2-meta.ts'}
-       ]),
 
       /**
        * Plugin LoaderOptionsPlugin (experimental)

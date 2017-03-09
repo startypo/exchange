@@ -11,6 +11,8 @@
     "noEmitHelpers": true,
     "importHelpers": true,
     "strictNullChecks": false,
+    "rootDir": "./src/server",
+    "outDir": "./dist",
     "lib": [
       "dom",
       "es6"
@@ -24,7 +26,8 @@
       "node",
       "source-map",
       "uglify-js",
-      "webpack"
+      "webpack",
+      "express"
     ]
   },
   "exclude": [

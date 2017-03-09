@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UniversalModule, isBrowser, isNode, AUTO_PREBOOT } from 'angular2-universal/browser';
 import { IdlePreload, IdlePreloadModule } from '@angularclass/idle-preload';
-import { AppModule } from './app/app.module';
-import { AppComponent } from './app/app.component';
+import { AppModule } from '../app/app.module';
+import { AppComponent } from '../app/app.component';
 import { CacheService } from './cache.service';
 
 // Will be merged into @angular/platform-browser in a later release

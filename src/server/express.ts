@@ -5,6 +5,8 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from'cookie-parser';
 import * as favicon from 'serve-favicon';
 
+import{ ApiRoutes } from './api.routes';
+
 class Express {
 
   public express: express.Application;
@@ -34,9 +36,7 @@ class Express {
       res.sendFile('index.html', { root: path.resolve('dist', 'public') });
     });
 
-    this.express.use('/api', (req, res) => {
-        res.send('{ "teste" : "JSON" }');
-    });
+    ApiRoutes.config(this.express);
   }
 
   private configErrorHandler(): void {
@@ -56,11 +56,9 @@ class Express {
 
       // render the error page
       res.status(err.status || 500);
-      res.render('error');
+      res.json(err);
     });
-
   }
-
 }
 
 export default new Express().express;

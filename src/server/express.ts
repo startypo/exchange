@@ -4,7 +4,9 @@ import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from'cookie-parser';
 import * as favicon from 'serve-favicon';
+import passport from './passport';
 
+import { Request, Response, NextFunction } from 'express';
 import{ ApiRoutes } from './api.routes';
 
 class Express {
@@ -24,9 +26,10 @@ class Express {
     this.express.use(favicon(path.resolve('dist', 'public', 'assets', 'icon', 'favicon.ico')));
     this.express.use(logger('dev'));
     this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: false }));
+    this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(cookieParser());
     this.express.use(express.static(path.resolve('dist', 'public')));
+    this.express.use(passport.initialize());
   }
 
   private configRoutes(): void {
@@ -48,15 +51,15 @@ class Express {
       next(err);
     });
 
-    this.express.use((err: any, req: any, res: any , next: any) => {
+    this.express.use((err: Error, req: Request, res: Response , next: NextFunction) => {
 
       // set locals, only providing error in development
       res.locals.message = err.message;
-      res.locals.error = req.app.get('env') === 'development' ? err : {};
+      res.locals.error = err; //req.app.get('env') === 'development' ? err : {};
 
       // render the error page
-      res.status(err.status || 500);
-      res.json(err);
+      res.status(500);
+      res.json({ name: err.name, msg: err.message, stack : err.stack });
     });
   }
 }

@@ -27,7 +27,12 @@
       "source-map",
       "uglify-js",
       "webpack",
-      "express"
+      "express",
+      "passport",
+      "jsonwebtoken",
+      "passport",
+      "passport-local",
+      "passport-jwt"
     ]
   },
   "exclude": [

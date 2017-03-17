@@ -12,10 +12,6 @@
             "args": ["run", "watch:node"]
         },
         {
-            "taskName": "start_node_server",
-            "args": ["run", "start:node"]
-        },
-        {
             "taskName": "start_webpack_server",
             "args": ["run", "start:hmr"]
         }

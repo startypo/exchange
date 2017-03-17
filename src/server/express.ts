@@ -7,7 +7,7 @@ import * as favicon from 'serve-favicon';
 import passport from './passport';
 
 import { Request, Response, NextFunction } from 'express';
-import{ ApiRoutes } from './api.routes';
+import{ RoutesMap } from './routes.map';
 
 class Express {
 
@@ -39,7 +39,7 @@ class Express {
       res.sendFile('index.html', { root: path.resolve('dist', 'public') });
     });
 
-    ApiRoutes.config(this.express);
+    this.express.use('/api/v1', RoutesMap.map());
   }
 
   private configErrorHandler(): void {
@@ -51,14 +51,14 @@ class Express {
       next(err);
     });
 
-    this.express.use((err: Error, req: Request, res: Response , next: NextFunction) => {
+    this.express.use((err: any, req: Request, res: Response , next: NextFunction) => {
 
       // set locals, only providing error in development
       res.locals.message = err.message;
-      res.locals.error = err; //req.app.get('env') === 'development' ? err : {};
+      res.locals.error = req.app.get('env') === 'development' ? err : {};
 
       // render the error page
-      res.status(500);
+      res.status(err.status || 500);
       res.json({ name: err.name, msg: err.message, stack : err.stack });
     });
   }

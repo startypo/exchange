@@ -5,13 +5,26 @@
     "version": "0.2.0",
     "configurations": [  
         {
-            "name": "Attach",
-            "type": "node",
-            "request": "attach",
-            "port": 5858,
+            "type": "node2",
+            "request": "launch",
+            "name": "nodemon",
+            "runtimeExecutable": "nodemon",
+            "runtimeArgs": [
+                "--inspect=9229"
+            ],
+            "cwd": "${workspaceRoot}",
+            "program": "${workspaceRoot}/dist/server.js",
             "restart": true,
+            "port": 9229,
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
             "sourceMaps": true,
-            "outFiles": ["./dist"]
+            "outFiles": [
+                "${workspaceRoot}/dist/*.js"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            }
         }
     ]
 }

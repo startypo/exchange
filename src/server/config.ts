@@ -9,4 +9,16 @@ export class Config {
         issuedAt: Math.floor(Date.now() / 1000) - 30,
         notBefore: null
     };
+
+    public static profile = {
+
+        user: {
+            '/myaccount': ['*']
+        },
+    };
+
+
+    public getProfile(profile: string) {
+        return Config.profile[profile];
+    }
 }

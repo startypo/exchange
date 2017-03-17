@@ -1,13 +1,16 @@
-import { Request, Response, NextFunction } from 'express';
-import { BaseController } from './base';
-import { User } from '../models/user';
-import { Config } from '../config';
+import { Request, Response } from 'express';
 import passport from '../passport';
 import jwt from 'jsonwebtoken';
 
+import { BaseController } from './base.controller';
+import { User } from '../models/user.model';
+import { Config } from '../config';
+import { Routes } from '../routes';
+
+
 export class AuthController extends BaseController {
 
-    public login(req: Request, res: Response, next: NextFunction): void {
+    public login(req: Request, res: Response ): void {
 
         let _email = req.body.email;
         let _passwd = req.body.passwd;
@@ -30,8 +33,9 @@ export class AuthController extends BaseController {
                 iat: Config.security.issuedAt,
                 sub: {
                     id: user.id,
-                    email: user.email,
-                    name: user.name
+                    eml: user.email,
+                    nam: user.name,
+                    prf: user.profile
                 }
             };
 
@@ -40,14 +44,14 @@ export class AuthController extends BaseController {
         });
     }
 
-    public logout(req: Request, res: Response, next: NextFunction): void {
+    public logout(req: Request, res: Response ): void {
 
         res.json({ auth: '' });
     }
 
     protected config() {
-        this.router.post('/login', this.login);
-        this.router.post('/logout', passport.authenticate('jwt', { session: false} ), this.logout);
+        this.router.post(Routes.login, this.login);
+        this.router.post(Routes.logout, passport.authenticate('jwt', { session: false} ), this.logout);
     }
 }
 

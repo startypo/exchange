@@ -19,7 +19,6 @@ module.exports = {
   },
   output: {
     path: helpers.root('dist'),
-    publicPath: '',
     filename: '[name].js'
   },
   target: 'node',
@@ -34,7 +33,7 @@ module.exports = {
         test: /\.ts$/,
         use: {
             loader: 'awesome-typescript-loader',
-            options: { configFileName: helpers.root('tsconfig.webpack.json') }
+            options: { configFileName: helpers.root('tsconfig.json') }
         }
       }
     ]

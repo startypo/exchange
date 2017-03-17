@@ -48,7 +48,7 @@
     "server:prod": "http-server dist -c-1 --cors",
     "server:prod:ci": "http-server dist -p 3000 -c-1 --cors",
     "server": "npm run server:dev",
-    "start:node": "NODE_ENV=development nodemon --debug ./dist/server.js",
+    "start:node": "NODE_ENV=development nodemon --inspect ./dist/server.js",
     "start:hmr": "npm run server:dev:hmr",
     "start": "npm run server:dev",
     "test": "npm run lint && karma start",

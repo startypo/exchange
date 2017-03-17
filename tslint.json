@@ -38,6 +38,8 @@
       true,
       255
     ],
+    "curly": false,
+    "arrow-parens": false,
     "no-string-literal": false,
     "no-use-before-declare": true,
     "object-literal-sort-keys": false,

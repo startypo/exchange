@@ -1,0 +1,19 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "command": "npm",
+    "isShellCommand": true,
+    "showOutput": "always",
+    "suppressTaskName": true,
+    "tasks": [
+        {
+            "taskName": "build_node_server",
+            "args": ["run", "watch:node"]
+        },
+        {
+            "taskName": "start_webpack_server",
+            "args": ["run", "start:hmr"]
+        }
+    ]
+}

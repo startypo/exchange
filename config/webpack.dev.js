@@ -60,7 +60,7 @@ module.exports = function (options) {
        *
        * See: http://webpack.github.io/docs/configuration.html#output-path
        */
-      path: helpers.root('dist'),
+      path: helpers.root('dist/public'),
 
       /**
        * Specifies the name of each output file on disk.
@@ -235,6 +235,12 @@ module.exports = function (options) {
       watchOptions: {
         aggregateTimeout: 300,
         poll: 1000
+      },
+      proxy:       {
+        '/api': {
+          target:  'http://localhost:3001/',
+          secure: false
+        }
       }
     },
 

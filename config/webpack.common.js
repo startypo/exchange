@@ -59,9 +59,7 @@ module.exports = function (options) {
     entry: {
 
       'polyfills': './src/polyfills.browser.ts',
-      'main':      AOT ? './src/main.browser.aot.ts' :
-                  './src/main.browser.ts'
-
+      'main':      AOT ? './src/main.browser.aot.ts' : './src/main.browser.ts'
     },
 
     /*
@@ -80,7 +78,6 @@ module.exports = function (options) {
 
       // An array of directory names to be resolved to the current directory
       modules: [helpers.root('src'), helpers.root('node_modules')],
-
     },
 
     /*
@@ -205,7 +202,7 @@ module.exports = function (options) {
      */
     plugins: [
       new AssetsPlugin({
-        path: helpers.root('dist'),
+        path: helpers.root('dist/public'),
         filename: 'webpack-assets.json',
         prettyPrint: true
       }),

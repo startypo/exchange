@@ -1,0 +1,28 @@
+﻿<div class="row">
+    <h1>Register</h1>
+    <div [formGroup]="form" class="col-xs-12 col-md-12">
+            <div class="col-md-5">
+                <div class="no-padding">
+                    <validate label="Name" [control]="form.controls['name']">
+                        <input type="text" class="form-control" placeholder="Name" 
+                               formControlName="name" [(ngModel)]='model.name'>
+                    </validate>
+
+                    <validate label="E-mail" [control]="form.controls['email']">
+                        <input type="text" class="form-control" placeholder="E-mail" 
+                               formControlName="email" [(ngModel)]='model.email'>
+                    </validate>
+
+                    <validate label="Password" [control]="form.controls['passwd']">
+                        <passwd placeholder="Password" formControlName="passwd" [(ngModel)]='model.passwd'></passwd>
+                    </validate>
+                    
+                    <validate label="Confirm Password" [control]="form.controls['confirmPasswd']">
+                        <input type="password" class="form-control" 
+                               formControlName="confirmPasswd" [(ngModel)]='model.confirmPasswd'>
+                    </validate>
+                </div>
+            </div>
+            <button class="btn btn-cadastro btn-primary btn-lg" (click)="register()" [disabled]="!form.valid">Register</button>
+    </div>
+</div>

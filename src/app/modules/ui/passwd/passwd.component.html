@@ -1,0 +1,34 @@
+<div class="passwd">
+    <div class="input-group">
+        <input #passwordInput class="form-control form-control-{{ settings.size }} fox-input" 
+        type="{{ showPassword ? 'text' : 'password' }}" 
+        [name]="name" 
+        [(ngModel)]="value" 
+        [placeholder]="placeholder" 
+        (click)="onClick($event)" 
+        (change)="onChange($event)" 
+        (keyup)="strong(this.value)" 
+        (blur)="onBlur()" 
+        [class.disabled]="disabled" 
+        [disabled]="disabled">
+        <span class="input-group-btn">
+            <button class="btn btn-{{ settings.size }} passwd__show btn-{{ settings.buttonColor }}" 
+                    type="button" (click)="displayPassword()">
+                <i class="fa" aria-hidden="true" [ngClass]="{'fa-eye': !showPassword, 'fa-eye-slash': showPassword}"></i>
+            </button>
+        </span>
+        <span class="input-group-btn">
+            <button class="btn btn-{{ settings.size }} passwd__generate btn-{{ settings.buttonColor }}" 
+                    type="button" (click)="generatePassword()" [innerHtml]="langs.generate"></button>
+        </span>
+    </div>
+    <div class="passwd__strong">
+        <div *ngFor="let strong of numberReturn(strongValue)" class="passwd__strong-wrapper">
+            <div class="passwd__strong-item passwd__strong-item_{{ strongValue }}"></div>
+        </div>
+        <div *ngFor="let strong of numberReturn(strongAvailable - strongValue)" class="passwd__strong-wrapper">
+            <div class="passwd__strong-item">
+        </div>
+    </div>
+
+</div>

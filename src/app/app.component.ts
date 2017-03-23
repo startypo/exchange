@@ -17,15 +17,13 @@ import { AppState } from './app.service';
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./app.component.css'],
   template: `
-    <nav>
-    </nav>
-
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-
-    <footer>
-    </footer>
+      <nav>
+      </nav>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+      <footer>
+      </footer>
   `
 })
 export class AppComponent {

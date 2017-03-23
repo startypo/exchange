@@ -1,0 +1,33 @@
+.passwd__strong {
+    position: relative;
+    margin-top: -8px;
+    width: 50%;
+}
+.passwd__strong-item {
+    height: 5px;
+    width: 100%;
+    background-color: #ddd;
+}
+.passwd__strong-wrapper {
+    display: inline-block;
+    width: 19%;
+    padding: 0 5px 0 5px;
+}
+.passwd__strong-wrapper:first-child {
+    padding-left: 0;
+}
+.passwd__strong-item_1 {
+    background-color: #e11e21;
+}
+.passwd__strong-item_2 {
+    background-color: #ff5d10;
+}
+.passwd__strong-item_3 {
+    background-color: #f9b836;
+}
+.passwd__strong-item_4 {
+    background-color: #9cc259;
+}
+.passwd__strong-item_5 {
+    background-color: #00b500;
+}

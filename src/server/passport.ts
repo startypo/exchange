@@ -9,8 +9,7 @@ export class Passport {
 
      private static permissions = {
         user: [
-            { route: Routes.logout, methods: ['post'] },
-            { route: Routes.register, methods: ['post'] }
+            { route: Routes.logout, methods: ['post'] }
         ]
     };
 

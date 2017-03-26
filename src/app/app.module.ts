@@ -10,9 +10,12 @@ import { ROUTES } from './app.routes';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 
+import { UsersModule } from './modules/users';
+
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home';
-import { NoContentComponent } from './no-content';
+import { HomeComponent } from './components/home';
+import { NoContentComponent } from './components/no-content';
+import { NavMenuComponent } from './components/nav-menu';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -36,15 +39,13 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
+    NavMenuComponent,
     HomeComponent,
     NoContentComponent
   ],
-  imports: [ // import Angular's modules
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
-  ],
+  imports: [ BrowserModule, FormsModule, HttpModule, UsersModule,
+             RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
+           ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS

@@ -16,17 +16,7 @@ import { AppState } from './app.service';
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./app.component.css'],
-  template: `
-    <nav>
-    </nav>
-
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-
-    <footer>
-    </footer>
-  `
+  templateUrl: 'app.component.html'
 })
 export class AppComponent {
 

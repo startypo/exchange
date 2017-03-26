@@ -7,18 +7,7 @@ export class Config {
         secret: '"56`Kp*&403sQd8o9~WwCBKZ/)fk#5',
         expirationTime: null,
         issuedAt: Math.floor(Date.now() / 1000) - 30,
-        notBefore: null
+        notBefore: null,
+        salt: 'Ei(#%kwpU)`Zws5'
     };
-
-    public static profile = {
-
-        user: {
-            '/myaccount': ['*']
-        },
-    };
-
-
-    public getProfile(profile: string) {
-        return Config.profile[profile];
-    }
 }

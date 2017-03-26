@@ -15,6 +15,7 @@ import { UsersModule } from './modules/users';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home';
 import { NoContentComponent } from './components/no-content';
+import { NavMenuComponent } from './components/nav-menu';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -38,6 +39,7 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
+    NavMenuComponent,
     HomeComponent,
     NoContentComponent
   ],

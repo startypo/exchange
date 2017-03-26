@@ -49,7 +49,11 @@ export class UsersController extends BaseController {
     }
 
     public register(req: Request, res: Response): void {
+
+        let user = req.body.user;
+
         res.status(200);
+        res.json();
     }
 
     public getAll(req: Request, res: Response): void {

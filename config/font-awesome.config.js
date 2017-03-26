@@ -2,12 +2,16 @@ module.exports = {
   // fontAwesomeCustomizations: "./_font-awesome.config.scss",
 
   styles: {
-    "mixins": true,
-
-    "core": true,
-    "icons": true,
-
-    "larger": true,
-    "path": true,
+    'mixins': true,
+    'bordered-pulled': true,
+    'core': true,
+    'fixed-width': true,
+    'icons': true,
+    'larger': true,
+    'list': true,
+    'path': true,
+    'rotated-flipped': true,
+    'animated': true,
+    'stacked': true
   }
 };

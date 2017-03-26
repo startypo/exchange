@@ -8,6 +8,16 @@ export class User {
         calback(null, this.users.find(u => u.email === opts.email));
     }
 
+    public static save (user: User, calback: (err: Error) => void): void {
+
+        if (!user)
+            calback(new Error('Argument null: user'));
+
+        User.users.push(user);
+
+        calback(null);
+    }
+
     public static list(): User[] {
         return User.users;
     }

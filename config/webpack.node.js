@@ -1,6 +1,5 @@
 const helpers = require('./helpers');
 var fs = require('fs');
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -23,7 +22,6 @@ module.exports = {
   },
   target: 'node',
   devtool:'sourcemap',
-  externals: nodeModules,
   resolve: {
     extensions: ['.ts', '.js']
   },

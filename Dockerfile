@@ -1,13 +1,9 @@
-FROM ubuntu:16.04
+FROM node:6.10.1
 
-RUN apt-get update && apt-get install -y \
-    curl \
-    build-essential \
-    libssl-dev 
+ENV NODE_ENV=production
+ENV PORT=80
 
-RUN curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh -o install_nvm.sh \
-    && bash install_nvm.sh \
-    && nvm install 6.10.1
+RUN apt-get update
 
 WORKDIR /xchanges
 

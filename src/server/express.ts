@@ -23,18 +23,9 @@ class Express {
 
   private configMiddleware(): void {
 
-    if (process.env.NODE_ENV === 'development') {
-
-      this.express.use(logger('dev'));
-      this.express.use(favicon(path.resolve('dist', 'public', 'assets', 'icon', 'favicon.ico')));
-      this.express.use(express.static(path.resolve('dist', 'public')));
-
-    } else {
-
-      this.express.use(favicon(path.resolve('public', 'assets', 'icon', 'favicon.ico')));
-      this.express.use(express.static(path.resolve('public')));
-    }
-
+    this.express.use(logger('dev'));
+    this.express.use(favicon(path.resolve('public', 'assets', 'icon', 'favicon.ico')));
+    this.express.use(express.static(path.resolve('public')));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(cookieParser());
@@ -45,11 +36,7 @@ class Express {
 
     this.express.get('/', (req, res) => {
       res.type('text/html');
-      res.sendFile('index.html', {
-                                    root: process.env.NODE_ENV === 'development' ?
-                                    path.resolve('dist', 'public') :
-                                    path.resolve('public')
-                                  });
+      res.sendFile(path.resolve('index.html'));
     });
 
     this.express.use('/api/v1', RoutesMap.map());

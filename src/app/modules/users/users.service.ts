@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
-import jwt from 'jsonwebtoken';
 
 import { UserModel } from './user.model';
 
@@ -17,21 +16,9 @@ export class UsersService {
     }
 
     public login(_email: string, _passwd: string): Observable<Response> {
-        return this.http.post(this.apiUrl + '/login', JSON.stringify({ email: _email, passwd: _passwd }), this.getHeaders())
-                        .map((res: Response) => {
-
-                            let obj = res.json();
-
-                            if (obj) {
-
-                                let payload = jwt.decode(obj.auth);
-                                let user = payload.sub;
-                                localStorage.setItem('auth', obj.auth);
-                                localStorage.setItem('user', user);
-                            }
-
-                            return res;
-                        });
+        return this.http
+                   .post(this.apiUrl + '/login', JSON.stringify({ email: _email, passwd: _passwd }), this.getHeaders())
+                   .map((res: Response) => res.json());
     }
 
     public logout(user: UserModel): Observable<Response> {

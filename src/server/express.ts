@@ -4,10 +4,11 @@ import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from'cookie-parser';
 import * as favicon from 'serve-favicon';
-import passport from './passport';
-
 import { Request, Response, NextFunction } from 'express';
+
+import passport from './passport';
 import{ RoutesMap } from './routes.map';
+import { DBConnection } from './db.connection';
 
 class Express {
 
@@ -15,6 +16,7 @@ class Express {
 
   constructor() {
 
+    DBConnection.connect();
     this.express = express();
     this.configMiddleware();
     this.configRoutes();

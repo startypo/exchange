@@ -28,7 +28,7 @@ export class Passport {
 
         let strategy = new Strategy(jwtOptions, (req: Request, payload, done) => {
 
-            if (!this.authorize(payload.sub.prf, req.originalUrl, req.method))
+            if (!this.authorize(payload.sub, req.originalUrl, req.method))
                 return done(null, false);
 
             return done(null, payload);

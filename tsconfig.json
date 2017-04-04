@@ -27,8 +27,9 @@
       "express",
       "jsonwebtoken",
       "passport",
-      "passport-local",
-      "passport-jwt"
+      "passport-jwt",
+      "mongoose",
+      "mongodb"
     ]
   },
   "exclude": [

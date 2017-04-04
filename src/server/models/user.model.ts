@@ -1,45 +1,45 @@
-export class User {
+import { Schema, Document, Mongoose, Model } from 'mongoose';
+import Jwt from 'jsonwebtoken';
+import * as Crypto from 'crypto';
 
-    public static find (opts: Partial<User>, calback: (err: Error, user: User) => void): void {
+import { IUser } from '../../domain.interfaces';
+import { Config } from '../config';
 
-        if (!opts.email)
-            calback(new Error('Invalid argument: email'), null);
-
-        calback(null, this.users.find(u => u.email === opts.email));
-    }
-
-    public static save (user: User, calback: (err: Error) => void): void {
-
-        if (!user)
-            calback(new Error('Argument null: user'));
-
-        User.users.push(user);
-
-        calback(null);
-    }
-
-    public static list(): User[] {
-        return User.users;
-    }
-
-    private static users: User[] = [
-        new User({ id: 1, email: 'usenix@xchanges.services', name: 'usenix', passwd: 'usenix', profile: 'admin'}),
-        new User({ id: 2, email: 'carlos@xchanges.services', name: 'carlos', passwd: 'carlos123', profile: 'user'}),
-        new User({ id: 3, email: 'renan@xchanges.services',  name: 'renan',  passwd: 'renan123', profile: 'user'}),
-        new User({ id: 4, email: 'daniel@xchanges.services', name: 'daniel', passwd: 'daniel123', profile: 'user'})
-    ];
-
-    public id: number;
-    public name: string;
-    public email: string;
-    public passwd: string;
-    public profile: string;
-
-    public constructor(init?: Partial<User>) {
-        Object.assign(this, init);
-    }
-
-    public verifyPassword(pass: string): boolean {
-        return this.passwd === pass;
-    }
+export interface IUserModel extends IUser, Document  {
+    verifyPassword(passwd: string): boolean;
+    createToken(): string;
 }
+
+let schema = new Schema({
+
+    name: String,
+    email: String,
+    passwd: String,
+    profile: String
+});
+
+schema.methods.verifyPassword = (passwd: string) => {
+
+    const sha256 = Crypto.createHash('sha256');
+    let model: IUser = this;
+    sha256.update(passwd + model.salt);
+    let hash = sha256.digest('base64');
+
+    return model.passwd === hash;
+};
+
+schema.methods.createToken = () => {
+
+    let model: IUser = this;
+    let payload = {
+        iss: Config.security.issuer,
+        aud: Config.security.audience,
+        iat: Math.floor(Date.now() / 1000) - 30,
+        sub: model.profile
+    };
+
+    return Jwt.sign(payload, Config.security.secret);
+};
+
+
+export let UserModel = new Mongoose().model<IUserModel>('User', schema);

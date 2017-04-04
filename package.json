@@ -54,7 +54,7 @@
     "tslint": "tslint",
     "typedoc": "typedoc",
     "version": "npm run build",
-    "watch:express": "npm run build:express:dev -- --watch",
+    "watch:express": "npm run build:express -- --watch",
     "watch:dev:hmr": "npm run watch:dev -- --hot",
     "watch:dev": "npm run build:dev -- --watch",
     "watch:prod": "npm run build:prod -- --watch",
@@ -93,6 +93,7 @@
     "jasmine-core": "^2.5.2",
     "jquery": "^3.2.0",
     "jsonwebtoken": "^7.3.0",
+    "mongoose": "^4.9.2",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
@@ -110,6 +111,8 @@
     "@types/hammerjs": "^2.0.33",
     "@types/jasmine": "^2.2.34",
     "@types/jsonwebtoken": "^7.2.0",
+    "@types/mongodb": "^2.1.41",
+    "@types/mongoose": "^4.7.9",
     "@types/node": "^7.0.0",
     "@types/passport": "^0.3.3",
     "@types/passport-jwt": "^2.0.19",
@@ -181,7 +184,7 @@
   "repository": {},
   "bugs": {},
   "engines": {
-    "node": ">= 6.9.5",
-    "npm": ">= 3"
+    "node": ">= 6.10.1",
+    "npm": ">= 3.10.10"
   }
 }

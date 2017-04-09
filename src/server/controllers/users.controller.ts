@@ -67,11 +67,6 @@ export class UsersController extends BaseController {
                 return;
             }
 
-            if (!user) {
-                res.status(HttpStatus.NOT_ACCEPTABLE).json();
-                return;
-            }
-
             res.status(HttpStatus.OK).json();
         });
     }

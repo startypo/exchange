@@ -6,17 +6,18 @@ import * as Crypto from 'crypto';
 import { IUser } from '../../domain.interfaces';
 import { Config } from '../config';
 import { DBConnection } from '../db.connection';
+import { Validators } from './custom.validators';
 
 
 export interface IUserDocument extends IDocument {
 
     name: string;
     email: string;
-    hash: string;
+    passwdDigest: string;
     salt: string;
     profile: string;
 
-    securePassword(passwd: string): void;
+    secureUser(passwd: string): void;
     verifyPassword(passwd: string): boolean;
     createToken(): string;
 }
@@ -35,9 +36,15 @@ let schema = new Schema({
     },
     email: {
         type: String,
-        required: true
+        index: {
+            unique: true
+        },
+        required: true,
+        lowercase: true,
+        trim: true,
+        validate: [Validators.email, 'Not a valid email']
     },
-    hash: {
+    passwdDigest: {
         type: String,
         required: true
     },
@@ -57,10 +64,10 @@ schema.methods.verifyPassword = function(passwd: string): boolean {
     // sha256.update(passwd + user.salt);
     // let hash = sha256.digest('base64');
 
-    // return user.passwd === hash;
+    // return user.hash === hash;
 
     let doc: IUserDocument = this;
-    return doc.hash === passwd + doc.salt;
+    return doc.passwdDigest === passwd + doc.salt;
 };
 
 schema.statics.isRegistred = function(_email: string, callback): void  {
@@ -84,10 +91,12 @@ schema.statics.register = function(newUser: IUser, callback): void {
              .then((user) => {
 
                 if (user)
-                     return null;
+                    return Promise.reject(new Error('user already exist'));
+                if (Validators.notBlank(newUser.passwd))
+                    return Promise.reject(new Error('password should not be blank'));
 
                 user = new model(newUser);
-                user.securePassword(newUser.passwd);
+                user.secureUser(newUser.passwd);
                 return user.save();
 
              }).catch((err) => {
@@ -110,12 +119,13 @@ schema.methods.createToken = function(): string {
     return Jwt.sign(payload, Config.security.secret);
 };
 
-schema.methods.securePassword = function(passwd: string): void {
+schema.methods.secureUser = function(passwd: string): void {
 
         let doc: IUserDocument = this;
 
         doc.salt = '&gh7*-vA=7';
-        doc.hash = passwd + doc.salt;
+        doc.passwdDigest = passwd + doc.salt;
+        doc.profile = 'user';
 };
 
 export const UserModel = <IUserModel> DBConnection.connect().model<IUserDocument>('User', schema);

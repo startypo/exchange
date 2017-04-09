@@ -9,9 +9,9 @@ export class Config {
 
     public static db = {
 
-        host: 'xchs_db_server',
-        name: 'xchs_db',
-        user: 'xchs_db_user',
+        host: 'xchs_db',
+        name: 'xchs',
+        user: 'xchs_user',
         passwd: 'JT#H\a]&:D52YmjF',
         connString: 'mongodb://172.17.0.2:27017/xchs'
     };
@@ -20,8 +20,8 @@ export class Config {
 
         name: 'Usenix',
         email: 'usenix@xchs.services',
-        hash: 'teste1234b%[fScj#',
         salt: 'b%[fScj#',
+        hash: 'teste1234b%[fScj#',
         profile: 'admin'
     };
 }

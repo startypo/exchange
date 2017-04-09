@@ -1,57 +1,86 @@
 import { Request, Response } from 'express';
-import passport from '../passport';
+import Passport from '../passport';
+import HttpStatus  from 'http-status-codes';
 
 import { BaseController } from './base.controller';
 import { Routes } from '../routes';
-import { UserModel, IUserModel } from '../models/user.model';
+import { UserModel, IUserDocument } from '../models/user.model';
+import { IUser } from '../../domain.interfaces';
 
 export class UsersController extends BaseController {
 
     public login(req: Request, res: Response ): void {
 
-        let _email = req.body.email;
-        let _passwd = req.body.passwd;
+        let email: string = req.body.email;
+        let passwd: string = req.body.passwd;
 
-        if (!_email || !_passwd)
-            res.status(401).json();
+        // validate
 
-        UserModel.findOne({ email: _email }, (err, user) => {
+        if (!email || !passwd) {
+            res.status(HttpStatus.UNAUTHORIZED);
+            return;
+        }
 
-            if (err)
-                res.status(401).json();
-            if (!user)
-                res.status(401).json();
-            if (!user.verifyPassword(_passwd))
-                res.status(401).json();
+        UserModel.findOne({ email: email }, (err, user: IUserDocument) => {
 
-            let _token = user.createToken();
+            if (err) {
+                res.status(HttpStatus.UNAUTHORIZED).json();
+                return;
+            }
+            if (!user) {
+                res.status(HttpStatus.UNAUTHORIZED).json();
+                return;
+            }
+            if (!user.verifyPassword(passwd)) {
+                res.status(HttpStatus.UNAUTHORIZED).json();
+                return;
+            }
 
-            res.json({ token: _token, name: user.name });
+            let token = user.createToken();
+
+            res.json({ token: token, name: user.name });
         });
     }
 
-    public logout(req: Request, res: Response ): void {
+    public isRegistred(req: Request, res: Response): void {
 
-        res.json({ auth: '' });
+        let email: string = req.params.email;
+
+        if (!email) {
+            res.status(HttpStatus.NOT_ACCEPTABLE).json();
+            return;
+        }
+
+        UserModel.isRegistred(email, (err, registred) => {
+            res.status(registred ? HttpStatus.OK : HttpStatus.NOT_FOUND).json();
+        });
     }
 
     public register(req: Request, res: Response): void {
 
-        let newUser: IUserModel = req.body.user;
+        let newUser: IUser = req.body;
 
-        // validar
+        UserModel.register(newUser, (err, user) => {
 
+            if (err) {
+                res.status(HttpStatus.NOT_ACCEPTABLE).json();
+                return;
+            }
 
+            if (!user) {
+                res.status(HttpStatus.NOT_ACCEPTABLE).json();
+                return;
+            }
 
-        res.status(200);
-        res.json();
+            res.status(HttpStatus.OK).json();
+        });
     }
 
     protected config() {
 
-        this.router.post(Routes.register, this.register);
         this.router.post(Routes.login, this.login);
-        this.router.post(Routes.logout, passport.authenticate('jwt', { session: false} ), this.logout);
+        this.router.get(Routes.isRegistred, this.isRegistred);
+        this.router.post(Routes.register, this.register);
     }
 }
 

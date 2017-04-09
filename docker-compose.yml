@@ -1,9 +1,0 @@
-app_prod:
-  build: .
-  dockerfile: Dockerfile
-  links:
-    - db_prod
-  ports:
-    - "80:80"
-db_prod:
-  image: mongo:3.4.2

@@ -213,9 +213,7 @@ module.exports = function (options) {
        */
       new LoaderOptionsPlugin({
         debug: true,
-        options: {
-
-        }
+        options: {}
       }),
 
     ],

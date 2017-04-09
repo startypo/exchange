@@ -4,6 +4,7 @@
 
 const webpack = require('webpack');
 const helpers = require('./helpers');
+const fs = require('fs');
 
 /*
  * Webpack Plugins
@@ -22,7 +23,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ngcWebpack = require('ngc-webpack');
 const autoprefixer = require('autoprefixer');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-const WebpackShellPlugin = require('webpack-shell-plugin');
+const CompilerPlugin = require('compiler-webpack-plugin');
 
 /*
  * Webpack Constants
@@ -291,7 +292,8 @@ module.exports = function (options) {
        */
       new CopyWebpackPlugin([
         { from: 'src/assets', to: 'assets' },
-        { from: 'src/meta'}
+        { from: 'src/meta'},
+        { from: 'config/package.json', to: '..'}
       ]),
 
       /*
@@ -403,9 +405,10 @@ module.exports = function (options) {
         Util: "exports-loader?Util!bootstrap/js/dist/util"
       }),
 
-      new WebpackShellPlugin({
-        onBuildStart:['echo "Webpack Build Start"'], 
-        onBuildEnd:['mv ' + helpers.root('dist/public/index.html') + ' ' + helpers.root('dist')]
+      new CompilerPlugin('done', function (stats) {
+          
+          if (fs.existsSync(helpers.root('dist/public/index.html')))
+            fs.rename(helpers.root('dist/public/index.html'), helpers.root('dist/index.html'));
       })
     ],
 

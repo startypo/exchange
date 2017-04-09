@@ -1,0 +1,17 @@
+FROM node:latest
+
+ENV NODE_ENV=development
+ENV PORT=8080
+
+WORKDIR /srv/www/xchs
+
+COPY ./dist /srv/www/xchs
+
+RUN npm install
+RUN npm install -g nodemon
+
+EXPOSE 80
+EXPOSE 9229
+
+
+CMD ["npm", "run", "start:dev"]

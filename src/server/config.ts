@@ -1,5 +1,3 @@
-import { IUser } from '../domain.interfaces';
-
 export class Config {
 
     public static security = {
@@ -7,7 +5,6 @@ export class Config {
         issuer: 'xchanges.services',
         audience: 'xchanges.azurewebsites.net',
         secret: '"56`Kp*&403sQd8o9~WwCBKZ/)fk#5',
-        salt: 'Ei(#%kwpU)`Zws5'
     };
 
     public static db = {
@@ -16,14 +13,14 @@ export class Config {
         name: 'xchs_db',
         user: 'xchs_db_user',
         passwd: 'JT#H\a]&:D52YmjF',
-        connString: 'mongodb://172.17.0.2/xchs_db'
+        connString: 'mongodb://172.17.0.2:27017/xchs'
     };
 
-    public static adminUser: IUser = {
+    public static adminUser = {
 
         name: 'Usenix',
         email: 'usenix@xchs.services',
-        passwd: '',
+        hash: 'teste1234b%[fScj#',
         salt: 'b%[fScj#',
         profile: 'admin'
     };

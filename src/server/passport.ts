@@ -1,7 +1,6 @@
 import passport from 'passport';
 import { Request } from 'express';
-import { Strategy } from 'passport-jwt';
-import { ExtractJwt }  from 'passport-jwt';
+import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Config } from './config';
 import { Routes } from './routes';
 
@@ -9,7 +8,7 @@ export class Passport {
 
      private static permissions = {
         user: [
-            { route: Routes.logout, methods: ['post'] }
+
         ]
     };
 

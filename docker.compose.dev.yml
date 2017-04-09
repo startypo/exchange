@@ -1,0 +1,6 @@
+app_dev:
+  build: .
+  dockerfile: dockerfile.dev
+  ports:
+    - "80:80"
+    - "9229:9229"

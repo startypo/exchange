@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { IUser } from '../../../domain.interfaces';
 
 @Injectable()
-export class UserModel {
+export class UserModel implements IUser {
 
     public id: number = 0;
     public name: string = '';

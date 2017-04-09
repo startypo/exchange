@@ -1,23 +1,38 @@
-import { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 import { Config } from './config';
-import { UserModel } from './models/user.model';
+import { IUserDocument, UserModel } from './models/user.model';
 
 export class DBConnection {
 
-    public static connect() {
+    public static connect(): mongoose.Connection {
 
-       new Mongoose().connect(Config.db.connString, {
-            user: Config.db.user,
-            pass: Config.db.passwd
-        }, (err) => {
-            if (!err)
-                this.seedDb();
-        });
+       mongoose.connect(Config.db.connString, (err) => {
+
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            console.log('MongoDB: connected at: %s', Config.db.connString);
+            this.seedDb();
+       });
+
+       return mongoose.connection;
     }
 
     private static seedDb() {
 
-        let user = Config.adminUser;
-        UserModel.findOneAndUpdate({ email: user.email }, user, { upsert: true });
+        UserModel.findOneAndUpdate({ email: Config.adminUser.email }, Config.adminUser, { upsert: true },
+                                    (err) => {
+
+                                        if (err) {
+                                            console.log(err);
+                                            return;
+                                        }
+
+                                        console.log('MongoDB: Data base seeded.')
+                                    });
     }
 }
+
+

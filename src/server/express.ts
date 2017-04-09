@@ -8,15 +8,14 @@ import { Request, Response, NextFunction } from 'express';
 
 import passport from './passport';
 import{ RoutesMap } from './routes.map';
-import { DBConnection } from './db.connection';
 
 class Express {
 
   public express: express.Application;
+  private execPath = path.dirname(process.mainModule.filename);
 
   constructor() {
 
-    DBConnection.connect();
     this.express = express();
     this.configMiddleware();
     this.configRoutes();
@@ -26,8 +25,8 @@ class Express {
   private configMiddleware(): void {
 
     this.express.use(logger('dev'));
-    this.express.use(favicon(path.resolve('public', 'assets', 'icon', 'favicon.ico')));
-    this.express.use(express.static(path.resolve('public')));
+    this.express.use(favicon(path.join(this.execPath, 'public', 'assets', 'icon', 'favicon.ico')));
+    this.express.use(express.static(path.join(this.execPath, 'public')));
     this.express.use(bodyParser.json());
     this.express.use(bodyParser.urlencoded({ extended: true }));
     this.express.use(cookieParser());
@@ -38,7 +37,7 @@ class Express {
 
     this.express.get('/', (req, res) => {
       res.type('text/html');
-      res.sendFile(path.resolve('index.html'));
+      res.sendFile(path.join(this.execPath, 'index.html'));
     });
 
     this.express.use('/api/v1', RoutesMap.map());

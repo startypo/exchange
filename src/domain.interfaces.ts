@@ -1,8 +1,7 @@
 export interface IUser {
 
-    name: String;
-    email: String;
-    passwd: String;
-    salt: String;
-    profile: String;
+    name: string;
+    email: string;
+    passwd: string;
+    profile: string;
 }

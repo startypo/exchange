@@ -2,6 +2,6 @@ export const Routes = {
 
     users: '/users',
     login: '/login',
-    logout: '/logout',
+    isRegistred: '/isregistred/:email',
     register: '/register'
 };

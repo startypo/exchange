@@ -1,7 +1,6 @@
 import passport from 'passport';
 import { Request } from 'express';
-import { Strategy } from 'passport-jwt';
-import { ExtractJwt }  from 'passport-jwt';
+import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Config } from './config';
 import { Routes } from './routes';
 
@@ -9,7 +8,7 @@ export class Passport {
 
      private static permissions = {
         user: [
-            { route: Routes.logout, methods: ['post'] }
+            { route: Routes.assets, methods: ['*'] }
         ]
     };
 
@@ -28,7 +27,7 @@ export class Passport {
 
         let strategy = new Strategy(jwtOptions, (req: Request, payload, done) => {
 
-            if (!this.authorize(payload.sub.prf, req.originalUrl, req.method))
+            if (!this.authorize(payload.sub, req.originalUrl, req.method))
                 return done(null, false);
 
             return done(null, payload);
@@ -43,15 +42,19 @@ export class Passport {
             return true;
 
         let paths: string[] = url.split('/');
-        let route: string = paths.pop();
+        paths = paths.slice(3);
         let permissions = Passport.permissions[profileName];
-        let permission = permissions.find(p => p.route.endsWith(route));
-        if (!permission)
-            return false;
-        if (!permission.methods.find(m => m.toLowerCase() === method.toLowerCase() || m === '*'))
-            return false;
+        let authorized: boolean = false;
 
-        return true;
+        paths.forEach(path => {
+
+            let permission = permissions.find(p => p.route.endsWith(path));
+
+            if (permission && permission.methods.find(m => m.toLowerCase() === method.toLowerCase() || m === '*'))
+                authorized = true;
+        });
+
+        return authorized;
     }
 }
 

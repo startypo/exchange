@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { Routes } from './routes';
 
-import AuthController from './controllers/auth.controller';
 import UsersController from './controllers/users.controller';
+import AssetsController from './controllers/assets.controller';
 
 
 export class RoutesMap {
@@ -12,6 +12,7 @@ export class RoutesMap {
         let router = Router();
 
         router.use(Routes.users, UsersController);
+        router.use(Routes.assets, AssetsController);
 
         return router;
     }

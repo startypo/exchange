@@ -42,7 +42,9 @@
     "arrow-parens": false,
     "no-string-literal": false,
     "no-use-before-declare": true,
+    "only-arrow-functions": false,
     "object-literal-sort-keys": false,
+    "object-literal-shorthand": false,
     "ordered-imports": [false],
     "quotemark": [
       true,

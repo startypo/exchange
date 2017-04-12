@@ -1,45 +1,148 @@
-export class User {
 
-    public static find (opts: Partial<User>, calback: (err: Error, user: User) => void): void {
+import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
+import Jwt from 'jsonwebtoken';
+import * as Crypto from 'crypto';
 
-        if (!opts.email)
-            calback(new Error('Invalid argument: email'), null);
+import { IUser } from '../../domain.interfaces';
+import { Config } from '../config';
+import { DBConnection } from '../db.connection';
+import { Validators } from './custom.validators';
 
-        calback(null, this.users.find(u => u.email === opts.email));
-    }
 
-    public static save (user: User, calback: (err: Error) => void): void {
+export interface IUserDocument extends IDocument {
 
-        if (!user)
-            calback(new Error('Argument null: user'));
+    name: string;
+    email: string;
+    passwdDigest: string;
+    salt: string;
+    profile: string;
 
-        User.users.push(user);
-
-        calback(null);
-    }
-
-    public static list(): User[] {
-        return User.users;
-    }
-
-    private static users: User[] = [
-        new User({ id: 1, email: 'usenix@xchanges.services', name: 'usenix', passwd: 'usenix', profile: 'admin'}),
-        new User({ id: 2, email: 'carlos@xchanges.services', name: 'carlos', passwd: 'carlos123', profile: 'user'}),
-        new User({ id: 3, email: 'renan@xchanges.services',  name: 'renan',  passwd: 'renan123', profile: 'user'}),
-        new User({ id: 4, email: 'daniel@xchanges.services', name: 'daniel', passwd: 'daniel123', profile: 'user'})
-    ];
-
-    public id: number;
-    public name: string;
-    public email: string;
-    public passwd: string;
-    public profile: string;
-
-    public constructor(init?: Partial<User>) {
-        Object.assign(this, init);
-    }
-
-    public verifyPassword(pass: string): boolean {
-        return this.passwd === pass;
-    }
+    secureUser(passwd: string): void;
+    verifyPassword(passwd: string): boolean;
+    createToken(): string;
 }
+
+export interface IUserModel extends IModel<IUserDocument> {
+
+    isRegistred (email: string, callback: (err, registred: boolean) => void): void;
+    register (newUser: IUser, callback: (err, user: IUserDocument) => void): void;
+}
+
+let schema = new Schema({
+
+    name: {
+        type: String,
+        required: true,
+        maxlength: 100
+    },
+    email: {
+        type: String,
+        required: true,
+        lowercase: true,
+        trim: true,
+        maxlength: 100,
+        validate: [Validators.email, Validators.emailErrorMsg]
+    },
+    passwdDigest: {
+        type: String,
+        required: true
+    },
+    salt: {
+        type: String,
+        required: true,
+        length: 10
+    },
+    profile: {
+        type: String,
+        required: true
+    }
+});
+
+
+schema.methods.verifyPassword = function(passwd: string): boolean {
+
+    // const sha256 = Crypto.createHash('sha256');
+    // sha256.update(passwd + user.salt);
+    // let hash = sha256.digest('base64');
+
+    // return user.hash === hash;
+
+    let doc: IUserDocument = this;
+    return doc.passwdDigest === passwd + doc.salt;
+};
+
+schema.statics.isRegistred = function(_email: string, callback): void  {
+
+    let model: IUserModel = this;
+    model.findOne({ email: _email }, (err, user) => {
+
+        if (err)
+            return callback(err, null);
+
+        callback(err, user != null);
+    });
+};
+
+schema.statics.register = function(newUser: IUser, callback): void {
+
+    let model: IUserModel = this;
+
+    model.findOne({ email: newUser.email })
+             .exec()
+             .then((user) => {
+
+                if (user)
+                    return Promise.reject(new Error('user already exist'));
+
+                user = new model(newUser);
+                user.secureUser(newUser.passwd);
+                return user.save();
+
+             }).catch((err) => {
+                 callback(err, null);
+             }).then((user) => {
+                callback(null, user);
+             });
+};
+
+schema.methods.createToken = function(): string {
+
+    let doc: IUserDocument = this;
+    let payload = {
+        iss: Config.security.issuer,
+        aud: Config.security.audience,
+        iat: Math.floor(Date.now() / 1000) - 30,
+        sub: doc.profile
+    };
+
+    return Jwt.sign(payload, Config.security.secret);
+};
+
+schema.methods.secureUser = function(passwd: string): void {
+
+        let doc: IUserDocument = this;
+
+        doc.salt = '&gh7*-vA=7';
+        doc.passwdDigest = passwd + doc.salt;
+        doc.profile = 'user';
+};
+
+const conn = DBConnection.createConnection('UserModel');
+export const UserModel = <IUserModel> conn.model<IUserDocument>('users', schema);
+export const UserSchema = schema;
+
+conn.once('open', () => {
+
+    UserModel.findOneAndUpdate(
+        { email: Config.adminUser.email },
+        Config.adminUser, { upsert: true },
+        (err) => {
+
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            console.log('UserModel: Data base seeded.');
+        });
+});

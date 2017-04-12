@@ -1,71 +1,74 @@
 import { Request, Response } from 'express';
-import passport from '../passport';
-import jwt from 'jsonwebtoken';
+import Passport from '../passport';
+import HttpStatus  from 'http-status-codes';
 
 import { BaseController } from './base.controller';
 import { Routes } from '../routes';
-import { Config } from '../config';
-import { User } from '../models/user.model';
+import { UserModel, IUserDocument } from '../models/user.model';
+import { IUser } from '../../domain.interfaces';
+import { Validators } from '../models/custom.validators';
 
 export class UsersController extends BaseController {
 
     public login(req: Request, res: Response ): void {
 
-        let _email = req.body.email;
-        let _passwd = req.body.passwd;
+        let userParams: IUser = req.body;
 
-        if (!_email || !_passwd)
-            res.status(401).json();
+        UserModel.findOne({ email: userParams.email }, (err, user: IUserDocument) => {
 
-        User.find({ email: _email }, (err, user: User) => {
+            if (err) {
+                res.status(HttpStatus.UNAUTHORIZED).json();
+                return;
+            }
+            if (!user) {
+                res.status(HttpStatus.UNAUTHORIZED).json();
+                return;
+            }
+            if (!user.verifyPassword(userParams.passwd)) {
+                res.status(HttpStatus.UNAUTHORIZED).json();
+                return;
+            }
 
-            if (err)
-                res.status(401).json();
-            if (!user)
-                res.status(401).json();
-            if (!user.verifyPassword(_passwd))
-                res.status(401).json();
+            let token = user.createToken();
 
-            let payload = {
-                iss: Config.security.issuer,
-                aud: Config.security.audience,
-                iat: Config.security.issuedAt,
-                sub: {
-                    id: user.id,
-                    eml: user.email,
-                    nam: user.name,
-                    prf: user.profile
-                }
-            };
-
-            let token = jwt.sign(payload, Config.security.secret);
-            res.json({ auth: token });
+            res.json({ token: token, name: user.name });
         });
     }
 
-    public logout(req: Request, res: Response ): void {
+    public isRegistred(req: Request, res: Response): void {
 
-        res.json({ auth: '' });
+        let email: string = req.params.email;
+
+        if (!email) {
+            res.status(HttpStatus.BAD_REQUEST).json();
+            return;
+        }
+
+        UserModel.isRegistred(email, (err, registred) => {
+            res.status(registred ? HttpStatus.OK : HttpStatus.NOT_FOUND).json();
+        });
     }
 
     public register(req: Request, res: Response): void {
 
-        let user = req.body.user;
+        let newUser: IUser = req.body;
 
-        res.status(200);
-        res.json();
+        UserModel.register(newUser, (err, user) => {
+
+            if (err) {
+                res.status(HttpStatus.BAD_REQUEST).json();
+                return;
+            }
+
+            res.status(HttpStatus.OK).json();
+        });
     }
-
-    public getAll(req: Request, res: Response): void {
-        res.json(User.list());
-    };
 
     protected config() {
 
-        this.router.post(Routes.register, this.register);
         this.router.post(Routes.login, this.login);
-        this.router.post(Routes.logout, passport.authenticate('jwt', { session: false} ), this.logout);
-        this.router.get('/', passport.authenticate('jwt', { session: false }), this.getAll);
+        this.router.get(Routes.isRegistred, this.isRegistred);
+        this.router.post(Routes.register, this.register);
     }
 }
 

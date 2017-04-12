@@ -1,0 +1,30 @@
+{
+    "name": "xchanges",
+    "version": "0.0.1",
+    "description": "Projeto para o TCC da turma GADS2014N, Intituto Infnet",
+    "author": "Carlos de Carvalho, Daniel Neto, Renan Garcia",
+    "homepage": "xchanges.azurewebsites.net",
+    "scripts": {
+        "start": "node server.js",
+        "start:dev": "nodemon --inspect server.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.17.0",
+        "compression": "^1.6.2",
+        "cookie-parser": "^1.4.3",
+        "express": "^4.15.0",
+        "http-status-codes": "^1.1.6",
+        "jsonwebtoken": "^7.3.0",
+        "mongoose": "^4.9.3",
+        "morgan": "^1.8.1",
+        "passport": "^0.3.2",
+        "passport-jwt": "^2.2.1",
+        "serve-favicon": "^2.4.1",
+        "source-map-support": "^0.4.14",
+        "tslib": "^1.5.0"
+    },
+    "engines": {
+    "node": ">= 7.8.0",
+    "npm": ">= 4.2.0"
+  }
+}

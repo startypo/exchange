@@ -3,6 +3,7 @@
  */
 var path = require('path');
 
+
 const EVENT = process.env.npm_lifecycle_event || '';
 
 // Helper functions
@@ -38,7 +39,6 @@ function includeClientPackages(packages, localModule) {
     return cb();
   };
 }
-
 
 var root = path.join.bind(path, ROOT);
 

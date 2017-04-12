@@ -1,7 +1,12 @@
 declare module 'mongoose' {
     
     // methods
-    export interface IDocument extends Document {}
+    export interface IDocument extends Document {
+
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date;
+    }
 
     // statics
     export interface IModel<T extends IDocument> extends Model<T> {

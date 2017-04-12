@@ -6,22 +6,15 @@ import { BaseController } from './base.controller';
 import { Routes } from '../routes';
 import { UserModel, IUserDocument } from '../models/user.model';
 import { IUser } from '../../domain.interfaces';
+import { Validators } from '../models/custom.validators';
 
 export class UsersController extends BaseController {
 
     public login(req: Request, res: Response ): void {
 
-        let email: string = req.body.email;
-        let passwd: string = req.body.passwd;
+        let userParams: IUser = req.body;
 
-        // validate
-
-        if (!email || !passwd) {
-            res.status(HttpStatus.UNAUTHORIZED);
-            return;
-        }
-
-        UserModel.findOne({ email: email }, (err, user: IUserDocument) => {
+        UserModel.findOne({ email: userParams.email }, (err, user: IUserDocument) => {
 
             if (err) {
                 res.status(HttpStatus.UNAUTHORIZED).json();
@@ -31,7 +24,7 @@ export class UsersController extends BaseController {
                 res.status(HttpStatus.UNAUTHORIZED).json();
                 return;
             }
-            if (!user.verifyPassword(passwd)) {
+            if (!user.verifyPassword(userParams.passwd)) {
                 res.status(HttpStatus.UNAUTHORIZED).json();
                 return;
             }
@@ -47,7 +40,7 @@ export class UsersController extends BaseController {
         let email: string = req.params.email;
 
         if (!email) {
-            res.status(HttpStatus.NOT_ACCEPTABLE).json();
+            res.status(HttpStatus.BAD_REQUEST).json();
             return;
         }
 
@@ -63,7 +56,7 @@ export class UsersController extends BaseController {
         UserModel.register(newUser, (err, user) => {
 
             if (err) {
-                res.status(HttpStatus.NOT_ACCEPTABLE).json();
+                res.status(HttpStatus.BAD_REQUEST).json();
                 return;
             }
 

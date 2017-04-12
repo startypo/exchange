@@ -5,3 +5,11 @@ export interface IUser {
     passwd: string;
     profile: string;
 }
+
+export interface IAsset {
+
+    name: string;
+    description: string;
+    price: number;
+    owner: IUser;
+}

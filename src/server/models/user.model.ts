@@ -1,4 +1,4 @@
-import Mongoose from 'mongoose';
+
 import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
 import Jwt from 'jsonwebtoken';
 import * as Crypto from 'crypto';
@@ -32,17 +32,16 @@ let schema = new Schema({
 
     name: {
         type: String,
-        required: true
+        required: true,
+        maxlength: 100
     },
     email: {
         type: String,
-        index: {
-            unique: true
-        },
         required: true,
         lowercase: true,
         trim: true,
-        validate: [Validators.email, 'Not a valid email']
+        maxlength: 100,
+        validate: [Validators.email, Validators.emailErrorMsg]
     },
     passwdDigest: {
         type: String,
@@ -50,13 +49,15 @@ let schema = new Schema({
     },
     salt: {
         type: String,
-        required: true
+        required: true,
+        length: 10
     },
     profile: {
         type: String,
         required: true
     }
 });
+
 
 schema.methods.verifyPassword = function(passwd: string): boolean {
 
@@ -92,8 +93,6 @@ schema.statics.register = function(newUser: IUser, callback): void {
 
                 if (user)
                     return Promise.reject(new Error('user already exist'));
-                if (Validators.notBlank(newUser.passwd))
-                    return Promise.reject(new Error('password should not be blank'));
 
                 user = new model(newUser);
                 user.secureUser(newUser.passwd);
@@ -128,4 +127,22 @@ schema.methods.secureUser = function(passwd: string): void {
         doc.profile = 'user';
 };
 
-export const UserModel = <IUserModel> DBConnection.connect().model<IUserDocument>('User', schema);
+const conn = DBConnection.createConnection('UserModel');
+export const UserModel = <IUserModel> conn.model<IUserDocument>('users', schema);
+export const UserSchema = schema;
+
+conn.once('open', () => {
+
+    UserModel.findOneAndUpdate(
+        { email: Config.adminUser.email },
+        Config.adminUser, { upsert: true },
+        (err) => {
+
+            if (err) {
+                console.log(err);
+                return;
+            }
+
+            console.log('UserModel: Data base seeded.');
+        });
+});

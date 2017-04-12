@@ -8,7 +8,7 @@ export class Passport {
 
      private static permissions = {
         user: [
-
+            { route: Routes.assets, methods: ['*'] }
         ]
     };
 
@@ -42,15 +42,19 @@ export class Passport {
             return true;
 
         let paths: string[] = url.split('/');
-        let route: string = paths.pop();
+        paths = paths.slice(3);
         let permissions = Passport.permissions[profileName];
-        let permission = permissions.find(p => p.route.endsWith(route));
-        if (!permission)
-            return false;
-        if (!permission.methods.find(m => m.toLowerCase() === method.toLowerCase() || m === '*'))
-            return false;
+        let authorized: boolean = false;
 
-        return true;
+        paths.forEach(path => {
+
+            let permission = permissions.find(p => p.route.endsWith(path));
+
+            if (permission && permission.methods.find(m => m.toLowerCase() === method.toLowerCase() || m === '*'))
+                authorized = true;
+        });
+
+        return authorized;
     }
 }
 

@@ -1,7 +1,6 @@
 import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
 
 import { DBConnection } from '../db.connection';
-import { Validators } from './custom.validators';
 import { AccountSchema } from './account.model';
 
 

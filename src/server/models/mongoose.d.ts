@@ -3,6 +3,7 @@ declare module 'mongoose' {
     // methods
     export interface IDocument extends Document {
 
+        id: string;
         createdAt: Date;
         updatedAt: Date;
         deletedAt: Date;

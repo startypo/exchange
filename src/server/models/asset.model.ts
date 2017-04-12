@@ -1,18 +1,15 @@
 import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
 
 import { DBConnection } from '../db.connection';
-import { Validators } from './custom.validators';
-import { UserSchema } from './user.model';
+import { UserSchema, IUserDocument } from './user.model';
 import { IUser } from '../../domain.interfaces';
-
 
 export interface IAssetDocument extends IDocument {
 
-    id: string;
     name: string;
     description: string;
     price: number;
-    owner: IUser;
+    owner: IUserDocument;
 }
 
 export interface IAssetModel extends IModel<IAssetDocument> {

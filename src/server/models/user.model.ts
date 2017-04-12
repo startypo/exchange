@@ -1,12 +1,10 @@
 
 import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
 import Jwt from 'jsonwebtoken';
-import * as Crypto from 'crypto';
 
 import { IUser } from '../../domain.interfaces';
 import { Config } from '../config';
 import { DBConnection } from '../db.connection';
-import { Validators } from './custom.validators';
 
 
 export interface IUserDocument extends IDocument {
@@ -24,11 +22,12 @@ export interface IUserDocument extends IDocument {
 
 export interface IUserModel extends IModel<IUserDocument> {
 
-    isRegistred (email: string, callback: (err, registred: boolean) => void): void;
-    register (newUser: IUser, callback: (err, user: IUserDocument) => void): void;
+    login(email: string, passwd: string, callback: (err, logedin: boolean, user: IUserDocument, token: string) => void): void;
+    isRegistred(email: string, callback: (err, registred: boolean) => void): void;
+    register(newUser, callback: (err, user: IUserDocument) => void): void;
 }
 
-let schema = new Schema({
+let schema = new Schema(Object.assign({ deletedAt: Date }, {
 
     name: {
         type: String,
@@ -41,7 +40,6 @@ let schema = new Schema({
         lowercase: true,
         trim: true,
         maxlength: 100,
-        validate: [Validators.email, Validators.emailErrorMsg]
     },
     passwdDigest: {
         type: String,
@@ -56,34 +54,40 @@ let schema = new Schema({
         type: String,
         required: true
     }
-});
+}), { timestamps : { createdAt: 'createdAt', updatedAt: 'updatedAt', deletedAt: 'deletedAt' }});
 
 
-schema.methods.verifyPassword = function(passwd: string): boolean {
+schema.statics.login = function(_email: string, passwd: string, callback: (err, logedin: boolean, user: IUserDocument, token: string) => void): void {
 
-    // const sha256 = Crypto.createHash('sha256');
-    // sha256.update(passwd + user.salt);
-    // let hash = sha256.digest('base64');
+    let model: IUserModel = this;
+    model.findOne({ email: _email }, (err, user: IUserDocument) => {
 
-    // return user.hash === hash;
+            if (err)
+               return callback(err, false, null, null);
+            if (!user || user.deletedAt || !user.verifyPassword(passwd))
+                return callback(null, false, null, null);
 
-    let doc: IUserDocument = this;
-    return doc.passwdDigest === passwd + doc.salt;
+            let token = user.createToken();
+            return callback(null, true, user, token);
+        });
 };
 
-schema.statics.isRegistred = function(_email: string, callback): void  {
+schema.statics.isRegistred = function(_email: string, callback: (err, registred: boolean) => void): void  {
 
     let model: IUserModel = this;
     model.findOne({ email: _email }, (err, user) => {
 
         if (err)
-            return callback(err, null);
+            return callback(err, false);
+
+        if (!user || user.deletedAt)
+            return callback(null, false);
 
         callback(err, user != null);
     });
 };
 
-schema.statics.register = function(newUser: IUser, callback): void {
+schema.statics.register = function(newUser, callback): void {
 
     let model: IUserModel = this;
 
@@ -125,6 +129,18 @@ schema.methods.secureUser = function(passwd: string): void {
         doc.salt = '&gh7*-vA=7';
         doc.passwdDigest = passwd + doc.salt;
         doc.profile = 'user';
+};
+
+schema.methods.verifyPassword = function(passwd: string): boolean {
+
+    // const sha256 = Crypto.createHash('sha256');
+    // sha256.update(passwd + user.salt);
+    // let hash = sha256.digest('base64');
+
+    // return user.hash === hash;
+
+    let doc: IUserDocument = this;
+    return doc.passwdDigest === passwd + doc.salt;
 };
 
 const conn = DBConnection.createConnection('UserModel');

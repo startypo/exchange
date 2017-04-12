@@ -5,33 +5,21 @@ import HttpStatus  from 'http-status-codes';
 import { BaseController } from './base.controller';
 import { Routes } from '../routes';
 import { UserModel, IUserDocument } from '../models/user.model';
-import { IUser } from '../../domain.interfaces';
-import { Validators } from '../models/custom.validators';
 
 export class UsersController extends BaseController {
 
     public login(req: Request, res: Response ): void {
 
-        let userParams: IUser = req.body;
+        let params = req.body;
 
-        UserModel.findOne({ email: userParams.email }, (err, user: IUserDocument) => {
+        UserModel.login(params.email, params.passwd, (err, logedin: boolean, user: IUserDocument, token: string) => {
 
-            if (err) {
-                res.status(HttpStatus.UNAUTHORIZED).json();
-                return;
-            }
-            if (!user) {
-                res.status(HttpStatus.UNAUTHORIZED).json();
-                return;
-            }
-            if (!user.verifyPassword(userParams.passwd)) {
-                res.status(HttpStatus.UNAUTHORIZED).json();
-                return;
-            }
+            if (err)
+                return res.status(HttpStatus.UNAUTHORIZED).json();
+            if (!logedin)
+                return res.status(HttpStatus.UNAUTHORIZED).json();
 
-            let token = user.createToken();
-
-            res.json({ token: token, name: user.name });
+            res.json({ name: user.name, token: token });
         });
     }
 
@@ -51,7 +39,7 @@ export class UsersController extends BaseController {
 
     public register(req: Request, res: Response): void {
 
-        let newUser: IUser = req.body;
+        let newUser = req.body;
 
         UserModel.register(newUser, (err, user) => {
 
@@ -60,7 +48,7 @@ export class UsersController extends BaseController {
                 return;
             }
 
-            res.status(HttpStatus.OK).json();
+            res.status(HttpStatus.OK).json({ id: user.id });
         });
     }
 
@@ -69,7 +57,8 @@ export class UsersController extends BaseController {
         this.router.post(Routes.login, this.login);
         this.router.get(Routes.isRegistred, this.isRegistred);
         this.router.post(Routes.register, this.register);
+        this.router.delete(Routes.root + ':id', this.delete);
     }
 }
 
-export default new UsersController().router;
+export default new UsersController(UserModel).router;

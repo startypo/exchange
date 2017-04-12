@@ -2,12 +2,12 @@ export const Routes = {
 
     root: '/',
 
-    users: '/users',
+    users: '/user',
     login: '/login',
     isRegistred: '/isregistred/:email',
     register: '/register',
 
-    exchanges: '/exchanges',
+    exchanges: '/exchange',
 
-    assets: '/assets'
+    assets: '/asset'
 };

@@ -19,5 +19,3 @@ export class DBConnection {
         return conn;
     }
 }
-
-

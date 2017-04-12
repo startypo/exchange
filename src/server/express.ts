@@ -12,7 +12,7 @@ import{ RoutesMap } from './routes.map';
 class Express {
 
   public express: express.Application;
-  private execPath = path.dirname(process.mainModule.filename);
+  private execPath = process.env.NODE_ENV === 'production' ?  path.resolve() : path.dirname(process.mainModule.filename);
 
   constructor() {
 

@@ -9,11 +9,9 @@ export class Config {
 
     public static db = {
 
-        host: 'xchs_db',
-        name: 'xchs',
         user: 'xchs_user',
         passwd: 'JT#H\a]&:D52YmjF',
-        connString: 'mongodb://172.17.0.2:27017/xchs'
+        connString: process.env.NODE_ENV === 'production' ? 'mongodb://endor:27017/xchs' : 'mongodb://172.17.0.2:27017/xchs'
     };
 
     public static adminUser = {

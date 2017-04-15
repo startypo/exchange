@@ -13,9 +13,12 @@ import { AppState, InternalStateType } from './app.service';
 import { UsersModule } from './modules/users';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home';
 import { NoContentComponent } from './components/no-content';
 import { NavMenuComponent } from './components/nav-menu';
+import { HomeComponent } from './components/home';
+import { ListAssetsComponent } from './components/list-assets';
+
+
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -39,9 +42,10 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
     AppComponent,
+    NoContentComponent,
     NavMenuComponent,
     HomeComponent,
-    NoContentComponent
+    ListAssetsComponent
   ],
   imports: [ BrowserModule, FormsModule, HttpModule, UsersModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })

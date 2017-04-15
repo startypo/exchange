@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { Config } from './config';
-import { IUserDocument, UserModel } from './models/user.model';
 
 export class DBConnection {
 

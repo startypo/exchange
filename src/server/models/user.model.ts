@@ -1,11 +1,10 @@
-
 import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
 import Jwt from 'jsonwebtoken';
 
 import { IUser } from '../../domain.interfaces';
 import { Config } from '../config';
 import { DBConnection } from '../db.connection';
-
+import { Base } from './base';
 
 export interface IUserDocument extends IDocument {
 
@@ -27,7 +26,7 @@ export interface IUserModel extends IModel<IUserDocument> {
     register(newUser, callback: (err, user: IUserDocument) => void): void;
 }
 
-let schema = new Schema(Object.assign({ deletedAt: Date }, {
+let schema = new Schema(Object.assign(Base.getSchema(), {
 
     name: {
         type: String,
@@ -54,7 +53,13 @@ let schema = new Schema(Object.assign({ deletedAt: Date }, {
         type: String,
         required: true
     }
-}), { timestamps : { createdAt: 'createdAt', updatedAt: 'updatedAt', deletedAt: 'deletedAt' }});
+}),
+{
+    timestamps : {
+        createdAt: 'createdAt',
+        updatedAt: 'updatedAt'
+    }
+});
 
 
 schema.statics.login = function(_email: string, passwd: string, callback: (err, logedin: boolean, user: IUserDocument, token: string) => void): void {

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UserModel {
 
-    public id: number = 0;
+    public id: string = '';
     public name: string = '';
     public email: string = '';
     public passwd: string = '';

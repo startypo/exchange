@@ -16,7 +16,8 @@ import { AppComponent } from './app.component';
 import { NoContentComponent } from './components/no-content';
 import { NavMenuComponent } from './components/nav-menu';
 import { HomeComponent } from './components/home';
-import { ListAssetsComponent } from './components/list-assets';
+import { AssetListComponent } from './components/asset-list';
+import { AssetDetailComponent } from './components/asset-detail';
 
 
 
@@ -45,7 +46,8 @@ type StoreType = {
     NoContentComponent,
     NavMenuComponent,
     HomeComponent,
-    ListAssetsComponent
+    AssetListComponent,
+    AssetDetailComponent
   ],
   imports: [ BrowserModule, FormsModule, HttpModule, UsersModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })

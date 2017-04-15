@@ -1,10 +1,16 @@
 <!-- Navigation -->
 <nav id="mainNav" class="navbar static-top navbar-toggleable-md navbar-inverse bg-inverse">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <a class="navbar-brand" [routerLink]="['/']">XChanges</a>
     <div class="collapse navbar-collapse" id="navbarExample">
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" [routerLink]="['/assets']"><i class="fa fa-fw fa-book"></i> Assets</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/']"><i class="fa fa-fw fa-exchange"></i> Exchanges</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/']"><i class="fa fa-fw fa-money"></i> Get Credits</a>

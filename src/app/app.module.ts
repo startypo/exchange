@@ -18,6 +18,7 @@ import { NavMenuComponent } from './components/nav-menu';
 import { HomeComponent } from './components/home';
 import { AssetListComponent } from './components/asset-list';
 import { AssetDetailComponent } from './components/asset-detail';
+import { AssetEditComponent } from './components/asset-edit';
 
 
 
@@ -47,7 +48,8 @@ type StoreType = {
     NavMenuComponent,
     HomeComponent,
     AssetListComponent,
-    AssetDetailComponent
+    AssetDetailComponent,
+    AssetEditComponent
   ],
   imports: [ BrowserModule, FormsModule, HttpModule, UsersModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })

@@ -45,7 +45,7 @@
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="name">Name</label>
+                <label class="sr-only" for="name">Name</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -66,7 +66,7 @@
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="email">E-Mail Address</label>
+                <label class="sr-only" for="email">E-Mail Address</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -87,10 +87,10 @@
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="password">Password</label>
+                <label class="sr-only" for="password">Password</label>
             </div>
             <div class="col-md-6">
-                <passwd formControlName="passwd" [(ngModel)]='model.passwd'></passwd>    
+                <passwd formControlName="passwd" placeholder="Password" [(ngModel)]='model.passwd'></passwd>    
             </div>
             <div class="col-md-3">
                 <div class="form-control-feedback">
@@ -102,7 +102,7 @@
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="password">Confirm Password</label>
+                <label class="sr-only" for="password">Confirm Password</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -110,7 +110,7 @@
                         <div class="input-group-addon" style="width: 2.6rem">
                             <i class="fa fa-repeat"></i>
                         </div>
-                        <input type="password" name="password-confirmation" class="form-control" placeholder="Password"
+                        <input type="password" name="confirmPasswd" class="form-control" placeholder="Confirm Password"
                                formControlName="confirmPasswd" [(ngModel)]='model.confirmPasswd'>
                     </div>
                 </div>

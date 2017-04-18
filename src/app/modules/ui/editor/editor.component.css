@@ -1,0 +1,71 @@
+.editor {
+    position: relative;
+}
+.editor__area {
+    border: 1px solid #ddd;
+    overflow: auto;
+    min-height: 100px;
+    resize: vertical;
+}
+.editor__hidden {
+    display: none;
+}
+.editor__toolbar-group {
+    display: inline-block;
+    margin-right: 10px;
+}
+.editor__font-size {
+    display: inline-block;
+    position: absolute;
+}
+.editor__ico.ico-bold:before {
+    content: "\f032";
+}
+.editor__ico.ico-italic:before {
+    content: "\f033";
+}
+.editor__ico.ico-underline:before {
+    content: "\f0cd";
+}
+.editor__ico.ico-strikethrough:before {
+    content: "\f0cc";
+}
+.editor__ico.ico-subscript:before {
+    content: "\f12c";
+}
+.editor__ico.ico-superscript:before {
+    content: "\f12b";
+}
+.editor__ico.ico-removeformat:before {
+    content: "\f12d";
+}
+.editor__ico.ico-justifyleft:before {
+    content: "\f036";
+}
+.editor__ico.ico-justifycenter:before {
+    content: "\f037";
+}
+.editor__ico.ico-justifyright:before {
+    content: "\f038";
+}
+.editor__ico.ico-insertorderedlist:before {
+    content: "\f0ca";
+}
+.editor__ico.ico-insertunorderedlist:before {
+    content: "\f0cb";
+}
+.editor__ico.ico-outdent:before {
+    content: "\f03b";
+}
+.editor__ico.ico-indent:before {
+    content: "\f03c";
+}
+.editor__ico.ico-pre:before {
+    content: "\f121";
+}
+.editor__ico.ico-blockquote:before {
+    content: "\f10e";
+}
+.editor__ico.ico-insertparagraph:before {
+    content: "P";
+}

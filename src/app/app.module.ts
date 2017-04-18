@@ -11,6 +11,10 @@ import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 
 import { UsersModule } from './modules/users';
+import { FileUploaderModule } from './modules/ui/fileuploader';
+import { EditorModule } from './modules/ui/editor';
+
+import { UIService } from './modules/ui/ui.service';
 
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './components/no-content';
@@ -19,8 +23,6 @@ import { HomeComponent } from './components/home';
 import { AssetListComponent } from './components/asset-list';
 import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
-
-
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -51,12 +53,13 @@ type StoreType = {
     AssetDetailComponent,
     AssetEditComponent
   ],
-  imports: [ BrowserModule, FormsModule, HttpModule, UsersModule,
+  imports: [ BrowserModule, FormsModule, HttpModule, UsersModule, FileUploaderModule, EditorModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
-    APP_PROVIDERS
+    APP_PROVIDERS,
+    UIService
   ]
 })
 export class AppModule {

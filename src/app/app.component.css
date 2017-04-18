@@ -1,3 +1,24 @@
+/*
+* Add permanent scroll bar on the page.
+*/
+
 html {
     overflow-y:scroll;
+}
+
+
+/*
+* Removes yellow background on chrome fields.
+*/
+
+@-webkit-keyframes autofill {
+    to {
+        color: #666;
+        background: transparent;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
 }

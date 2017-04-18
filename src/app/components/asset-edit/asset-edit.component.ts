@@ -6,5 +6,4 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['asset-edit.component.css']
 })
 
-export class AssetEditComponent {
-}
+export class AssetEditComponent {}

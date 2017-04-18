@@ -1,0 +1,16 @@
+<div class="fileuploader" [class.fileuploader_multiple]="settings.multiple">
+    <input class="form-control fileuploader__input" #fileInput type="file" [name]="name" [multiple]="settings.multiple" [(ngModel)]="fileValue" (change)="onChange($event)">
+    
+    <span *ngIf="files.length && settings.viewCounter" class="fileuploader__count-uploaded">{{ files.length }} {{ langs.uploadedCounter }}</span>
+    <div class="fileuploader__previews" *ngIf="files.length && settings.showPreview">
+        <div *ngFor="let file of files; let i = index" class="fileuploader__item">
+            <div class="fileuploader__thumb">
+                <img class="img-thumbnail" *ngIf="extensionIsAllow(file.type)" id="{{ previewPrefix }}-{{ file.name }}-{{ file.size }}">
+            </div>
+            <div class="fileuploader__name">{{ file.name }}</div>
+            <button type="button" class="btn btn-danger fileuploader__remove" (click)="removeFromQueue(i)" [innerHtml]="langs.removeFile"></button>
+        </div>
+    </div>
+    <button type="button" class="btn btn-{{ settings.size }} btn-{{ settings.color }}" (click)="viewUploadDialog($event)" [innerHtml]="langs.buttonText"></button>
+    <button type="button" class="btn btn-danger btn-{{ settings.size }}" (click)="clearAll()" *ngIf="files.length" [innerHtml]="langs.clearAll"></button>
+</div>

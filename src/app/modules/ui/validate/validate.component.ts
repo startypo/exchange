@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, Input, Output } from '@angular/core';
 import { ValidateSettings, ValidateLangs } from './validate.model';
+import { UIService } from '../ui.service';
 
 @Component({
     selector: 'validate',
@@ -17,33 +18,10 @@ export class ValidateComponent implements OnInit, OnChanges {
     protected defaultLangs: ValidateLangs;
     protected defaultSettings: ValidateSettings;
 
-    constructor() {
+    constructor(private uiService: UIService) {
 
-        this.defaultSettings = {
-            errorColor: 'danger',
-            showAsterisk: false
-        };
-
-        this.defaultLangs = {
-            email: 'Field must be a valid email address',
-            password: 'Password is incorrect',
-            required: 'Field is required',
-            minlength: 'Field must be at least :requiredLength characters',
-            maxlength: 'Field may not be greater than :requiredLength characters',
-            int: 'Field must be an integer',
-            number: 'Field must be a number',
-            date: 'Field must be valid date',
-            minDate: 'Field must be at least :date date',
-            maxDate: 'Field may not be greater than :date date',
-            equal: 'Field must be equal :equal',
-            max: 'Field may not be greater than :max number',
-            min: 'Field must be at least :min number',
-            range: 'Field must be between :min and :max',
-            json: 'Field must be valid json',
-            boolean: 'Field must be true or false',
-            hex: 'Field must be valid hex color',
-            rgb: 'Field must be valid rgb color'
-        };
+        this.defaultSettings = uiService.getSettings('validate');
+        this.defaultLangs = uiService.getLangs('validate');
     }
 
     public ngOnInit() {

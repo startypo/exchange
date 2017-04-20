@@ -1,78 +1,35 @@
-<div class="container">
-    <form class="form-horizontal" role="form">
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <h2>Asset</h2>
-                <hr>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label class="sr-only" for="name">Name</label>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <input type="text" name="name" class="form-control" placeholder="Name" autofocus>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                    <span class="text-danger align-middle">
-                        <!-- Put name validation error messages here -->
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label class="sr-only" for="description">Description</label>
-            </div>
-            <div class="col-md-6">
-                <editor name="description" [settings]="settings" [langs]="langs" [(ngModel)]="description"></editor>
-            </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                    <span class="text-danger align-middle">
-                        <!-- Put name validation error messages here -->
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <h2>Images</h2>
-                <hr>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label class="sr-only" for="name">Name</label>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <fileuploader name="files" [settings]="{multiple: true}"></fileuploader>       
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                    <span class="text-danger align-middle">
-                        <!-- Put name validation error messages here -->
-                    </span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Save</button>
-            </div>
-        </div>
-    </form>
+<div class="container-fluid m-5">
+  <div class="d-flex flex-column">
+    <h2>New Asset</h2>
+    <hr class="w-100">
+  </div>
+  <form>
+  <div class="d-flex flex-row justify-content-between mt-3">
+    <div class="d-flex flex-column w-50 mr-5">
+      <div class="form-group">
+        <label for="name" class="">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="">
+      </div>
+      <div class="form-group">
+        <label for="description" class="">Description</label>
+        <editor id="description" [settings]="{color: 'primary', height: 100}"></editor>
+      </div>
+      <div class="form-group w-25">
+        <label for="name" class="">Price</label>
+        <spinner [settings]="{color: 'primary', decimals: 2, step: 0.5 }" name="primary"></spinner>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-success"><i class="fa fa-save"></i> Save</button>
+      </div>
+    </div>
+    <div class="d-flex flex-column w-50">
+      <div class="form-group">
+        <label for="fileupload">Upload images</label>
+        <fileuploader id="fileupload" name="files" 
+                      [settings]="{multiple: true, color: 'primary', allowedExtensions: ['jpg', 'jpeg', 'image/jpeg']}">
+        </fileuploader>
+      </div>
+    </div>
+  </div>
+  </form>
 </div>

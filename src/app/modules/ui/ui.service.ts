@@ -4,6 +4,7 @@ import { EditorSettings, EditorLangs } from './editor/editor.model';
 import { ValidateSettings, ValidateLangs } from './validate/validate.model';
 import { PasswordSettings, PasswordLangs } from './passwd/passwd.model';
 import { FileUploaderSettings, FileUploaderLangs } from './fileuploader/fileuploader.model';
+import { SpinnerSettings } from './spinner/spinner.model';
 
 @Injectable()
 export class UIService implements OnInit {
@@ -79,7 +80,8 @@ export class UIService implements OnInit {
         xhrAuthToken: null,
         xhrAuthTokenPrefix: '',
         iconsPath: 'app/resources/img/icons',
-        viewCounter: false
+        viewCounter: false,
+        showFilename: false
     };
 
     protected fileuploaderLangs: FileUploaderLangs = {
@@ -134,9 +136,24 @@ export class UIService implements OnInit {
         showAsterisk: false
     };
 
+     /**
+     * Spinner
+     */
+    protected spinnerSettings: SpinnerSettings = {
+        max: 100,
+        min: 1,
+        prefix: '',
+        postfix: '',
+        color: 'secondary',
+        size: 'md',
+        step: 1,
+        decimals: 0,
+        forcestep: 'round'
+    };
+
     constructor(){}
 
-    ngOnInit() {}
+    public ngOnInit() {}
 
     /**
      * Set component default settings
@@ -147,7 +164,7 @@ export class UIService implements OnInit {
      * 
      * @memberOf OverwriteService
      */
-    setSettings(name: string, settings: Object): any {
+    public setSettings(name: string, settings: Object): any {
         let component = name + 'Settings';
 
         if(this[component]) {
@@ -163,7 +180,7 @@ export class UIService implements OnInit {
      * 
      * @memberOf OverwriteService
      */
-    getSettings(name: string): any {
+    public getSettings(name: string): any {
         let component = name + 'Settings';
 
         if(this[component]) {
@@ -182,7 +199,7 @@ export class UIService implements OnInit {
      * 
      * @memberOf OverwriteService
      */
-    setLangs(name: string, langs: Object): any {
+    public setLangs(name: string, langs: Object): any {
         let component = name + 'Langs';
 
         if(this[component]) {
@@ -198,7 +215,7 @@ export class UIService implements OnInit {
      * 
      * @memberOf OverwriteService
      */
-    getLangs(name: string): any {
+    public getLangs(name: string): any {
         let component = name + 'Langs';
 
         if(this[component]) {

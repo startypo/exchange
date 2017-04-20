@@ -13,6 +13,7 @@ import { AppState, InternalStateType } from './app.service';
 import { UsersModule } from './modules/users';
 import { FileUploaderModule } from './modules/ui/fileuploader';
 import { EditorModule } from './modules/ui/editor';
+import { SpinnerModule } from './modules/ui/spinner';
 
 import { UIService } from './modules/ui/ui.service';
 
@@ -53,7 +54,7 @@ type StoreType = {
     AssetDetailComponent,
     AssetEditComponent
   ],
-  imports: [ BrowserModule, FormsModule, HttpModule, UsersModule, FileUploaderModule, EditorModule,
+  imports: [ BrowserModule, FormsModule, HttpModule, UsersModule, FileUploaderModule, EditorModule, SpinnerModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

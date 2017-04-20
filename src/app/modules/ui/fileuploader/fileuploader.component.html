@@ -7,7 +7,7 @@
             <div class="fileuploader__thumb">
                 <img class="img-thumbnail" *ngIf="extensionIsAllow(file.type)" id="{{ previewPrefix }}-{{ file.name }}-{{ file.size }}">
             </div>
-            <div class="fileuploader__name">{{ file.name }}</div>
+            <div *ngIf="settings.showFilename" class="fileuploader__name">{{ file.name }}</div>
             <button type="button" class="btn btn-danger fileuploader__remove" (click)="removeFromQueue(i)" [innerHtml]="langs.removeFile"></button>
         </div>
     </div>

@@ -2,7 +2,8 @@
     <div #toolbar class="editor__toolbar">
         <div class="btn-toolbar editor__toolbar-group" *ngFor="let group of settings.menu" >
             <div class="btn-group">
-                <button *ngFor="let item of group" type="button" class="btn btn-{{ settings.color }} editor__button" (click)="execute($event, item)"><i class="fa editor__ico ico-{{ item | lowercase }}"></i></button>
+                <button *ngFor="let item of group" type="button" class="btn btn-{{ settings.color }} editor__button" 
+                        (click)="execute($event, item)"><i class="fa editor__ico ico-{{ item | lowercase }}"></i></button>
             </div>
         </div>
         <div class="editor__font-size">

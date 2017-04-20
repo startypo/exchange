@@ -17,6 +17,7 @@ export interface FileUploaderSettings {
     xhrAuthTokenPrefix?: string;
     iconsPath?: string;
     viewCounter?: boolean;
+    showFilename?: boolean;
 }
 
 export interface FileUploaderLangs {

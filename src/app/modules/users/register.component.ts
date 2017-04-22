@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 
 import { UserModel } from './user.model';
 import { UsersService } from './users.service';
-import { ValidateHelper } from '../../helpers/validate.helper';
+import { ValidateHelper } from '../ui/validate';
 
 @Component({
     selector: 'register',

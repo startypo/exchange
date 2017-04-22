@@ -5,7 +5,8 @@
     <span class="input-group-addon spinner__prefix" *ngIf="settings.prefix" [innerHTML]="settings.prefix"></span>
     <input class="form-control form-control-{{ settings.size }}" 
         type="text" 
-        [name]="name" 
+        [name]="name"
+        [textMask]="textMask"
         [(ngModel)]="value" 
         (click)="onClick($event)" 
         (change)="onChange($event)" 

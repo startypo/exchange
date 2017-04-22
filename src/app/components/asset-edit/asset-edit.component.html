@@ -8,15 +8,17 @@
     <div class="d-flex flex-column w-50 mr-5">
       <div class="form-group">
         <label for="name" class="">Name</label>
-        <input type="text" class="form-control" id="name" placeholder="">
+        <input name="name"  type="text" class="form-control">
       </div>
       <div class="form-group">
         <label for="description" class="">Description</label>
-        <editor id="description" [settings]="{color: 'primary', height: 100}"></editor>
+        <editor name="description" [settings]="{color: 'primary', height: 100}"></editor>
       </div>
       <div class="form-group w-25">
-        <label for="name" class="">Price</label>
-        <spinner [settings]="{color: 'primary', decimals: 2, step: 0.5 }" name="primary"></spinner>
+        <label for="price" class="">Price</label>
+        <spinner name="price" [settings]="{ color: 'primary', decimals: 2, step: 0.5 }"
+                 [text-mask]="{ mask: mask }" [(ngModel)]="priceModel"
+        ></spinner>
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-lg btn-success"><i class="fa fa-save"></i> Save</button>
@@ -25,9 +27,7 @@
     <div class="d-flex flex-column w-50">
       <div class="form-group">
         <label for="fileupload">Upload images</label>
-        <fileuploader id="fileupload" name="files" 
-                      [settings]="{multiple: true, color: 'primary', allowedExtensions: ['jpg', 'jpeg', 'image/jpeg']}">
-        </fileuploader>
+        <fileuploader name="fileupload" [settings]="{multiple: true, color: 'primary', allowedExtensions: ['jpg', 'jpeg', 'image/jpeg']}"></fileuploader>
       </div>
     </div>
   </div>

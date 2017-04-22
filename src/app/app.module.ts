@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
@@ -54,7 +54,8 @@ type StoreType = {
     AssetDetailComponent,
     AssetEditComponent
   ],
-  imports: [ BrowserModule, FormsModule, HttpModule, UsersModule, FileUploaderModule, EditorModule, SpinnerModule,
+  imports: [ BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,
+             UsersModule, FileUploaderModule, EditorModule, SpinnerModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

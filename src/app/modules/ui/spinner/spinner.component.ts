@@ -1,8 +1,6 @@
 import { Component, OnInit, OnChanges, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-
 import { SpinnerSettings } from './spinner.model';
-
 import { UIService } from '../ui.service';
 
 @Component({
@@ -16,12 +14,14 @@ import { UIService } from '../ui.service';
     }]
 })
 export class SpinnerComponent implements OnInit, OnChanges, ControlValueAccessor {
-    @Input() settings: SpinnerSettings;
-    @Input() name: string = '';
-    @Input() disabled: boolean;
 
-    @Output() changed: EventEmitter<any> = new EventEmitter();
-    @Output() clicked: EventEmitter<any> = new EventEmitter();
+    @Input() public settings: SpinnerSettings;
+    @Input() public name: string = '';
+    @Input() public disabled: boolean;
+    @Input('text-mask') public textMask: {};
+
+    @Output() public changed: EventEmitter<any> = new EventEmitter();
+    @Output() public clicked: EventEmitter<any> = new EventEmitter();
 
     protected innerValue: number = 0;
     protected defaultSettings: SpinnerSettings;
@@ -31,13 +31,13 @@ export class SpinnerComponent implements OnInit, OnChanges, ControlValueAccessor
     }
 
     public ngOnInit() {
-        this.settings = (<any>Object).assign({}, this.defaultSettings, this.settings);
+        this.settings = (<any> Object).assign({}, this.defaultSettings, this.settings);
     }
 
     public ngOnChanges(changes: any) {
         if (changes.settings) {
-            let data = (<any>Object).assign({}, changes.settings.previousValue, changes.settings.currentValue);
-            this.settings = (<any>Object).assign({}, this.defaultSettings, data);
+            let data = (<any> Object).assign({}, changes.settings.previousValue, changes.settings.currentValue);
+            this.settings = (<any> Object).assign({}, this.defaultSettings, data);
         }
     }
 
@@ -54,7 +54,7 @@ export class SpinnerComponent implements OnInit, OnChanges, ControlValueAccessor
     }
 
     get value(): any {
-        if (this.innerValue == undefined) {
+        if (this.innerValue === undefined) {
             this.innerValue = 0;
         }
 
@@ -97,7 +97,7 @@ export class SpinnerComponent implements OnInit, OnChanges, ControlValueAccessor
 
     public increment(event: void): void {
         let value = this.forceStep(this.innerValue + this.settings.step);
-        if((value) <= this.settings.max) {
+        if ((value) <= this.settings.max) {
             this.value = value;
         }
 
@@ -106,7 +106,7 @@ export class SpinnerComponent implements OnInit, OnChanges, ControlValueAccessor
 
     public decrement(event: any): void {
         let value = this.forceStep(this.innerValue - this.settings.step);
-        if((value) >= this.settings.min) {
+        if ((value) >= this.settings.min) {
             this.value = value;
         }
 

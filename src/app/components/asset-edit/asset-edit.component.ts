@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 @Component({
     selector: 'asset-edit',
@@ -6,4 +7,11 @@ import { Component } from '@angular/core';
     styleUrls: ['asset-edit.component.css']
 })
 
-export class AssetEditComponent {}
+export class AssetEditComponent {
+
+    public mask = createNumberMask({
+        prefix: '$',
+        allowDecimal: true
+    });
+    public priceModel = 1234.56;
+}

@@ -1,11 +1,10 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { SpinnerComponent } from './spinner.component';
 import { PipesModule } from '../pipes/pipes.module';
-
-export { SpinnerComponent } from './spinner.component';
 
 const COMPONENTS = [
     SpinnerComponent
@@ -15,7 +14,8 @@ const COMPONENTS = [
     imports: [
         FormsModule,
         CommonModule,
-        PipesModule
+        PipesModule,
+        TextMaskModule
     ],
     declarations: COMPONENTS,
     exports: COMPONENTS

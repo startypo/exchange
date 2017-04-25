@@ -18,7 +18,7 @@ export class SpinnerComponent implements OnInit, OnChanges, ControlValueAccessor
     @Input() public settings: SpinnerSettings;
     @Input() public name: string = '';
     @Input() public disabled: boolean;
-    @Input('text-mask') public textMask: {};
+    @Input('text-mask') public textMask?: {};
 
     @Output() public changed: EventEmitter<any> = new EventEmitter();
     @Output() public clicked: EventEmitter<any> = new EventEmitter();

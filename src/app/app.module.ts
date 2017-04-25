@@ -13,9 +13,11 @@ import { AppState, InternalStateType } from './app.service';
 import { UsersModule } from './modules/users';
 import { FileUploaderModule } from './modules/ui/fileuploader';
 import { EditorModule } from './modules/ui/editor';
-import { SpinnerModule } from './modules/ui/spinner';
+import { ValidateModule } from './modules/ui/validate';
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { UIService } from './modules/ui/ui.service';
+import { AssetService } from './services/asset.service';
 
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './components/no-content';
@@ -54,15 +56,13 @@ type StoreType = {
     AssetDetailComponent,
     AssetEditComponent
   ],
-  imports: [ BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,
-             UsersModule, FileUploaderModule, EditorModule, SpinnerModule,
+  imports: [ BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, TextMaskModule,
+             UsersModule, FileUploaderModule, EditorModule, ValidateModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
-  providers: [ // expose our Services and Providers into Angular's dependency injection
-    ENV_PROVIDERS,
-    APP_PROVIDERS,
-    UIService
-  ]
+  providers: [ ENV_PROVIDERS, APP_PROVIDERS,
+               UIService, AssetService
+             ]
 })
 export class AppModule {
 

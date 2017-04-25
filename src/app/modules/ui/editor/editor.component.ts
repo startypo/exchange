@@ -115,7 +115,7 @@ export class EditorComponent implements OnInit, OnChanges, ControlValueAccessor 
     public getKeyByValue(object: Object, value: any): any {
 
         let result = Object(object).filter(function(obj: any) {
-            return obj.value == value;
+            return obj.value === value;
         });
 
         return result.length ? result[0] : false;

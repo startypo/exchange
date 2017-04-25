@@ -136,11 +136,11 @@ export class UIService implements OnInit {
         showAsterisk: false
     };
 
-     /**
+    /**
      * Spinner
      */
     protected spinnerSettings: SpinnerSettings = {
-        max: 100,
+        max: 999999,
         min: 1,
         prefix: '',
         postfix: '',
@@ -151,76 +151,72 @@ export class UIService implements OnInit {
         forcestep: 'round'
     };
 
-    constructor(){}
+    constructor() {}
 
     public ngOnInit() {}
 
     /**
      * Set component default settings
-     * 
+     *
      * @param {string} name
      * @param {Object} settings
      * @returns {*}
-     * 
+     *
      * @memberOf OverwriteService
      */
     public setSettings(name: string, settings: Object): any {
         let component = name + 'Settings';
 
-        if(this[component]) {
-            this[component] = (<any>Object).assign({}, this[component], settings);
-        }
+        if (this[component])
+            this[component] = (<any> Object).assign({}, this[component], settings);
     }
 
     /**
      * Get component default settings
-     * 
+     *
      * @param {string} name
      * @returns {*}
-     * 
+     *
      * @memberOf OverwriteService
      */
     public getSettings(name: string): any {
         let component = name + 'Settings';
 
-        if(this[component]) {
+        if (this[component])
             return this[component];
-        }
 
         return;
     }
 
     /**
      * Set component default langs
-     * 
+     *
      * @param {string} name
      * @param {Object} langs
      * @returns {*}
-     * 
+     *
      * @memberOf OverwriteService
      */
     public setLangs(name: string, langs: Object): any {
         let component = name + 'Langs';
 
-        if(this[component]) {
-            this[component] = (<any>Object).assign({}, this[component], langs);
-        }
+        if (this[component])
+            this[component] = (<any> Object).assign({}, this[component], langs);
     }
 
     /**
      * Get components default langs
-     * 
+     *
      * @param {string} name
      * @returns {*}
-     * 
+     *
      * @memberOf OverwriteService
      */
     public getLangs(name: string): any {
         let component = name + 'Langs';
 
-        if(this[component]) {
+        if (this[component])
             return this[component];
-        }
 
         return;
     }

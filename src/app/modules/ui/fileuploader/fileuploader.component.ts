@@ -28,9 +28,9 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
     @ViewChild('fileInput') public fileInput: ElementRef;
 
     public fileValue: any;
+    public previewPrefix: string = 'preview';
 
     protected queueList: any[] = [];
-    protected previewPrefix: string = 'preview';
     protected progress: Object = {
         loaded: 0,
         total: 0,
@@ -71,6 +71,7 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
     }
 
     public ngOnChanges(changes: any) {
+
         if (changes.settings) {
             let data = (<any> Object).assign({}, changes.settings.previousValue, changes.settings.currentValue);
             this.settings = (<any> Object).assign({}, this.defaultSettings, data);
@@ -107,16 +108,20 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
     }
 
     public addToQueue(files: any[]): void {
+
         if (!this.settings.multiple)
             this.queueList = [];
+
         for (let key in files) {
 
             if (this.isFile(files[key]) && !this.inQueue(files[key]))
                 this.queueList.push(files[key]);
         }
-        if (this.settings.showPreview)
+
+        if (this.settings.showPreview) {
             for (let key in files)
                 this.createFileUrl(files[key]);
+        }
 
         if (this.settings.autoupload)
             this.uploadInQueue();

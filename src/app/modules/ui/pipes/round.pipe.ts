@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core'
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'round'
@@ -6,9 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core'
 export class RoundPipe implements PipeTransform {
     constructor(){}
 
-    transform(value: number, accuracy: number = 1, keep: boolean = false) {
-        var fixed = value.toFixed(accuracy);
+    public transform(value: number, accuracy: number = 1, keep: boolean = false) {
 
+        let fixed = value.toFixed(accuracy);
         return keep ? fixed : +fixed;
     }
 }

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AssetModel } from '../../models/asset.model';
+import { AssetService } from '../../services/asset.service';
 
 @Component({
     selector: 'asset-edit',
@@ -7,11 +9,26 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
     styleUrls: ['asset-edit.component.css']
 })
 
-export class AssetEditComponent {
+export class AssetEditComponent implements OnInit {
 
-    public mask = createNumberMask({
-        prefix: '$',
-        allowDecimal: true
-    });
-    public priceModel = 1234.56;
+    public model: AssetModel = new AssetModel();
+    public form: FormGroup;
+
+    constructor (private service: AssetService, private fb: FormBuilder) {}
+
+    public ngOnInit(): void {
+
+        this.form = this.fb.group({
+            name: ['', Validators.required],
+            description: ['', Validators.required],
+            price: ['', Validators.required],
+            imgs: ['', Validators.required]
+        });
+    }
+
+    public onSubmit(asset, valid) {
+
+        this.service.create(this.model).subscribe((res) => console.log(res), (err) => console.log(err));
+    }
 }
+

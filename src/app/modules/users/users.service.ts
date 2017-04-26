@@ -7,12 +7,12 @@ import { UserModel } from './user.model';
 @Injectable()
 export class UsersService {
 
-    private apiUrl: string = 'api/v1/users';
+    private apiUrl: string = 'api/v1/user';
 
     constructor(private http: Http) {}
 
-    public register(_user: UserModel): Observable<Response> {
-        return this.http.post(this.apiUrl + '/register', JSON.stringify({user: _user}), this.getHeaders());
+    public register(user: UserModel): Observable<Response> {
+        return this.http.post(this.apiUrl + '/register', JSON.stringify(user), this.getHeaders());
     }
 
     public login(_email: string, _passwd: string): Observable<Response> {

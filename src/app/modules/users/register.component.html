@@ -1,41 +1,5 @@
-﻿<!--<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-            <div class="card card-block" >
-                <h3 class="text-xs-center">Register Account</h3>
-                <hr>
-                <fieldset [disabled]="loading"> 
-                    <div role="form" [formGroup]="form">
-                        <validate label="Name" [control]="form.controls['name']">
-                        <input type="text" class="form-control" formControlName="name" [(ngModel)]='model.name'>
-                        </validate>
-
-                        <validate label="E-mail" [control]="form.controls['email']">
-                            <input type="text" class="form-control" formControlName="email" [(ngModel)]='model.email'>
-                        </validate>
-
-                        <validate label="Password" [control]="form.controls['passwd']">
-                            <passwd formControlName="passwd" [(ngModel)]='model.passwd'></passwd>
-                        </validate>
-                        
-                        <validate label="Confirm Password" [control]="form.controls['confirmPasswd']">
-                            <input type="password" class="form-control" formControlName="confirmPasswd" [(ngModel)]='model.confirmPasswd'>
-                        </validate>
-                        <button class="btn btn-lg btn-primary btn-block" (click)="register()">
-                            <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin fa-fw"></i>Sign Me Up
-                        </button>
-                    </div>
-                    <br />
-                    <div class="text-center">
-                            or <a [routerLink]="['/login']">Log-in</a>
-                    </div>
-                </fieldset>
-            </div>
-        </div>
-    </div>
-</div>-->
-<div class="container">
-    <form class="form-horizontal" role="form" [formGroup]="form">
+﻿<div class="container mt-5">
+    <div class="form-horizontal" role="form" [formGroup]="model.form" (keyup.enter)="submit(model.form)">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -48,20 +12,14 @@
                 <label class="sr-only" for="name">Name</label>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                        <input type="text" name="name" class="form-control" placeholder="Name" autofocus 
-                               formControlName="name" [(ngModel)]='model.name'>
+                <validate [control]="model.form.controls['name']">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                            <input type="text" class="form-control" placeholder="Name" formControlName="name">
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                        <span class="text-danger align-middle">
-                            <!-- Put name validation error messages here -->
-                        </span>
-                </div>
+                </validate>
             </div>
         </div>
         <div class="row">
@@ -69,20 +27,14 @@
                 <label class="sr-only" for="email">E-Mail Address</label>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                        <input type="text" name="email" class="form-control" placeholder="you@domain.com" autofocus 
-                               formControlName="email" [(ngModel)]='model.email'>
+                <validate [control]="model.form.controls['email']">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                            <input type="text" class="form-control" placeholder="you@domain.com" formControlName="email">
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                        <span class="text-danger align-middle">
-                            <!-- Put e-mail validation error messages here -->
-                        </span>
-                </div>
+                </validate>
             </div>
         </div>
         <div class="row">
@@ -90,37 +42,39 @@
                 <label class="sr-only" for="password">Password</label>
             </div>
             <div class="col-md-6">
-                <passwd formControlName="passwd" placeholder="Password" [(ngModel)]='model.passwd'></passwd>    
-            </div>
-            <div class="col-md-3">
-                <div class="form-control-feedback">
-                        <span class="text-danger align-middle">
-                            <i class="fa fa-close"> Example Error Message</i>
-                        </span>
-                </div>
+                <validate [control]="model.form.controls['passwd']">
+                    <passwd placeholder="Password" formControlName="passwd"></passwd>
+                </validate>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label class="sr-only" for="password">Confirm Password</label>
+                <label class="sr-only" for="confirm">Confirm Password</label>
             </div>
             <div class="col-md-6">
-                <div class="form-group">
-                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem">
-                            <i class="fa fa-repeat"></i>
+                <validate [control]="model.form.controls['confirmPasswd']">
+                    <div class="form-group">
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-repeat"></i></div>
+                            <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmPasswd">
                         </div>
-                        <input type="password" name="confirmPasswd" class="form-control" placeholder="Confirm Password"
-                               formControlName="confirmPasswd" [(ngModel)]='model.confirmPasswd'>
                     </div>
-                </div>
+                </validate>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-success"><i class="fa fa-user-plus"></i> Register</button>
+                <button type="button" class="btn btn-success" [disabled]="!model.form.valid" (click)="submit(model.form)">
+                    <i class="fa fa-user-plus"></i> Register
+                </button>
             </div>
         </div>
-    </form>
+    </div>
 </div>
+
+        <alert [settings]="{closable: true, color: 'danger'}">
+            <ul>
+                <li>Teste</li>
+            </ul>
+        </alert>

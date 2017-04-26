@@ -11,9 +11,13 @@ import { UsersService } from './users.service';
 import { UserModel } from './user.model';
 import { PasswdModule } from '../ui/passwd';
 import { ValidateModule } from '../ui/validate';
+import { AlertModule } from '../ui/alert';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, HttpModule, FormsModule, ReactiveFormsModule, PasswdModule, ValidateModule],
+    imports: [
+                CommonModule, RouterModule, HttpModule, FormsModule, ReactiveFormsModule,
+                PasswdModule, ValidateModule, AlertModule
+             ],
     exports: [RegisterComponent, LoginComponent],
     declarations: [RegisterComponent, LoginComponent],
     providers: [UsersService, UserModel],

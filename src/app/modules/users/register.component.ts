@@ -1,9 +1,10 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { UserModel } from './user.model';
 import { UsersService } from './users.service';
-import { ValidateHelper } from '../ui/validate';
+
 
 @Component({
     selector: 'register',
@@ -12,33 +13,32 @@ import { ValidateHelper } from '../ui/validate';
 })
 export class RegisterComponent {
 
-    public form: FormGroup;
-    public loading: boolean = false;
+    public model: UserModel;
 
-    @Output() public registred = new EventEmitter();
+    constructor(private fb: FormBuilder, private service: UsersService, private router: Router) {
 
-    constructor(public model: UserModel,
-                private service: UsersService,
-                private fb: FormBuilder) {
-
-        this.form = fb.group({
-            name: ['', Validators.required],
-            email: ['', Validators.compose([Validators.required, ValidateHelper.email()])],
-            passwd: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])],
-            confirmPasswd: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])]
-        });
+        this.model = new UserModel(fb);
     }
 
-    public register(): void {
+    public alert() {}
 
-        this.loading = true;
+    public submit(form: FormGroup): void {
 
-        this.service.register(this.model).subscribe((res) => {
-            this.registred.emit();
-            this.loading = false;
-        }, (err) => {
-            console.log(err);
-            this.loading = false;
-        } );
+        if (!form.valid) {
+
+            Object.keys(form.controls).forEach(key => {
+                form.get(key).markAsDirty();
+            });
+
+            return;
+        }
+
+        this.service.register(form.value).subscribe((res) => {
+
+            if (res.ok)
+                this.router.navigate(['login']);
+            else
+                this.alert();
+        }, (err) => null);
     }
 }

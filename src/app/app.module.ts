@@ -14,7 +14,9 @@ import { UsersModule } from './modules/users';
 import { FileUploaderModule } from './modules/ui/fileuploader';
 import { EditorModule } from './modules/ui/editor';
 import { ValidateModule } from './modules/ui/validate';
+import { AlertModule } from './modules/ui/alert';
 import { TextMaskModule } from 'angular2-text-mask';
+
 
 import { UIService } from './modules/ui/ui.service';
 import { AssetService } from './services/asset.service';
@@ -57,7 +59,7 @@ type StoreType = {
     AssetEditComponent
   ],
   imports: [ BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, TextMaskModule,
-             UsersModule, FileUploaderModule, EditorModule, ValidateModule,
+             UsersModule, FileUploaderModule, EditorModule, ValidateModule, AlertModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
   providers: [ ENV_PROVIDERS, APP_PROVIDERS,

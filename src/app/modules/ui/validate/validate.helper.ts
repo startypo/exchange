@@ -385,4 +385,29 @@ export class ValidateHelper {
             };
         };
     }
+
+    public static remote(service: any): ValidatorFn {
+
+        return (control: AbstractControl): {[key: string]: any} => {
+
+            let match = null;
+
+            service.remoteValidation(control.value).subscribe((res) => {
+
+                console.log(res);
+
+                return match ? null : {
+                    remote: {
+                        value: control.value
+                    }
+                };
+            }, (err) => console.log(err));
+
+            return match ? null : {
+                remote: {
+                    value: control.value
+                }
+            };
+        };
+    }
 }

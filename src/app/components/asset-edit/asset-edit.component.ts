@@ -22,13 +22,12 @@ export class AssetEditComponent implements OnInit {
             name: ['', Validators.required],
             description: ['', Validators.required],
             price: ['', Validators.required],
-            imgs: ['', Validators.required]
+            imgs: ['']
         });
     }
 
-    public onSubmit(asset, valid) {
+    public onSubmit(asset) {
 
         this.service.create(this.model).subscribe((res) => console.log(res), (err) => console.log(err));
     }
 }
-

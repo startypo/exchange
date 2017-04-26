@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import Passport from '../passport';
-import HttpStatus  from 'http-status-codes';
+import HttpStatus from 'http-status-codes';
 
 import { BaseController } from './base.controller';
 import { Routes } from '../routes';
@@ -48,7 +48,7 @@ export class UsersController extends BaseController {
                 return;
             }
 
-            res.status(HttpStatus.OK).json({ id: user.id });
+            res.status(HttpStatus.OK).json();
         });
     }
 

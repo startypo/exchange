@@ -5,6 +5,7 @@ import { ValidateSettings, ValidateLangs } from './validate/validate.model';
 import { PasswordSettings, PasswordLangs } from './passwd/passwd.model';
 import { FileUploaderSettings, FileUploaderLangs } from './fileuploader/fileuploader.model';
 import { SpinnerSettings } from './spinner/spinner.model';
+import { NotifySettings } from './notify/notify.model';
 
 @Injectable()
 export class UIService implements OnInit {
@@ -149,6 +150,18 @@ export class UIService implements OnInit {
         step: 1,
         decimals: 0,
         forcestep: 'round'
+    };
+
+    /**
+     * Notify
+     */
+    protected notifySettings: NotifySettings = {
+        position: ['top', 'right'],
+        duration: 1,
+        closeble: false,
+        maxItems: 10,
+        addToBottom: false,
+        stopOnHover: true
     };
 
     constructor() {}

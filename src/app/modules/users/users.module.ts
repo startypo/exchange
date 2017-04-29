@@ -12,14 +12,15 @@ import { UserModel } from './user.model';
 import { PasswdModule } from '../ui/passwd';
 import { ValidateModule } from '../ui/validate';
 import { AlertModule } from '../ui/alert';
+import { NotifyModule, NotifyService } from '../ui/notify';
 
 @NgModule({
     imports: [
                 CommonModule, RouterModule, HttpModule, FormsModule, ReactiveFormsModule,
-                PasswdModule, ValidateModule, AlertModule
+                PasswdModule, ValidateModule, AlertModule, NotifyModule
              ],
     exports: [RegisterComponent, LoginComponent],
     declarations: [RegisterComponent, LoginComponent],
-    providers: [UsersService, UserModel],
+    providers: [UsersService, UserModel, NotifyService],
 })
 export class UsersModule { }

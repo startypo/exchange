@@ -12,12 +12,19 @@ export class UsersService {
     constructor(private http: Http) {}
 
     public register(user: UserModel): Observable<Response> {
-        return this.http.post(this.apiUrl + '/register', JSON.stringify(user), this.getHeaders());
+        return this.http
+                   .post(this.apiUrl + '/register', JSON.stringify(user), this.getHeaders())
+                   .catch((err: any) => {
+
+                        if (err.status >= 500)
+                            console.log('Server Error');
+                        return Observable.throw(err);
+                });
     }
 
-    public login(_email: string, _passwd: string): Observable<Response> {
+    public login(user: UserModel): Observable<Response> {
         return this.http
-                   .post(this.apiUrl + '/login', JSON.stringify({ email: _email, passwd: _passwd }), this.getHeaders())
+                   .post(this.apiUrl + '/login', JSON.stringify({ email: user.email, passwd: user.passwd }), this.getHeaders())
                    .map((res: Response) => res.json());
     }
 

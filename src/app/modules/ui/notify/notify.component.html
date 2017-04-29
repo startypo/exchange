@@ -1,0 +1,10 @@
+<div class="notify {{ getPositionClass() }}">
+	<notify-item *ngFor="let notify of notifies; let i = index"
+	        [item]="notify" 
+	        [maxItems]="settings.maxItems" 
+	        [stopOnHover]="settings.stopOnHover" 
+	        [closeble]="settings.closeble" 
+	        [duration]="settings.duration" 
+	        [index]="i">
+    </notify-item>
+</div>

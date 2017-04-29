@@ -44,7 +44,7 @@ export class UsersController extends BaseController {
         UserModel.register(newUser, (err, user) => {
 
             if (err) {
-                res.status(HttpStatus.BAD_REQUEST).json();
+                res.status(HttpStatus.FORBIDDEN).json();
                 return;
             }
 

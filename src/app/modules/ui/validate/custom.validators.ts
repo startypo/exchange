@@ -4,7 +4,7 @@ function isEmpty(value: any): boolean {
     return value == null || value.length === 0;
 }
 
-export class ValidateHelper {
+export class CustomValidators {
 
     /**
      * Email validation
@@ -12,7 +12,7 @@ export class ValidateHelper {
      * @static
      * @returns
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static email() {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -38,7 +38,7 @@ export class ValidateHelper {
      * @param {number} [max=100]
      * @returns
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static password(min: number = 6, max: number = 100) {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -62,7 +62,7 @@ export class ValidateHelper {
      * @static
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static int(): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -86,7 +86,7 @@ export class ValidateHelper {
      * @static
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static number(): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -110,7 +110,7 @@ export class ValidateHelper {
      * @static
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static date(): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -135,7 +135,7 @@ export class ValidateHelper {
      * @param {*} date
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static minDate(date: any): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -165,7 +165,7 @@ export class ValidateHelper {
      * @param {*} date
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static maxDate(date: any): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -194,7 +194,7 @@ export class ValidateHelper {
      * @param {*} value
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static equal(value: any): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -220,7 +220,7 @@ export class ValidateHelper {
      * @param {number} max
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static max(_max: number): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -246,7 +246,7 @@ export class ValidateHelper {
      * @param {number} min
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static min(_min: number): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -273,7 +273,7 @@ export class ValidateHelper {
      * @param {number} max
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static range(_min: number, _max: number): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -299,7 +299,7 @@ export class ValidateHelper {
      * @static
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static json(): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -323,7 +323,7 @@ export class ValidateHelper {
      * @static
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static boolean(): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -344,7 +344,7 @@ export class ValidateHelper {
      * @static
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static hex(): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
@@ -368,7 +368,7 @@ export class ValidateHelper {
      * @static
      * @returns {ValidatorFn}
      *
-     * @memberOf ValidateHelper
+     * @memberOf CustomValidators
      */
     public static rgb(): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {

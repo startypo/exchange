@@ -1,5 +1,5 @@
 ﻿<div class="container mt-5">
-    <div class="form-horizontal" role="form" [formGroup]="model.form" (keyup.enter)="submit(model.form)">
+    <div class="form-horizontal" role="form" [formGroup]="form" (keyup.enter)="submit(form)">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -12,7 +12,7 @@
                 <label class="sr-only" for="name">Name</label>
             </div>
             <div class="col-md-6">
-                <validate [control]="model.form.controls['name']">
+                <validate [control]="form.controls['name']">
                     <div class="form-group">
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
@@ -27,7 +27,7 @@
                 <label class="sr-only" for="email">E-Mail Address</label>
             </div>
             <div class="col-md-6">
-                <validate [control]="model.form.controls['email']">
+                <validate [control]="form.controls['email']">
                     <div class="form-group">
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
@@ -42,7 +42,7 @@
                 <label class="sr-only" for="password">Password</label>
             </div>
             <div class="col-md-6">
-                <validate [control]="model.form.controls['passwd']">
+                <validate [control]="form.controls['passwd']">
                     <passwd placeholder="Password" formControlName="passwd"></passwd>
                 </validate>
             </div>
@@ -52,7 +52,7 @@
                 <label class="sr-only" for="confirm">Confirm Password</label>
             </div>
             <div class="col-md-6">
-                <validate [control]="model.form.controls['confirmPasswd']">
+                <validate [control]="form.controls['confirmPasswd']">
                     <div class="form-group">
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-repeat"></i></div>
@@ -65,7 +65,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="button" class="btn btn-success" [disabled]="!model.form.valid" (click)="submit(model.form)">
+                <button type="button" class="btn btn-success" [disabled]="!form.valid" (click)="submit(form)">
                     <i class="fa fa-user-plus"></i> Register
                 </button>
             </div>
@@ -73,8 +73,4 @@
     </div>
 </div>
 
-        <alert [settings]="{closable: true, color: 'danger'}">
-            <ul>
-                <li>Teste</li>
-            </ul>
-        </alert>
+<notify [settings]="{ duration: 10 }"></notify>

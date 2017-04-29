@@ -1,10 +1,10 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { UserModel } from './user.model';
 import { UsersService } from './users.service';
-
+import { NotifyService } from '../ui/notify';
+import { CustomValidators } from '../ui/validate';
 
 @Component({
     selector: 'register',
@@ -13,14 +13,17 @@ import { UsersService } from './users.service';
 })
 export class RegisterComponent {
 
-    public model: UserModel;
+    public form: FormGroup;
 
-    constructor(private fb: FormBuilder, private service: UsersService, private router: Router) {
+    constructor(private service: UsersService, private notifyService: NotifyService, private fb: FormBuilder) {
 
-        this.model = new UserModel(fb);
+        this.form = fb.group({
+            name: ['', Validators.required],
+            email: ['', Validators.compose([Validators.required, CustomValidators.email()])],
+            passwd: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])],
+            confirmPasswd: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(12)])]
+        });
     }
-
-    public alert() {}
 
     public submit(form: FormGroup): void {
 
@@ -33,12 +36,19 @@ export class RegisterComponent {
             return;
         }
 
+        form.valueChanges.subscribe((data) => this.notifyService.removeAll());
+
         this.service.register(form.value).subscribe((res) => {
 
-            if (res.ok)
-                this.router.navigate(['login']);
-            else
-                this.alert();
-        }, (err) => null);
+            if (res.ok) {
+
+                form.reset();
+                this.notifyService.success('XChanges', 'User successfully registered.');
+            }
+        },
+        (err) => {
+            if (err.status === 403)
+                this.notifyService.error('XChanges', 'E-mail is invalid or already taken.');
+        });
     }
 }

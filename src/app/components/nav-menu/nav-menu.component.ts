@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../../modules/user';
 
 @Component({
     selector: 'nav-menu',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
 
+    constructor(public service: UserService) {}
+
+    public logout() {
+        this.service.logout();
+    }
 }

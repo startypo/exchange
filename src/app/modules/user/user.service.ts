@@ -5,11 +5,20 @@ import { Observable } from 'rxjs';
 import { UserModel } from './user.model';
 
 @Injectable()
-export class UsersService {
+export class UserService {
 
     private apiUrl: string = 'api/v1/user';
+    private loggedUser: UserModel;
 
     constructor(private http: Http) {}
+
+    get user(): UserModel {
+
+        if (!this.loggedUser)
+            this.loggedUser = JSON.parse(sessionStorage.getItem('user'));
+
+        return this.loggedUser;
+    }
 
     public register(user: UserModel): Observable<Response> {
         return this.http
@@ -25,11 +34,19 @@ export class UsersService {
     public login(user: UserModel): Observable<Response> {
         return this.http
                    .post(this.apiUrl + '/login', JSON.stringify({ email: user.email, passwd: user.passwd }), this.getHeaders())
-                   .map((res: Response) => res.json());
+                   .map((res) => {
+
+                       this.loggedUser = res.json();
+                       this.loggedUser.email = user.email;
+                       sessionStorage.setItem('user', JSON.stringify(this.loggedUser));
+                       return res;
+                    });
     }
 
-    public logout(user: UserModel): Observable<Response> {
-        return this.http.post(this.apiUrl + '/logout', JSON.stringify(user), this.getHeaders());
+    public logout(): void {
+
+        sessionStorage.removeItem('user');
+        this.loggedUser = null;
     }
 
     private getHeaders(): RequestOptions {
@@ -37,10 +54,10 @@ export class UsersService {
         let _headers: Headers = new Headers();
 
         _headers.append('Content-Type', 'application/json');
-        let token = localStorage.getItem('auth');
+        let user: UserModel = JSON.parse(sessionStorage.getItem('user'));
 
-        if (token)
-            _headers.append('Authorization', 'Bearer ' + token);
+        if (user)
+            _headers.append('Authorization', 'Bearer ' + user.token);
 
         return new RequestOptions({ headers: _headers });
     }

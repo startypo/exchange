@@ -11,22 +11,21 @@
                 <a class="nav-link" [routerLink]="['/assets']"><i class="fa fa-fw fa-book"></i> Your Assets</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/']"><i class="fa fa-fw fa-exchange"></i> Exchanges</a>
+                <a class="nav-link" [routerLink]="['/exchanges']"><i class="fa fa-fw fa-exchange"></i> Exchanges</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/']"><i class="fa fa-fw fa-money"></i> Get Credits</a>
+                <a class="nav-link" [routerLink]="['/credits']"><i class="fa fa-fw fa-money"></i> Get Credits</a>
             </li> 
         </ul>
         
-        <form class="mx-2 my-auto ml-3 d-inline w-50">
+        <div class="d-inline my-auto ml-3 mx-2 w-50">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search for...">
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="button"><i class="fa fa-search"></i></button>
                 </span>
             </div>
-        </form>
-            
+        </div>
         
         <ul class="navbar-nav ml-auto">
             <li class="nav-item dropdown">
@@ -68,8 +67,29 @@
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/login']"><i class="fa fa-fw fa-sign-in"></i> Login</a>
+            
+            <li class="nav-item" *ngIf="!service.user">
+                <a class="nav-link mr-lg-2" [routerLink]="['/login']"><i class="fa fa-fw fa-sign-in"></i> Login</a>
+            </li>
+            <li class="nav-item dropdown" *ngIf="service.user">
+                <a href="#" class="nav-link dropdown-toggle mr-lg-2" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-user"></i>  {{service.user.name}}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a class="dropdown-item" href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                    </li>
+                    <hr>
+                    <li>
+                        <a class="dropdown-item" [routerLink]="['/']" (click)='logout()'><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

@@ -10,16 +10,13 @@ import { ROUTES } from './app.routes';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 
-import { UsersModule } from './modules/users';
+import { UserModule, UserService, AuthGuard } from './modules/user';
 import { FileUploaderModule } from './modules/ui/fileuploader';
 import { EditorModule } from './modules/ui/editor';
 import { ValidateModule } from './modules/ui/validate';
-import { AlertModule } from './modules/ui/alert';
 import { TextMaskModule } from 'angular2-text-mask';
-
-
+import { NotifyModule, NotifyService } from './modules/ui/notify';
 import { UIService } from './modules/ui/ui.service';
-import { AssetService } from './services/asset.service';
 
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './components/no-content';
@@ -28,6 +25,7 @@ import { HomeComponent } from './components/home';
 import { AssetListComponent } from './components/asset-list';
 import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
+import { AssetService } from './services/asset.service';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -50,20 +48,17 @@ type StoreType = {
 @NgModule({
   bootstrap: [ AppComponent ],
   declarations: [
-    AppComponent,
-    NoContentComponent,
-    NavMenuComponent,
-    HomeComponent,
-    AssetListComponent,
-    AssetDetailComponent,
-    AssetEditComponent
-  ],
-  imports: [ BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, TextMaskModule,
-             UsersModule, FileUploaderModule, EditorModule, ValidateModule, AlertModule,
+                  AppComponent, NoContentComponent, NavMenuComponent, HomeComponent,
+                  AssetListComponent, AssetDetailComponent, AssetEditComponent
+                ],
+  imports: [
+             BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, TextMaskModule,
+             UserModule, FileUploaderModule, EditorModule, ValidateModule, NotifyModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
-  providers: [ ENV_PROVIDERS, APP_PROVIDERS,
-               UIService, AssetService
+  providers: [
+               ENV_PROVIDERS, APP_PROVIDERS,
+               UserService, UIService, AuthGuard, AssetService, NotifyService
              ]
 })
 export class AppModule {

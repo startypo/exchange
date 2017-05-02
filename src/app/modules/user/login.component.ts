@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { NotifyService } from '../ui/notify';
 import { CustomValidators } from '../ui/validate';
-import { UserModel } from './user.model';
 
 @Component({
     selector: 'login',
@@ -16,7 +15,7 @@ export class LoginComponent {
 
     public form: FormGroup;
 
-    constructor(private service: UsersService, private fb: FormBuilder, private notifyService: NotifyService, private router: Router) {
+    constructor(private service: UserService, private fb: FormBuilder, private notifyService: NotifyService, private router: Router) {
 
         this.form = fb.group({
             email: ['', Validators.compose([Validators.required, CustomValidators.email()])],
@@ -36,12 +35,10 @@ export class LoginComponent {
             return;
         }
 
-        form.valueChanges.subscribe((data) => this.notifyService.removeAll());
+        form.valueChanges.subscribe(() => this.notifyService.removeAll());
 
-        this.service.login(form.value).subscribe((res) => {
-
-            if (res.ok)
-                this.router.navigate(['/assets']);
+        this.service.login(form.value).subscribe(() => {
+            this.router.navigate(['/assets']);
         },
         (err) => {
             if (err.status === 401)

@@ -1,8 +1,7 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { UserModel } from './user.model';
-import { UsersService } from './users.service';
+import { UserService } from './user.service';
 import { NotifyService } from '../ui/notify';
 import { CustomValidators } from '../ui/validate';
 
@@ -15,7 +14,7 @@ export class RegisterComponent {
 
     public form: FormGroup;
 
-    constructor(private service: UsersService, private notifyService: NotifyService, private fb: FormBuilder) {
+    constructor(private service: UserService, private notifyService: NotifyService, private fb: FormBuilder) {
 
         this.form = fb.group({
             name: ['', Validators.required],
@@ -36,15 +35,12 @@ export class RegisterComponent {
             return;
         }
 
-        form.valueChanges.subscribe((data) => this.notifyService.removeAll());
+        form.valueChanges.subscribe(() => this.notifyService.removeAll());
 
         this.service.register(form.value).subscribe((res) => {
 
-            if (res.ok) {
-
-                form.reset();
-                this.notifyService.success('XChanges', 'User successfully registered.');
-            }
+            form.reset();
+            this.notifyService.success('XChanges', 'User successfully registered.');
         },
         (err) => {
             if (err.status === 403)

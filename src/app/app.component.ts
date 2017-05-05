@@ -18,6 +18,4 @@ import { AppState } from './app.service';
   styleUrls: ['./app.component.css'],
   templateUrl: 'app.component.html'
 })
-export class AppComponent {
-
-}
+export class AppComponent {}

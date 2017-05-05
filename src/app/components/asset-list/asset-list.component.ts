@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NotifyService } from '../../modules/ui/notify';
 
 @Component({
 
@@ -7,4 +8,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['asset-list.component.css']
 })
 
-export class AssetListComponent {}
+export class AssetListComponent {
+
+    constructor(private notifyService: NotifyService) {}
+}

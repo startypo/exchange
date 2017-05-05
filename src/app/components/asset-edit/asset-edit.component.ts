@@ -8,7 +8,6 @@ import { NotifyService } from '../../modules/ui/notify';
 import { CustomValidators } from '../../modules/ui/validate';
 import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
 
-
 @Component({
     selector: 'asset-edit',
     templateUrl: 'asset-edit.component.html',
@@ -28,7 +27,7 @@ export class AssetEditComponent implements OnInit {
         this.form = this.fb.group({
             name: ['', Validators.required],
             description: ['', Validators.required],
-            price: [1234.56, Validators.compose([Validators.required])],
+            price: [0.0, Validators.compose([Validators.required])],
             imgs: ['']
         });
 
@@ -52,7 +51,10 @@ export class AssetEditComponent implements OnInit {
 
         form.valueChanges.subscribe(() => this.notifyService.removeAll());
 
-        this.service.create(form.value).subscribe((res) => this.router.navigate(['/assets']),
-                                                  (err) => this.notifyService.error('XChanges', 'Something went wrong.'));
+        this.service.create(form.value).subscribe(
+            (res) => this.router.navigate(['/assets']),
+            (err) => this.notifyService.error('XChanges', 'Something went wrong.'),
+            () => this.notifyService.success('XChanges', 'Asset was successfully created.')
+        );
     }
 }

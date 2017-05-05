@@ -1,4 +1,4 @@
-export class Base {
+export class BaseModel {
 
     public static getSchema() {
 

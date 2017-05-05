@@ -6,6 +6,7 @@ import { PasswordSettings, PasswordLangs } from './passwd/passwd.model';
 import { FileUploaderSettings, FileUploaderLangs } from './fileuploader/fileuploader.model';
 import { SpinnerSettings } from './spinner/spinner.model';
 import { NotifySettings } from './notify/notify.model';
+import { InputSettings } from './masked-input/input.model';
 
 @Injectable()
 export class UIService implements OnInit {

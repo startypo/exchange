@@ -4,7 +4,7 @@ import Jwt from 'jsonwebtoken';
 import { IUser } from '../../domain.interfaces';
 import { Config } from '../config';
 import { DBConnection } from '../db.connection';
-import { Base } from './base';
+import { BaseModel } from './base.model';
 
 export interface IUserDocument extends IDocument {
 
@@ -26,7 +26,7 @@ export interface IUserModel extends IModel<IUserDocument> {
     register(newUser, callback: (err, user: IUserDocument) => void): void;
 }
 
-let schema = new Schema(Object.assign(Base.getSchema(), {
+let schema = new Schema(Object.assign(BaseModel.getSchema(), {
 
     name: {
         type: String,
@@ -121,7 +121,10 @@ schema.methods.createToken = function(): string {
         iss: Config.security.issuer,
         aud: Config.security.audience,
         iat: Math.floor(Date.now() / 1000) - 30,
-        sub: doc.profile
+        sub: {
+            id: doc.id,
+            prf: doc.profile
+        }
     };
 
     return Jwt.sign(payload, Config.security.secret);

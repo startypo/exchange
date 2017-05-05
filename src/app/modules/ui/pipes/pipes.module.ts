@@ -20,5 +20,5 @@ const PIPES = [
     exports: PIPES
 })
 export class PipesModule {
-    static forRoot(): ModuleWithProviders { return {ngModule: PipesModule, providers: []}; }
+    public static forRoot(): ModuleWithProviders { return {ngModule: PipesModule, providers: []}; }
 }

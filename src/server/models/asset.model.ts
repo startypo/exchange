@@ -3,26 +3,41 @@ import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
 import { DBConnection } from '../db.connection';
 import { UserSchema, IUserDocument } from './user.model';
 import { IUser } from '../../domain.interfaces';
-import { Base } from './base';
+import { BaseModel } from './base.model';
 
 export interface IAssetDocument extends IDocument {
 
     name: string;
     description: string;
     price: number;
-    owner: IUserDocument;
+    owner: IUserDocument | string;
 }
 
 export interface IAssetModel extends IModel<IAssetDocument> {
 
 }
 
-let schema = new Schema(Object.assign(Base.getSchema(), {
+let schema = new Schema(Object.assign(BaseModel.getSchema(), {
 
-    name: String,
-    description: String,
-    price: Number,
-    owner: UserSchema,
+    name: {
+        type: String,
+        required: true,
+        maxlength: 100
+    },
+    description: {
+        type: String,
+        required: true,
+        maxlength: 1000
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    owner: {
+        type: String,
+        ref: 'users',
+        required: true
+    },
 }),
 {
     timestamps : {

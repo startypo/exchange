@@ -14,7 +14,7 @@ import { UserModule, UserService, AuthGuard } from './modules/user';
 import { FileUploaderModule } from './modules/ui/fileuploader';
 import { EditorModule } from './modules/ui/editor';
 import { ValidateModule } from './modules/ui/validate';
-import { TextMaskModule } from 'angular2-text-mask';
+import { MaskedInputModule } from './modules/ui/masked-input';
 import { NotifyModule, NotifyService } from './modules/ui/notify';
 import { UIService } from './modules/ui/ui.service';
 
@@ -52,8 +52,8 @@ type StoreType = {
                   AssetListComponent, AssetDetailComponent, AssetEditComponent
                 ],
   imports: [
-             BrowserModule, FormsModule, ReactiveFormsModule, HttpModule, TextMaskModule,
-             UserModule, FileUploaderModule, EditorModule, ValidateModule, NotifyModule,
+             BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,
+             UserModule, FileUploaderModule, EditorModule, ValidateModule, NotifyModule, MaskedInputModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
   providers: [

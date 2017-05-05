@@ -45,6 +45,8 @@ export class RegisterComponent {
         (err) => {
             if (err.status === 403)
                 this.notifyService.error('XChanges', 'E-mail is invalid or already taken.');
+            else
+                this.notifyService.error('XChanges', 'Something went wrong.');
         });
     }
 }

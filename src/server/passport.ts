@@ -6,7 +6,7 @@ import { Routes } from './routes';
 
 export class Passport {
 
-     private static permissions = {
+    private static permissions = {
         user: [
             { route: Routes.assets, methods: ['*'] }
         ]
@@ -17,20 +17,21 @@ export class Passport {
     constructor() {
 
         let jwtOptions = {
-            session: false,
+
             passReqToCallback : true,
             jwtFromRequest : ExtractJwt.fromAuthHeaderWithScheme('Bearer'),
             secretOrKey: Config.security.secret,
             issuer: Config.security.issuer,
-            audience: Config.security.audience,
+            audience: Config.security.audience
         };
 
         let strategy = new Strategy(jwtOptions, (req: Request, payload, done) => {
 
-            if (!this.authorize(payload.sub, req.originalUrl, req.method))
+            if (!this.authorize(payload.sub.prf, req.originalUrl, req.method))
                 return done(null, false);
 
-            return done(null, payload);
+            req.user = payload.sub;
+            return done(null, payload.sub);
         });
 
         this.passport.use('jwt', strategy);

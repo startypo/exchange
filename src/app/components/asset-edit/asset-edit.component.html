@@ -3,36 +3,37 @@
     <h2>New Asset</h2>
     <hr class="w-100">
   </div>
-  <form novalidate [formGroup]="form" role="form" (ngSubmit)="onSubmit(form)">
+  <div novalidate [formGroup]="form" role="form" (keyup.enter)="submit(form)">
     <div class="d-flex flex-row justify-content-between mt-3">
       <div class="d-flex flex-column w-50 mr-5">
         <div class="form-group">
           <validate label="Name" [control]="form.controls['name']">
-            <input type="text" class="form-control"  formControlName="name" [(ngModel)]="model.name">
+            <input type="text" class="form-control"  formControlName="name">
           </validate>
         </div>
         <div class="form-group">
           <validate label="Description" [control]="form.controls['description']">
-            <editor formControlName="description" [settings]="{color: 'primary', height: 100}" [(ngModel)]="model.description"></editor>
+            <editor formControlName="description" [settings]="{color: 'primary', height: 100}"></editor>
           </validate>
         </div>        
         <div class="form-group w-25">
           <validate label="Price" [control]="form.controls['price']">
-            <input type="text" class="form-control" formControlName="price" [textMask]="{ mask: model.priceMask }" [(ngModel)]="model.price">
+              <input type="text" class="form-control" formControlName="price" [masquerade]="{ mask: currencyMask, pipe: currencyPipe }">
           </validate>
         </div>
         <div class="form-group">
-          <button type="submit" class="btn btn-lg btn-success"><i class="fa fa-save"></i> Save</button>
+          <button type="button" class="btn btn-lg btn-success" (click)="submit(form)"><i class="fa fa-save"></i> Save</button>
         </div>
       </div>
       <div class="d-flex flex-column w-50">
         <div class="form-group">
           <label for="fileupload">Images</label>
-          <fileuploader formControlName="imgs" [(ngModel)]="model.imgs" ngDefaultControl
-                        [settings]="{multiple: true, xhrUrl: 'http://localhost:3000/api/v1/asset', color: 'primary', allowedExtensions: ['jpg', 'jpeg', 'image/jpeg']}">
+          <fileuploader formControlName="imgs" ngDefaultControl
+                        [settings]="{multiple: true, color: 'primary', allowedExtensions: ['jpg', 'jpeg', 'image/jpeg']}">
           </fileuploader>
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </div>
+<notify [settings]="{ duration: 10 }"></notify>

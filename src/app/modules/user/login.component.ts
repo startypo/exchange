@@ -43,6 +43,8 @@ export class LoginComponent {
         (err) => {
             if (err.status === 401)
                 this.notifyService.error('XChanges', 'E-mail address or password are incorrect.');
+            else
+                this.notifyService.error('XChanges', 'Something went wrong.');
         });
     }
 }

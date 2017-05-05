@@ -6,6 +6,10 @@ export abstract class BaseController {
 
     public router: Router = Router();
 
+    protected authOptions = {
+        session: true
+    };
+
     constructor(protected model: IModel<IDocument>) {
         this.config();
     }
@@ -13,11 +17,14 @@ export abstract class BaseController {
     protected create = (req: Request, res: Response): void => {
 
         let obj = req.body;
+        let user = req.user;
+
+        obj.owner = user.id;
 
         new this.model(obj).save((err, doc) => {
 
             if (err) {
-                res.status(HttpStatus.BAD_REQUEST).json();
+                res.status(HttpStatus.FORBIDDEN).json();
                 return;
             }
 

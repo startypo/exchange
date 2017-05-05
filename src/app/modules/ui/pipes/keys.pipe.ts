@@ -10,6 +10,7 @@ export class KeysPipe implements PipeTransform {
             return value;
 
         let keys: any[] = [];
+        // tslint:disable-next-line:forin
         for (let key in value)
             keys.push({key: key, value: value[key]});
 

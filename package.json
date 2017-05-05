@@ -79,7 +79,6 @@
     "@angularclass/hmr": "~1.2.2",
     "@angularclass/hmr-loader": "~3.0.2",
     "@angularclass/idle-preload": "^1.0.4",
-    "angular2-text-mask": "^8.0.0",
     "body-parser": "^1.17.0",
     "bootstrap": "^4.0.0-alpha.6",
     "compression": "^1.6.2",
@@ -103,7 +102,8 @@
     "serve-favicon": "^2.4.1",
     "source-map-support": "^0.4.14",
     "tether": "^1.4.0",
-    "text-mask-addons": "^3.5.0",
+    "text-mask-addons": "^3.5.1",
+    "text-mask-core": "^5.0.1",
     "zone.js": "^0.7.7"
   },
   "devDependencies": {

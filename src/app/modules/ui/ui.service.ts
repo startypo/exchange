@@ -6,7 +6,7 @@ import { PasswordSettings, PasswordLangs } from './passwd/passwd.model';
 import { FileUploaderSettings, FileUploaderLangs } from './fileuploader/fileuploader.model';
 import { SpinnerSettings } from './spinner/spinner.model';
 import { NotifySettings } from './notify/notify.model';
-import { InputSettings } from './masked-input/input.model';
+import { PaginationSettings, PaginationLangs } from './pagination/pagination.model';
 
 @Injectable()
 export class UIService implements OnInit {
@@ -163,6 +163,25 @@ export class UIService implements OnInit {
         maxItems: 10,
         addToBottom: false,
         stopOnHover: true
+    };
+
+    /**
+     * Pagination
+     */
+    protected paginationSettings: PaginationSettings = {
+        prevNext: true,
+        lastFirst: true,
+        max: 0,
+        separator: '...',
+        size: 'md',
+        color: 'primary'
+    };
+
+    protected paginationLangs: PaginationLangs = {
+        first: 'First',
+        prev: 'Previous',
+        next: 'Next',
+        last: 'Last'
     };
 
     constructor() {}

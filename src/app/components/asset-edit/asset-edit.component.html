@@ -18,7 +18,8 @@
         </div>        
         <div class="form-group w-25">
           <validate label="Price" [control]="form.controls['price']">
-              <input type="text" class="form-control" formControlName="price" [masquerade]="{ mask: currencyMask, pipe: currencyPipe }">
+              <input type="text" class="form-control" formControlName="price" placeholder="ϝ 1,234.56" 
+                     [masquerade]="{ mask: currencyMask, pipe: currencyPipe }">
           </validate>
         </div>
         <div class="form-group">

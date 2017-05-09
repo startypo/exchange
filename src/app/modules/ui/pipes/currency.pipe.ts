@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 const PADDING = '000000';
 
 // tslint:disable-next-line:pipe-naming
-@Pipe({ name: 'currency' })
+@Pipe({ name: 'xchs' })
 export class CurrencyPipe implements PipeTransform {
 
     private DECIMAL_SEPARATOR: string = '.';
@@ -19,6 +19,7 @@ export class CurrencyPipe implements PipeTransform {
         : '';
 
         integer = integer.replace(/\B(?=(\d{3})+(?!\d))/g, this.THOUSANDS_SEPARATOR);
+        integer = this.PREFIX.concat(integer);
 
         return integer + fraction;
     }

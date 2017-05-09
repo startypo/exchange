@@ -1,4 +1,5 @@
 import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
+import paginate  from 'mongoose-paginate';
 
 import { DBConnection } from '../db.connection';
 import { UserSchema, IUserDocument } from './user.model';
@@ -15,6 +16,7 @@ export interface IAssetDocument extends IDocument {
 
 export interface IAssetModel extends IModel<IAssetDocument> {
 
+    paginate(query: any, options?: any, callback?: (err: any, result: any) => void): Promise<IAssetModel> | void;
 }
 
 let schema = new Schema(Object.assign(BaseModel.getSchema(), {
@@ -45,5 +47,7 @@ let schema = new Schema(Object.assign(BaseModel.getSchema(), {
         updatedAt: 'updatedAt'
     }
 });
+
+schema.plugin(paginate);
 
 export const AssetModel = <IAssetModel> DBConnection.createConnection('AssetModel').model<IAssetDocument>('assets', schema);

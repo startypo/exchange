@@ -39,7 +39,7 @@ export abstract class BaseController {
         this.model.findById(id, (err, doc) => {
 
             if (err) {
-                res.status(HttpStatus.BAD_REQUEST).json();
+                res.status(HttpStatus.FORBIDDEN).json();
                 return;
             }
 
@@ -60,7 +60,7 @@ export abstract class BaseController {
         this.model.findByIdAndUpdate(id, obj, (err, doc) => {
 
             if (err) {
-                res.status(HttpStatus.BAD_REQUEST).json();
+                res.status(HttpStatus.FORBIDDEN).json();
                 return;
             }
 
@@ -80,7 +80,7 @@ export abstract class BaseController {
         this.model.findByIdAndUpdate(id, { deletedAt: new Date() }, (err, doc) => {
 
             if (err) {
-                res.status(HttpStatus.BAD_REQUEST).json();
+                res.status(HttpStatus.FORBIDDEN).json();
                 return;
             }
 

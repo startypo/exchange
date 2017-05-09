@@ -4,8 +4,8 @@ import { CurrencyPipe } from '../pipes/currency.pipe';
 export { conformToMask } from 'text-mask-core/dist/textMaskCore'
 
 @NgModule({
-  declarations: [MaskedInputDirective],
-  exports: [MaskedInputDirective],
+  declarations: [MaskedInputDirective, CurrencyPipe],
+  exports: [MaskedInputDirective, CurrencyPipe],
   providers: [CurrencyPipe]
 })
 export class MaskedInputModule {}

@@ -14,6 +14,7 @@ import { UserModule, UserService, AuthGuard } from './modules/user';
 import { FileUploaderModule } from './modules/ui/fileuploader';
 import { EditorModule } from './modules/ui/editor';
 import { ValidateModule } from './modules/ui/validate';
+import { PaginationModule } from './modules/ui/pagination';
 import { MaskedInputModule } from './modules/ui/masked-input';
 import { NotifyModule, NotifyService } from './modules/ui/notify';
 import { UIService } from './modules/ui/ui.service';
@@ -53,7 +54,8 @@ type StoreType = {
                 ],
   imports: [
              BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,
-             UserModule, FileUploaderModule, EditorModule, ValidateModule, NotifyModule, MaskedInputModule,
+             UserModule, FileUploaderModule, EditorModule, ValidateModule, NotifyModule,
+             MaskedInputModule, PaginationModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
   providers: [

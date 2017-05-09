@@ -30,7 +30,8 @@
       "passport-jwt",
       "mongoose",
       "mongodb",
-      "http-status-codes"
+      "http-status-codes",
+      "mongoose-paginate"
     ]
   },
   "exclude": [

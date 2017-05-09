@@ -22,7 +22,7 @@ export class UserService {
 
     public register(user: UserModel): Observable<Response> {
         return this.http
-                   .post(this.apiUrl + '/register', JSON.stringify(user), this.getHeaders())
+                   .post(this.apiUrl + '/register', JSON.stringify(user), this.getOptions())
                    .catch((err: any) => {
 
                         if (err.status >= 500)
@@ -33,7 +33,7 @@ export class UserService {
 
     public login(user: UserModel): Observable<Response> {
         return this.http
-                   .post(this.apiUrl + '/login', JSON.stringify({ email: user.email, passwd: user.passwd }), this.getHeaders())
+                   .post(this.apiUrl + '/login', JSON.stringify({ email: user.email, passwd: user.passwd }), this.getOptions())
                    .map((res) => {
 
                        this.loggedUser = res.json();
@@ -49,7 +49,7 @@ export class UserService {
         this.loggedUser = null;
     }
 
-    private getHeaders(): RequestOptions {
+    private getOptions(): RequestOptions {
 
         let _headers: Headers = new Headers();
 

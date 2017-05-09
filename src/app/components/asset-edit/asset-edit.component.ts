@@ -27,7 +27,7 @@ export class AssetEditComponent implements OnInit {
         this.form = this.fb.group({
             name: ['', Validators.required],
             description: ['', Validators.required],
-            price: [0.0, Validators.compose([Validators.required])],
+            price: ['', Validators.compose([Validators.required])],
             imgs: ['']
         });
 

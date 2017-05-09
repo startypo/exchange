@@ -6,7 +6,6 @@ import { BaseService } from './base.service';
 import { PaginatedList } from '../models/paginated-list.model';
 import { AssetModel } from '../models/asset.model';
 
-
 @Injectable()
 export class AssetService extends BaseService {
 
@@ -17,7 +16,7 @@ export class AssetService extends BaseService {
     }
 
     public create(asset: AssetModel): Observable<Response> {
-        return this.http.post(this.apiUrl + this.resourceUrl, JSON.stringify(asset), this.getHeaders());
+        return this.http.post(this.apiUrl + this.resourceUrl, JSON.stringify(asset), { headers: this.getHeaders() });
     }
 
     public list(page: number): Observable<PaginatedList<AssetModel>> {

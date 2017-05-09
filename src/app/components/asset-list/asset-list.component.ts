@@ -6,7 +6,6 @@ import { PaginatedList } from '../../models/paginated-list.model';
 import { AssetModel } from '../../models/asset.model';
 import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
 
-
 @Component({
 
     selector: 'asset-list',
@@ -33,4 +32,3 @@ export class AssetListComponent implements OnInit {
         );
     }
 }
-

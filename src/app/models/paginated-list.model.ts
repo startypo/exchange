@@ -6,4 +6,3 @@ export class PaginatedList<T> {
     public pages: number = 1;
     public total: number = 0;
 }
-

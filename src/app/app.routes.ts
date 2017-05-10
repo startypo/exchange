@@ -10,12 +10,12 @@ import { AssetEditComponent } from './components/asset-edit';
 
 
 export const ROUTES: Routes = [
-  { path: '',      component: HomeComponent },
-  { path: 'register',  component: RegisterComponent },
-  { path: 'login',  component: LoginComponent },
-  { path: 'assets',  component: AssetListComponent, canActivate: [AuthGuard] },
-  { path: 'assets/detail/:id',  component: AssetDetailComponent, canActivate: [AuthGuard] },
-  { path: 'assets/new',  component: AssetEditComponent, canActivate: [AuthGuard] },
-  { path: 'assets/edit/:id',  component: AssetEditComponent, canActivate: [AuthGuard] },
-  { path: '**',    component: NoContentComponent }
+  { path: '', component: HomeComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'assets', component: AssetListComponent, canActivate: [AuthGuard] },
+  { path: 'assets/detail', component: AssetDetailComponent, canActivate: [AuthGuard] },
+  { path: 'assets/new', component: AssetEditComponent, canActivate: [AuthGuard] },
+  { path: 'assets/edit', component: AssetEditComponent, canActivate: [AuthGuard] },
+  { path: '**', component: NoContentComponent }
 ];

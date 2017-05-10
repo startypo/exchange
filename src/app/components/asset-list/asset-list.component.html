@@ -14,13 +14,13 @@
                 <a [routerLink]="['/assets/new']" class="btn btn-primary btn-lg mr-3"><i class="fa fa-plus"></i> New Asset</a>
             </div>
             <div class="row my-3">
-                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of model.docs; let i = index">
+                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of model.docs">
                     <div class="card h-100">
-                        <a [routerLink]="['/assets/detail']"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
+                        <a [routerLink] (click)="detail(item)"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
                         <div class="card-block">
-                            <h4 class="card-title"><a [routerLink]="['/assets/detail']">{{model.docs[i].name}}</a></h4>
-                            <h5>{{model.docs[i].price | xchs}}</h5>
-                            <p class="card-text">{{model.docs[i].description}}</p>
+                            <h4 class="card-title"><a [routerLink] (click)="detail(item)">{{ item.name }}</a></h4>
+                            <h5>{{ item.price | coin }}</h5>
+                            <p class="card-text">{{ item.description }}</p>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>

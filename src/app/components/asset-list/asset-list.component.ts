@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AppState } from '../../app.service';
 
 import { NotifyService } from '../../modules/ui/notify';
 import { AssetService } from '../../services/asset.service';
@@ -17,7 +19,7 @@ export class AssetListComponent implements OnInit {
 
     public model: PaginatedList<AssetModel> = new PaginatedList<AssetModel>();
 
-    constructor(private service: AssetService, private notifyService: NotifyService) {}
+    constructor(private service: AssetService, private notifyService: NotifyService, private router: Router, private app: AppState) {}
 
     public ngOnInit(): void {
 
@@ -30,5 +32,11 @@ export class AssetListComponent implements OnInit {
             (list: PaginatedList<AssetModel>) => this.model = list,
             (err) => this.notifyService.error('Xchanges', 'Something went wrong.')
         );
+    }
+
+    public detail(asset: AssetModel) {
+
+        this.app.set('selectedAsset', asset);
+        this.router.navigate(['/assets/detail']);
     }
 }

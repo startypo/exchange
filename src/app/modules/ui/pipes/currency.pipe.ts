@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 const PADDING = '000000';
 
 // tslint:disable-next-line:pipe-naming
-@Pipe({ name: 'xchs' })
+@Pipe({ name: 'coin' })
 export class CurrencyPipe implements PipeTransform {
 
     private DECIMAL_SEPARATOR: string = '.';

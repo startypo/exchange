@@ -1,7 +1,8 @@
 export class UserModel {
 
-    public name: string = '';
+    public id: string = '';
     public email: string = '';
+    public name: string = '';
     public passwd: string = '';
     public confirmPasswd: string = '';
     public token: string = '';

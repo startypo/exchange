@@ -36,9 +36,15 @@
                     <p class="card-text">{{ model.description }}</p>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> 4.0 stars
                     <div class="d-flex justify-content-end">
-                        <a [routerLink]="['/assets/edit', model._id]" class="btn btn-primary btn-lg"><i class="fa fa-edit"></i> Edit</a>
-                        <button type="button" class="btn btn-danger btn-lg ml-3" data-toggle="modal" data-target="#confirmDeletion">
+                        <a [routerLink]="['/assets/edit', model.id]" class="btn btn-primary btn-lg" *ngIf="userService.isOwner(model.owner)">
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+                        <button type="button" class="btn btn-danger btn-lg ml-3" 
+                                data-toggle="modal" data-target="#confirmDeletion" *ngIf="userService.isOwner(model.owner)">
                             <i class="fa fa-trash"></i> Delete
+                        </button>
+                        <button type="button" class="btn btn-success btn-lg ml-3" *ngIf="!userService.isOwner(model.owner)">
+                            <i class="fa fa-shopping-cart"></i> Exchange
                         </button>
                     </div>
                 </div>

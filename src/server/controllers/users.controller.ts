@@ -19,7 +19,7 @@ export class UsersController extends BaseController {
             if (!logedin)
                 return res.status(HttpStatus.UNAUTHORIZED).json();
 
-            res.json({ name: user.name, token: token });
+            res.json({ id: user.id, name: user.name, token: token });
         });
     }
 
@@ -54,10 +54,11 @@ export class UsersController extends BaseController {
 
     protected config() {
 
+        this.router.delete(Routes.root + ':id', this.delete);
+
         this.router.post(Routes.login, this.login);
         this.router.get(Routes.isRegistred, this.isRegistred);
         this.router.post(Routes.register, this.register);
-        this.router.delete(Routes.root + ':id', this.delete);
     }
 }
 

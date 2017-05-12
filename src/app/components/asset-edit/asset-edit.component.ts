@@ -52,7 +52,7 @@ export class AssetEditComponent implements OnInit {
         if (this.id) {
 
             let asset: AssetModel = form.value;
-            asset._id = this.id;
+            asset.id = this.id;
 
             this.service.update(asset).subscribe(
                 (res) => this.router.navigate(['/assets']),

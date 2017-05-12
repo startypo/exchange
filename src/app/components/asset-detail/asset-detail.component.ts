@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AssetService } from '../../services/asset.service';
 import { NotifyService } from '../../modules/ui/notify/notify.service';
 import { AssetModel } from '../../models/asset.model';
+import { UserService } from '../../modules/user/user.service';
 
 @Component({
     selector: 'asset-detail',
@@ -17,8 +18,8 @@ export class AssetDetailComponent implements OnInit {
     public model: AssetModel = new AssetModel();
 
     constructor(private service: AssetService, private notify: NotifyService,
-                private router: Router, private route: ActivatedRoute,
-                private app: AppState) {
+                public userService: UserService, private router: Router,
+                private route: ActivatedRoute, private app: AppState) {
 
         let id = this.route.snapshot.params['id'];
 

@@ -37,7 +37,7 @@ export class AssetService extends BaseService {
     public delete(asset: AssetModel): Observable<Response> {
 
         let params = new URLSearchParams();
-        params.set('id', asset._id);
+        params.set('id', asset.id);
         let options = this.getOptions();
         options.search = params;
 

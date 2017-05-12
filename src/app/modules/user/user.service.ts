@@ -49,6 +49,10 @@ export class UserService {
         this.loggedUser = null;
     }
 
+    public isOwner(owner: string) {
+        return this.user.id === owner;
+    }
+
     private getOptions(): RequestOptions {
 
         let _headers: Headers = new Headers();

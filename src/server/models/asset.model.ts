@@ -19,7 +19,7 @@ export interface IAssetModel extends IModel<IAssetDocument> {
     paginate(query: any, options?: any, callback?: (err: any, result: any) => void): Promise<IAssetModel> | void;
 }
 
-let schema = new Schema(Object.assign(BaseModel.getSchema(), {
+let schema = BaseModel.createSchema({
 
     name: {
         type: String,
@@ -39,12 +39,6 @@ let schema = new Schema(Object.assign(BaseModel.getSchema(), {
         type: String,
         ref: 'users',
         required: true
-    },
-}),
-{
-    timestamps : {
-        createdAt: 'createdAt',
-        updatedAt: 'updatedAt'
     }
 });
 

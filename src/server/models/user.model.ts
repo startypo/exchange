@@ -26,7 +26,7 @@ export interface IUserModel extends IModel<IUserDocument> {
     register(newUser, callback: (err, user: IUserDocument) => void): void;
 }
 
-let schema = new Schema(Object.assign(BaseModel.getSchema(), {
+let schema = BaseModel.createSchema({
 
     name: {
         type: String,
@@ -52,12 +52,6 @@ let schema = new Schema(Object.assign(BaseModel.getSchema(), {
     profile: {
         type: String,
         required: true
-    }
-}),
-{
-    timestamps : {
-        createdAt: 'createdAt',
-        updatedAt: 'updatedAt'
     }
 });
 

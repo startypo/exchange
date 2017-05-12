@@ -1,0 +1,10 @@
+<button type="button" class="btn btn-{{ settings.color }} btn-{{ settings.size }} modal-button" (click)="show($event)">
+    <i *ngIf="settings.icon" class="fa fa-{{ settings.icon }}"></i> {{ settings.label }}
+</button>
+<div class="modal fade" [ngClass]="{'in':isShowed}" [ngStyle]="{'display':isShowed ? 'block' : 'none'}">
+    <div class="modal-dialog modal-{{ settings.modalSize }}">
+        <div class="modal-content modal__content">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

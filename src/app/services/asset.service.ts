@@ -16,19 +16,39 @@ export class AssetService extends BaseService {
     }
 
     public create(asset: AssetModel): Observable<Response> {
-        return this.http.post(this.apiUrl + this.resourceUrl, JSON.stringify(asset), { headers: this.getHeaders() });
+        return this.http.post(this.apiUrl + this.resourceUrl, JSON.stringify(asset), this.getOptions());
+    }
+
+    public read(id: string): Observable<AssetModel> {
+
+        let params = new URLSearchParams();
+        params.set('id', id);
+        let options = this.getOptions();
+        options.search = params;
+
+        return this.http.get(this.apiUrl + this.resourceUrl, options)
+                        .map((res) => res.json());
     }
 
     public list(page: number): Observable<PaginatedList<AssetModel>> {
 
         let params = new URLSearchParams();
         params.set('page', page.toString());
-        let options = new RequestOptions();
-
-        options.headers = this.getHeaders();
+        let options = this.getOptions();
         options.search = params;
 
         return this.http.get(this.apiUrl + this.resourceUrl + '/list', options)
                         .map((res) => res.json());
     }
+
+    public delete(asset: AssetModel): Observable<Response> {
+
+        let params = new URLSearchParams();
+        params.set('id', asset._id);
+        let options = this.getOptions();
+        options.search = params;
+
+        return this.http.delete(this.apiUrl + this.resourceUrl, options);
+    }
+
 }

@@ -1,9 +1,10 @@
-import * as path from 'path';
 import * as express from 'express';
+import * as path from 'path';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from'cookie-parser';
 import * as favicon from 'serve-favicon';
+import * as compression from 'compression';
 import { Request, Response, NextFunction } from 'express';
 
 import passport from './passport';
@@ -25,6 +26,7 @@ class Express {
   private configMiddleware(): void {
 
     this.express.use(logger('dev'));
+    this.express.use(compression());
     this.express.use(favicon(path.join(this.execPath, 'public', 'assets', 'icon', 'favicon.ico')));
     this.express.use(express.static(path.join(this.execPath, 'public')));
     this.express.use(bodyParser.json());

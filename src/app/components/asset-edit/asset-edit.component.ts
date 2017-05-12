@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 import { AssetService } from '../../services/asset.service';
@@ -21,27 +21,20 @@ export class AssetEditComponent implements OnInit {
     public form: FormGroup;
     public currencyMask: any;
 
-    constructor (private service: AssetService, private notifyService: NotifyService,
-                 private fb: FormBuilder, private router: Router, public currencyPipe: CurrencyPipe,
-                 private app: AppState) {}
 
-    public ngOnInit(): void {
+    constructor (private service: AssetService, private notify: NotifyService,
+                 private router: Router, private route: ActivatedRoute,
+                 private fb: FormBuilder, public currencyPipe: CurrencyPipe,
+                 private app: AppState) {
 
-        let asset: AssetModel = this.app.get('selectedAsset');
+        this.configForm();
 
-        this.form = this.fb.group({
-            name: [asset ? asset.name : '', Validators.required],
-            description: [asset ? asset.description : '', Validators.required],
-            price: [asset ? asset.price : '', Validators.compose([Validators.required])],
-            imgs: ['']
-        });
-
-        this.currencyMask = createNumberMask({
-            prefix: 'ϝ ',
-            suffix: '',
-            allowDecimal: true
-        });
+        let id = this.route.snapshot.params['id'];
+        if (id)
+            this.read(id);
     }
+
+    public ngOnInit(): void {}
 
     public submit(form: FormGroup) {
 
@@ -54,12 +47,36 @@ export class AssetEditComponent implements OnInit {
             return;
         }
 
-        form.valueChanges.subscribe(() => this.notifyService.removeAll());
+        form.valueChanges.subscribe(() => this.notify.removeAll());
 
         this.service.create(form.value).subscribe(
             (res) => this.router.navigate(['/assets']),
-            (err) => this.notifyService.error('XChanges', 'Something went wrong.'),
-            () => this.notifyService.success('XChanges', 'Asset was successfully created.')
+            (err) => this.notify.error('XChanges', 'Something went wrong.'),
+            () => this.notify.success('XChanges', 'Asset was successfully created.')
+        );
+    }
+
+    private configForm() {
+
+        this.form = this.fb.group({
+            name: ['', Validators.required],
+            description: ['', Validators.required],
+            price: ['', Validators.compose([Validators.required, CustomValidators.number()])],
+            imgs: ['']
+        });
+
+        this.currencyMask = createNumberMask({
+            prefix: 'ϝ ',
+            suffix: '',
+            allowDecimal: true
+        });
+    }
+
+    private read(id: string) {
+
+        this.service.read(id).subscribe(
+            (asset) => this.form.patchValue(asset),
+            (err) => this.notify.error('XChanges', 'Something went wrong.')
         );
     }
 }

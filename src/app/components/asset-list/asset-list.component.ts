@@ -19,24 +19,18 @@ export class AssetListComponent implements OnInit {
 
     public model: PaginatedList<AssetModel> = new PaginatedList<AssetModel>();
 
-    constructor(private service: AssetService, private notifyService: NotifyService, private router: Router, private app: AppState) {}
-
-    public ngOnInit(): void {
+    constructor(private service: AssetService, private notify: NotifyService, private router: Router) {
 
         this.list(1);
     }
+
+    public ngOnInit(): void {}
 
     public list(page: number) {
 
         this.service.list(page).subscribe(
             (list: PaginatedList<AssetModel>) => this.model = list,
-            (err) => this.notifyService.error('Xchanges', 'Something went wrong.')
+            (err) => this.notify.error('Xchanges', 'Something went wrong.')
         );
-    }
-
-    public detail(asset: AssetModel) {
-
-        this.app.set('selectedAsset', asset);
-        this.router.navigate(['/assets/detail']);
     }
 }

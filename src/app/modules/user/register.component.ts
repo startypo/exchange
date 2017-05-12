@@ -15,7 +15,7 @@ export class RegisterComponent {
 
     public form: FormGroup;
 
-    constructor(private service: UserService, private notifyService: NotifyService, private fb: FormBuilder, private router: Router) {
+    constructor(private service: UserService, private notify: NotifyService, private router: Router, private fb: FormBuilder) {
 
         this.form = fb.group({
             name: ['', Validators.required],
@@ -36,17 +36,17 @@ export class RegisterComponent {
             return;
         }
 
-        form.valueChanges.subscribe(() => this.notifyService.removeAll());
+        form.valueChanges.subscribe(() => this.notify.removeAll());
 
         this.service.register(form.value).subscribe(
             (res) => this.router.navigate(['/login']),
             (err) => {
                 if (err.status === 403)
-                    this.notifyService.error('XChanges', 'E-mail is invalid or already taken.');
+                    this.notify.error('XChanges', 'E-mail is invalid or already taken.');
                 else
-                    this.notifyService.error('XChanges', 'Something went wrong.');
+                    this.notify.error('XChanges', 'Something went wrong.');
             },
-            () => this.notifyService.success('XChanges', 'User successfully registered.')
+            () => this.notify.success('XChanges', 'User successfully registered.')
         );
     }
 }

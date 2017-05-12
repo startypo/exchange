@@ -6,6 +6,7 @@ import { PasswordSettings, PasswordLangs } from './passwd/passwd.model';
 import { FileUploaderSettings, FileUploaderLangs } from './fileuploader/fileuploader.model';
 import { SpinnerSettings } from './spinner/spinner.model';
 import { NotifySettings } from './notify/notify.model';
+import { ModalSettings } from './modal/modal.model';
 import { PaginationSettings, PaginationLangs } from './pagination/pagination.model';
 
 @Injectable()
@@ -182,6 +183,17 @@ export class UIService implements OnInit {
         prev: 'Previous',
         next: 'Next',
         last: 'Last'
+    };
+
+    /**
+     * Modal
+     */
+    protected modalSettings: ModalSettings = {
+        label: '',
+        color: 'secondary',
+        size: 'md',
+        modalSize: 'md',
+        icon: null
     };
 
     constructor() {}

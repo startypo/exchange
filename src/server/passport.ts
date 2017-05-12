@@ -43,7 +43,12 @@ export class Passport {
             return true;
 
         let paths: string[] = url.split('/');
-        paths = paths.slice(3);
+        paths.shift();
+        paths.reverse();
+
+        if (paths[0].includes('?'))
+            paths[0] = paths[0].split('?')[0];
+
         let permissions = Passport.permissions[profileName];
         let authorized: boolean = false;
 

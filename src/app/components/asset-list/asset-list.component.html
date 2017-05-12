@@ -16,9 +16,9 @@
             <div class="row my-3">
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of model.docs">
                     <div class="card h-100">
-                        <a [routerLink] (click)="detail(item)"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
+                        <a [routerLink]="['/assets/detail', item._id]"><img class="card-img-top img-fluid" src="http://placehold.it/700x400" alt=""></a>
                         <div class="card-block">
-                            <h4 class="card-title"><a [routerLink] (click)="detail(item)">{{ item.name }}</a></h4>
+                            <h4 class="card-title"><a [routerLink]="['/assets/detail', item._id]">{{ item.name }}</a></h4>
                             <h5>{{ item.price | coin }}</h5>
                             <p class="card-text">{{ item.description }}</p>
                         </div>

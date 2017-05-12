@@ -10,7 +10,7 @@ export class AssetsController extends BaseController {
 
     public list(req: Request, res: Response ): void {
 
-        let query = { owner: req.user.id };
+        let query = { owner: req.user.id, deletedAt: null };
         let pageNumber: number = Number(req.query.page);
         let paginateInfo = { select: 'id name description price createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
 
@@ -27,8 +27,8 @@ export class AssetsController extends BaseController {
 
         this.router.post(Routes.root, Passport.authorize('jwt', this.authOptions), this.create);
         this.router.get(Routes.root, Passport.authorize('jwt', this.authOptions), this.read);
-        this.router.put(Routes.root + ':id', Passport.authorize('jwt', this.authOptions), this.update);
-        this.router.delete(Routes.root + ':id', Passport.authorize('jwt', this.authOptions), this.delete);
+        this.router.put(Routes.root, Passport.authorize('jwt', this.authOptions), this.update);
+        this.router.delete(Routes.root, Passport.authorize('jwt', this.authOptions), this.delete);
 
         this.router.get(Routes.list, Passport.authorize('jwt', this.authOptions), this.list);
     }

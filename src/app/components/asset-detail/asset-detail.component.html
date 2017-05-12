@@ -36,8 +36,10 @@
                     <p class="card-text">{{ model.description }}</p>
                     <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> 4.0 stars
                     <div class="d-flex justify-content-end">
-                        <a [routerLink]="['/assets/edit']" class="btn btn-primary btn-lg"><i class="fa fa-edit"></i> Edit</a>
-                        <button type="button" class="btn btn-danger btn-lg ml-3"><i class="fa fa-trash"></i> Delete</button>
+                        <a [routerLink]="['/assets/edit', model._id]" class="btn btn-primary btn-lg"><i class="fa fa-edit"></i> Edit</a>
+                        <button type="button" class="btn btn-danger btn-lg ml-3" data-toggle="modal" data-target="#confirmDeletion">
+                            <i class="fa fa-trash"></i> Delete
+                        </button>
                     </div>
                 </div>
             </div>
@@ -49,7 +51,7 @@
                 <div class="card-block">
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
                     <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-                    <hr>
+                    <hr>mask
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
                     <small class="text-muted">Posted by Anonymous on 3/1/17</small>
                     <hr>
@@ -65,3 +67,21 @@
     </div>
 </div>
 <!-- /.container -->
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDeletion" tabindex="-1" role="dialog" aria-labelledby="confirmDeletionLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeletionLabel">XChanges</h5>
+      </div>
+      <div class="modal-body">
+        Do you confirm the deletion?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

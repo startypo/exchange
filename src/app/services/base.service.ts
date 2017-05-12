@@ -1,4 +1,4 @@
-import { Headers } from '@angular/http';
+import { Headers, RequestOptions } from '@angular/http';
 import { UserModel } from '../modules/user/user.model';
 
 export class BaseService {
@@ -16,5 +16,13 @@ export class BaseService {
             headers.append('Authorization', 'Bearer ' + user.token);
 
         return headers;
+    }
+
+    protected getOptions(): RequestOptions  {
+
+        let options: RequestOptions = new RequestOptions();
+        options.headers = this.getHeaders();
+
+        return options;
     }
 }

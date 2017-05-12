@@ -55,4 +55,15 @@ export class AssetService extends BaseService {
                         .map((res) => res.json());
     }
 
+    public search(term: string, page: number): Observable<PaginatedList<AssetModel>> {
+
+        let params = new URLSearchParams();
+        params.set('term', term);
+        params.set('page', page.toString());
+        let options = this.getOptions();
+        options.search = params;
+
+        return this.http.get(this.apiUrl + this.resourceUrl + '/search', options)
+                        .map((res) => res.json());
+    }
 }

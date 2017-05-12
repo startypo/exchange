@@ -14,6 +14,7 @@ export const ROUTES: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'assets', component: AssetListComponent, canActivate: [AuthGuard] },
+  { path: 'assets/search/:term', component: AssetListComponent, canActivate: [AuthGuard] },
   { path: 'assets/new', component: AssetEditComponent, canActivate: [AuthGuard] },
   { path: 'assets/detail/:id', component: AssetDetailComponent, canActivate: [AuthGuard] },
   { path: 'assets/edit/:id', component: AssetEditComponent, canActivate: [AuthGuard] },

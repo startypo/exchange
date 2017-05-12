@@ -13,5 +13,6 @@ export const Routes = {
     assets: '/asset',
 
     // methods routes
-    list: '/list'
+    list: '/list',
+    search: '/search'
 };

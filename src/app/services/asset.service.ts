@@ -30,15 +30,8 @@ export class AssetService extends BaseService {
                         .map((res) => res.json());
     }
 
-    public list(page: number): Observable<PaginatedList<AssetModel>> {
-
-        let params = new URLSearchParams();
-        params.set('page', page.toString());
-        let options = this.getOptions();
-        options.search = params;
-
-        return this.http.get(this.apiUrl + this.resourceUrl + '/list', options)
-                        .map((res) => res.json());
+    public update(asset: AssetModel): Observable<Response> {
+        return this.http.put(this.apiUrl + this.resourceUrl, JSON.stringify(asset), this.getOptions());
     }
 
     public delete(asset: AssetModel): Observable<Response> {
@@ -49,6 +42,17 @@ export class AssetService extends BaseService {
         options.search = params;
 
         return this.http.delete(this.apiUrl + this.resourceUrl, options);
+    }
+
+    public list(page: number): Observable<PaginatedList<AssetModel>> {
+
+        let params = new URLSearchParams();
+        params.set('page', page.toString());
+        let options = this.getOptions();
+        options.search = params;
+
+        return this.http.get(this.apiUrl + this.resourceUrl + '/list', options)
+                        .map((res) => res.json());
     }
 
 }

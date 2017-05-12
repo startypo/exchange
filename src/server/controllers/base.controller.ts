@@ -52,22 +52,39 @@ export abstract class BaseController {
 
     protected update = (req: Request, res: Response): void => {
 
-        let id: string = req.params.id;
-        let obj = req.body;
+        let obj: any = req.body;
+        let userId = req.user.id;
 
-        this.model.findByIdAndUpdate(id, obj, (err, doc) => {
+        this.model.findById(obj._id, (err, doc: any) => {
 
             if (err) {
                 res.status(HttpStatus.FORBIDDEN).json();
                 return;
             }
 
+            // If an resource not exist or is excluded, it responds as not found.
             if (!doc || doc.deletedAt) {
                 res.status(HttpStatus.NOT_FOUND).json();
                 return;
             }
 
-            res.status(HttpStatus.OK).json();
+            // If a user is not the owner of the resource, it forbids update.
+            if (doc.owner !== userId) {
+                res.status(HttpStatus.FORBIDDEN).json();
+                return;
+            }
+
+            doc.set(obj);
+
+            doc.save((error, updatedDoc) => {
+
+                if (error) {
+                    res.status(HttpStatus.FORBIDDEN).json();
+                    return;
+                }
+
+                res.status(HttpStatus.OK).json();
+            });
         });
     }
 

@@ -20,7 +20,7 @@ export class AssetEditComponent implements OnInit {
 
     public form: FormGroup;
     public currencyMask: any;
-
+    private id: string;
 
     constructor (private service: AssetService, private notify: NotifyService,
                  private router: Router, private route: ActivatedRoute,
@@ -29,9 +29,9 @@ export class AssetEditComponent implements OnInit {
 
         this.configForm();
 
-        let id = this.route.snapshot.params['id'];
-        if (id)
-            this.read(id);
+        this.id = this.route.snapshot.params['id'];
+        if (this.id)
+            this.read(this.id);
     }
 
     public ngOnInit(): void {}
@@ -49,11 +49,25 @@ export class AssetEditComponent implements OnInit {
 
         form.valueChanges.subscribe(() => this.notify.removeAll());
 
-        this.service.create(form.value).subscribe(
-            (res) => this.router.navigate(['/assets']),
-            (err) => this.notify.error('XChanges', 'Something went wrong.'),
-            () => this.notify.success('XChanges', 'Asset was successfully created.')
-        );
+        if (this.id) {
+
+            let asset: AssetModel = form.value;
+            asset._id = this.id;
+
+            this.service.update(asset).subscribe(
+                (res) => this.router.navigate(['/assets']),
+                (err) => this.notify.error('XChanges', 'Something went wrong.'),
+                () => this.notify.success('XChanges', 'Asset was successfully updated.')
+            );
+
+        } else {
+
+            this.service.create(form.value).subscribe(
+                (res) => this.router.navigate(['/assets']),
+                (err) => this.notify.error('XChanges', 'Something went wrong.'),
+                () => this.notify.success('XChanges', 'Asset was successfully created.')
+            );
+        }
     }
 
     private configForm() {

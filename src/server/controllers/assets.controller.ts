@@ -4,7 +4,7 @@ import HttpStatus  from 'http-status-codes';
 
 import { BaseController } from './base.controller';
 import { Routes } from '../routes';
-import { AssetModel } from '../models/asset.model';
+import { AssetModel, IAssetDocument } from '../models/asset.model';
 
 export class AssetsController extends BaseController {
 
@@ -25,10 +25,27 @@ export class AssetsController extends BaseController {
 
     public search(req: Request, res: Response ): void {
 
-        let term = req.query.term;
-        let query = { deletedAt: null };
-
         let pageNumber: number = +req.query.page;
+        let terms: string[] = (<string> req.query.term).split(' ');
+        let likeRegExps: RegExp[] = [];
+
+        // Add like expression for each term
+        terms.forEach((item, i) => {
+            likeRegExps.push(new RegExp(item, 'i'));
+        });
+
+        let query = {
+
+            deletedAt: null,
+            $or:
+            [{
+                name: { $in: likeRegExps }
+            },
+            {
+                description: { $in: likeRegExps }
+            }]
+        };
+
         let paginateInfo = { select: 'id name description price createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
 
         AssetModel.paginate(query, paginateInfo, (err, result) => {

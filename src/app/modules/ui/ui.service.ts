@@ -66,34 +66,35 @@ export class UIService implements OnInit {
      * Fileuploader
      */
     protected fileuploaderSettings: FileUploaderSettings = {
-        multiple: false,
+        multiple: true,
         color: 'secondary',
         size: 'md',
         filterExtensions: true,
-        allowedExtensions: ['jpg', 'png', 'image/jpeg', 'image/png', 'txt', 'pdf', 'text/plain', 'application/pdf'],
+        allowedExtensions: ['jpg', 'png', 'image/jpeg', 'image/png'],
         imagesExtensions: ['jpg', 'png', 'image/jpeg', 'image/png'],
         filesExtensions: ['txt', 'pdf', 'text/plain', 'application/pdf'],
         showPreview: true,
-        autoupload: false,
+        autoupload: true,
         speedProgress: true,
         xhrMethod: 'POST',
-        xhrUrl: 'http://localhost',
-        xhrCredentials: true,
+        xhrUrl: '/api/v1/file',
+        xhrCredentials: false,
         xhrHeaders: [],
         xhrAuthToken: null,
-        xhrAuthTokenPrefix: '',
-        iconsPath: 'app/resources/img/icons',
+        xhrAuthTokenPrefix: 'Bearer',
+        iconsPath: '',
         viewCounter: false,
         showFilename: false
     };
 
     protected fileuploaderLangs: FileUploaderLangs = {
-        buttonText: 'Upload',
+        addFileButton: '<i class="fa fa-plus" aria-hidden="true"></i> Add',
+        uploadButton: '<i class="fa fa-upload" aria-hidden="true"></i> Upload',
+        clearAllButton: '<i class="fa fa-trash-o" aria-hidden="true"></i> Clear all',
         extensionNotAllowed: 'Extension not allowed to upload',
         zeroBytes: '0 Byte',
         removeFile: '<i class="fa fa-times"></i>',
-        uploadedCounter: 'files is uploaded',
-        clearAll: 'Clear all'
+        uploadedCounter: 'files is uploaded'
     };
 
     /**

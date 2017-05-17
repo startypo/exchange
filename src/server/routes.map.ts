@@ -3,7 +3,7 @@ import { Routes } from './routes';
 
 import UsersController from './controllers/users.controller';
 import AssetsController from './controllers/assets.controller';
-
+import FileController from './controllers/files.controller';
 
 export class RoutesMap {
 
@@ -13,6 +13,7 @@ export class RoutesMap {
 
         router.use(Routes.users, UsersController);
         router.use(Routes.assets, AssetsController);
+        router.use(Routes.files, FileController);
 
         return router;
     }

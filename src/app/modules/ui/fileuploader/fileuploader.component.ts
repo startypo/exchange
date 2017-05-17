@@ -61,13 +61,13 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
     }
 
     public ngDoCheck() {
-        let changes = this.differ.diff(this.files);
+        // let changes = this.differ.diff(this.files);
 
-        if (changes) {
-            changes.forEachAddedItem((file: any) => {
-                this.addToQueue([file.currentValue]);
-            });
-        }
+        // if (changes) {
+        //     changes.forEachAddedItem((file: any) => {
+        //         this.addToQueue([file.currentValue]);
+        //     });
+        // }
     }
 
     public ngOnChanges(changes: any) {
@@ -91,46 +91,42 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
         this.clicked.emit({originalEvent: event});
     }
 
-    public onChange(event: any): void {
+    public onChange(file: any): void {
 
-        if (this.settings.multiple) {
-            this.files.push(...(<any> Array).from(this.fileInput.nativeElement.files));
-        } else {
-            this.files[0] = (<any> Array).from(this.fileInput.nativeElement.files)[0];
-        }
+        if (this.settings.multiple)
+            this.files.push(file);
+        else
+            this.files[0] = file;
+
         if (this.settings.filterExtensions && this.settings.allowedExtensions)
             this.filterByExtension();
-        if (this.files.length) {
-            this.addToQueue(this.files);
-            let files: any = (this.settings.multiple) ? this.files : this.files[0];
-            this.upload.emit({files: files});
-        }
+
+        this.addToQueue(file);
     }
 
-    public addToQueue(files: any[]): void {
+    public addToQueue(file: any): void {
 
         if (!this.settings.multiple)
             this.queueList = [];
 
-        for (let key in files) {
+        if (this.isFile(file) && !this.inQueue(file))
+            this.queueList.push(file);
 
-            if (this.isFile(files[key]) && !this.inQueue(files[key]))
-                this.queueList.push(files[key]);
-        }
-
-        if (this.settings.showPreview) {
-            for (let key in files)
-                this.createFileUrl(files[key]);
-        }
+        if (this.settings.showPreview)
+            this.createFileUrl(file);
 
         if (this.settings.autoupload)
             this.uploadInQueue();
     }
 
     public uploadInQueue(): void {
+
         this.queueList.forEach((file) => {
             this.uploadFile(file);
+            this.upload.emit({file: file});
         });
+
+        this.clearQueue();
     }
 
     public setUploadProgres(progress: Object): void {
@@ -154,7 +150,6 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
 
         form.append(this.name, file, file.name);
 
-        let queueIndex = this.queueList.indexOf(file);
         let loadData: any = null;
 
         xhr.upload.onprogress = (event: ProgressEvent) => {
@@ -189,12 +184,16 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
 
         xhr.send(form);
 
-        this.uploadDone.emit(loadData);
+        xhr.onreadystatechange = () => {
+
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
+                 this.uploadDone.emit(JSON.parse(xhr.response));
+        };
     }
 
     public progressData(event: ProgressEvent): any {
 
-        let data: any;
+        let data: any = {};
 
         data.total = event.total;
         data.time = new Date().getTime() - data.time;
@@ -245,6 +244,7 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
     }
 
     public removeFromQueue(index: number): void {
+
         this.remove.emit({file: this.files[index], files: this.files});
 
         this.queueList.splice(index, 1);

@@ -4,8 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 import { AssetService } from '../../services/asset.service';
-import { AppState } from '../../app.service';
 import { NotifyService } from '../../modules/ui/notify';
+import { UserService } from '../../modules/user/user.service';
 import { CustomValidators } from '../../modules/ui/validate';
 import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
 import { AssetModel } from '../../models/asset.model';
@@ -25,7 +25,7 @@ export class AssetEditComponent implements OnInit {
     constructor (private service: AssetService, private notify: NotifyService,
                  private router: Router, private route: ActivatedRoute,
                  private fb: FormBuilder, public currencyPipe: CurrencyPipe,
-                 private app: AppState) {
+                 public userService: UserService) {
 
         this.configForm();
 
@@ -70,13 +70,20 @@ export class AssetEditComponent implements OnInit {
         }
     }
 
+    public uploadDone(filename: string): void {
+
+        let asset: AssetModel = this.form.value;
+        asset.imgs.push(filename);
+        this.form.patchValue(asset);
+    }
+
     private configForm() {
 
         this.form = this.fb.group({
             name: ['', Validators.required],
             description: ['', Validators.required],
             price: ['', Validators.compose([Validators.required, CustomValidators.number()])],
-            imgs: ['']
+            imgs: [[]]
         });
 
         this.currencyMask = createNumberMask({
@@ -89,7 +96,10 @@ export class AssetEditComponent implements OnInit {
     private read(id: string) {
 
         this.service.read(id).subscribe(
-            (asset) => this.form.patchValue(asset),
+            (asset) => {
+
+                this.form.patchValue(asset);
+            },
             (err) => this.notify.error('XChanges', 'Something went wrong.')
         );
     }

@@ -39,7 +39,8 @@ let schema = BaseModel.createSchema({
         type: String,
         ref: 'users',
         required: true
-    }
+    },
+    imgs: []
 });
 
 schema.plugin(paginate);

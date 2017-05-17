@@ -57,7 +57,6 @@ export class AssetsController extends BaseController {
         });
     }
 
-
     protected config(): void {
 
         this.router.post(Routes.root, Passport.authorize('jwt', this.authOptions), this.create);

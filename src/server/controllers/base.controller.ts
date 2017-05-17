@@ -7,10 +7,10 @@ export abstract class BaseController {
     public router: Router = Router();
 
     protected authOptions = {
-        session: true
+        session: false
     };
 
-    constructor(protected model: IModel<IDocument>) {
+    constructor(protected model?: IModel<IDocument>) {
         this.config();
     }
 
@@ -55,7 +55,7 @@ export abstract class BaseController {
         let obj: any = req.body;
         let userId = req.user.id;
 
-        this.model.findById(obj._id, (err, doc: any) => {
+        this.model.findById(obj.id, (err, doc: any) => {
 
             if (err) {
                 res.status(HttpStatus.FORBIDDEN).json();

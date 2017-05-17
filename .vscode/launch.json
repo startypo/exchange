@@ -5,11 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "chrome",
             "type": "chrome",
-            "request": "launch",
-            "name": "Launch Chrome",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceRoot}/dist/*.js"
+            "request": "attach",
+            "port": 9222,
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}",
+            "urlFilter": "http://localhost:3000*",
+            "sourceMapPathOverrides": { "webpack:///./src/*": "${workspaceRoot}/src/*" },
+            "trace": true
         },
         {
             "type": "node2",

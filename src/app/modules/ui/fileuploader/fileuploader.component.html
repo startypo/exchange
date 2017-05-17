@@ -1,5 +1,6 @@
 <div class="fileuploader" [class.fileuploader_multiple]="settings.multiple">
-    <input class="form-control fileuploader__input" #fileInput type="file" [name]="name" [multiple]="settings.multiple" [(ngModel)]="fileValue" (change)="onChange($event)">
+    <input class="form-control fileuploader__input" #fileInput type="file" [name]="name" 
+           [multiple]="settings.multiple" [(ngModel)]="fileValue" (change)="onChange($event.target.files[0])">
     
     <span *ngIf="files.length && settings.viewCounter" class="fileuploader__count-uploaded">{{ files.length }} {{ langs.uploadedCounter }}</span>
     <div class="fileuploader__previews" *ngIf="files.length && settings.showPreview">
@@ -11,6 +12,7 @@
             <button type="button" class="btn btn-danger fileuploader__remove" (click)="removeFromQueue(i)" [innerHtml]="langs.removeFile"></button>
         </div>
     </div>
-    <button type="button" class="btn btn-{{ settings.size }} btn-{{ settings.color }}" (click)="viewUploadDialog($event)" [innerHtml]="langs.buttonText"></button>
-    <button type="button" class="btn btn-danger btn-{{ settings.size }}" (click)="clearAll()" *ngIf="files.length" [innerHtml]="langs.clearAll"></button>
+    <button type="button" class="btn btn-{{ settings.size }} btn-{{ settings.color }}" (click)="viewUploadDialog($event)" [innerHtml]="langs.addFileButton"></button>
+    <button type="button" class="btn btn-success btn-{{ settings.size }}" *ngIf="!settings.autoupload" (click)="uploadInQueue()" [innerHtml]="langs.uploadButton"></button>
+    <button type="button" class="btn btn-danger btn-{{ settings.size }}" (click)="clearAll()" *ngIf="files.length" [innerHtml]="langs.clearAllButton"></button>
 </div>

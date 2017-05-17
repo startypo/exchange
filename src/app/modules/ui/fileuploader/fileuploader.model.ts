@@ -21,10 +21,11 @@ export interface FileUploaderSettings {
 }
 
 export interface FileUploaderLangs {
-    buttonText?: string;
+    addFileButton?: string;
+    uploadButton?: string;
+    clearAllButton?: string;
     extensionNotAllowed?: string;
     zeroBytes?: string;
     removeFile?: string;
     uploadedCounter?: string;
-    clearAll?: string;
 }

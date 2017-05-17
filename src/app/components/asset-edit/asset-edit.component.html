@@ -29,8 +29,8 @@
       <div class="d-flex flex-column w-50">
         <div class="form-group">
           <label for="fileupload">Images</label>
-          <fileuploader formControlName="imgs" ngDefaultControl
-                        [settings]="{multiple: true, color: 'primary', allowedExtensions: ['jpg', 'jpeg', 'image/jpeg']}">
+          <fileuploader [settings]="{color: 'primary', allowedExtensions: ['jpg', 'jpeg', 'image/jpeg'], xhrAuthToken: userService.user.token }" 
+                        (uploadDone)="uploadDone($event.filename)" name="img">
           </fileuploader>
         </div>
       </div>

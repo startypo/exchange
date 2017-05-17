@@ -31,7 +31,8 @@
       "mongoose",
       "mongodb",
       "http-status-codes",
-      "mongoose-paginate"
+      "mongoose-paginate",
+      "redis"
     ]
   },
   "exclude": [

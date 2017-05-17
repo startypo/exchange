@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from '../../app.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CropperSettings } from 'ng2-img-cropper';
 
 import { AssetService } from '../../services/asset.service';
 import { NotifyService } from '../../modules/ui/notify/notify.service';
@@ -16,6 +17,7 @@ import { UserService } from '../../modules/user/user.service';
 export class AssetDetailComponent implements OnInit {
 
     public model: AssetModel = new AssetModel();
+    public cropperSettings: CropperSettings;
 
     constructor(private service: AssetService, private notify: NotifyService,
                 public userService: UserService, private router: Router,
@@ -25,6 +27,24 @@ export class AssetDetailComponent implements OnInit {
 
         if (id)
             this.read(id);
+
+        // this.cropperSettings = new CropperSettings();
+        // this.cropperSettings.width = 1120;
+        // this.cropperSettings.height = 440;
+
+        // this.cropperSettings.croppedWidth = 1120;
+        // this.cropperSettings.croppedHeight = 440;
+
+        // this.cropperSettings.canvasWidth = 1120;
+        // this.cropperSettings.canvasHeight = 440;
+
+        // this.cropperSettings.minWidth = 1120;
+        // this.cropperSettings.minHeight = 440;
+
+        // this.cropperSettings.rounded = false;
+
+        // this.cropperSettings.cropperDrawSettings.strokeColor = 'rgba(255,255,255,1)';
+        // this.cropperSettings.cropperDrawSettings.strokeWidth = 2;
     }
 
     public ngOnInit(): void {}

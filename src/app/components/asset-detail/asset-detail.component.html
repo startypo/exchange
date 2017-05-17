@@ -6,18 +6,21 @@
             <div class="card mt-4">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
-                        <li *ngFor="let img of model.imgs; let i = index" data-target="#carouselExampleIndicators" data-slide-to="i" [class.active]="i === 0"></li>
+                        <li *ngFor="let img of model.imgs; let i = index" data-target="#carouselExampleIndicators" 
+                             data-slide-to="i" [class.active]="i === 0">
+                        </li>
                     </ol>
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active" *ngFor="let img of model.imgs; let i = index" [class.active]="i === 0">
-                            <img class="d-block card-img-top img-fluid img-asset-detail" src="/api/v1/file?id={{img}}" alt="Slide {{i}}"> <!-- 1120x440-->
+                    <div class="carousel-inner asset-detail-carousel" role="listbox">
+                        <div class="carousel-item" *ngFor="let img of model.imgs; let i = index" [class.active]="i === 0">
+                            <img class="d-block card-img-top img-fluid mx-auto" src="/api/v1/file?id={{img}}" alt="Slide {{i}}"> 
+                            <!--  [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight" 1120x440-->
                         </div>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" *ngIf="model.imgs.length > 1">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
                     </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" *ngIf="model.imgs.length > 1">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>

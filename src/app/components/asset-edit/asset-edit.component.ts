@@ -75,6 +75,7 @@ export class AssetEditComponent implements OnInit {
         let asset: AssetModel = this.form.value;
         asset.imgs.push(filename);
         this.form.patchValue(asset);
+        this.form.controls.imgs.markAsDirty();
     }
 
     private configForm() {
@@ -83,7 +84,7 @@ export class AssetEditComponent implements OnInit {
             name: ['', Validators.required],
             description: ['', Validators.required],
             price: ['', Validators.compose([Validators.required, CustomValidators.number()])],
-            imgs: [[]]
+            imgs: [[], Validators.required]
         });
 
         this.currencyMask = createNumberMask({

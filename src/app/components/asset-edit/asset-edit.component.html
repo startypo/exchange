@@ -28,10 +28,11 @@
       </div>
       <div class="d-flex flex-column w-50">
         <div class="form-group">
-          <label for="fileupload">Images</label>
+          <label for="fileupload" [class.text-danger]="form.controls.imgs.invalid && form.controls.imgs.dirty">Images</label>
           <fileuploader [settings]="{color: 'primary', allowedExtensions: ['jpg', 'jpeg', 'image/jpeg'], xhrAuthToken: userService.user.token }" 
                         (uploadDone)="uploadDone($event.filename)" name="img">
           </fileuploader>
+          <div *ngIf="form.controls.imgs.invalid && form.controls.imgs.dirty" class="form-control-feedback text-danger">Field is required</div>
         </div>
       </div>
     </div>

@@ -14,7 +14,7 @@ export abstract class BaseController {
         this.config();
     }
 
-    protected create = (req: Request, res: Response): void => {
+    protected create(req: Request, res: Response): void {
 
         let obj = req.body;
         obj.owner = req.user.id;
@@ -30,7 +30,7 @@ export abstract class BaseController {
         });
     }
 
-    protected read = (req: Request, res: Response): void => {
+    protected read(req: Request, res: Response): void {
 
         let id: string = req.query.id;
 
@@ -50,7 +50,7 @@ export abstract class BaseController {
         });
     }
 
-    protected update = (req: Request, res: Response): void => {
+    protected update(req: Request, res: Response): void {
 
         let obj: any = req.body;
         let userId = req.user.id;
@@ -88,7 +88,7 @@ export abstract class BaseController {
         });
     }
 
-    protected delete = (req: Request, res: Response): void => {
+    protected delete(req: Request, res: Response): void {
 
         let id: string = req.query.id;
         let userId = req.user.id;

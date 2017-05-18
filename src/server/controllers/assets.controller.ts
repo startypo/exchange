@@ -46,7 +46,7 @@ export class AssetsController extends BaseController {
             }]
         };
 
-        let paginateInfo = { select: 'id name description price createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
+        let paginateInfo = { select: 'id name description price imgs createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
 
         AssetModel.paginate(query, paginateInfo, (err, result) => {
 

@@ -8,7 +8,6 @@ import { BaseController } from './base.controller';
 import { Routes } from '../routes';
 import { DBConnection } from '../db.connection';
 
-
 export class FileController extends BaseController {
 
     public upload(req: any, res: Response): void {
@@ -20,6 +19,10 @@ export class FileController extends BaseController {
 
         let execPath = process.env.NODE_ENV === 'production' ?  path.resolve() : path.dirname(process.mainModule.filename);
         res.status(HttpStatus.OK).sendFile(path.join(execPath, 'uploads', req.query.id));
+    }
+
+    public delete(req: any, res: Response): void {
+        res.status(HttpStatus.OK).json();
     }
 
     protected config(): void {

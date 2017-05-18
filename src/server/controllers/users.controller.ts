@@ -8,6 +8,11 @@ import { UserModel, IUserDocument } from '../models/user.model';
 
 export class UsersController extends BaseController {
 
+    constructor() {
+        super(UserModel);
+        this.config();
+    }
+
     public login(req: Request, res: Response ): void {
 
         let params = req.body;
@@ -52,7 +57,7 @@ export class UsersController extends BaseController {
         });
     }
 
-    protected config() {
+    protected config(): void {
 
         this.router.delete(Routes.root + ':id', this.delete);
 
@@ -61,5 +66,3 @@ export class UsersController extends BaseController {
         this.router.post(Routes.register, this.register);
     }
 }
-
-export default new UsersController(UserModel).router;

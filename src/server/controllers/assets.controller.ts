@@ -8,6 +8,11 @@ import { AssetModel, IAssetDocument } from '../models/asset.model';
 
 export class AssetsController extends BaseController {
 
+    constructor() {
+        super(AssetModel);
+        this.config();
+    }
+
     public list(req: Request, res: Response ): void {
 
         let query = { owner: req.user.id, deletedAt: null };
@@ -68,5 +73,3 @@ export class AssetsController extends BaseController {
         this.router.get(Routes.search, Passport.authorize('jwt', this.authOptions), this.search);
     }
 }
-
-export default new AssetsController(AssetModel).router;

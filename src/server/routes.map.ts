@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { Routes } from './routes';
 
-import UsersController from './controllers/users.controller';
-import AssetsController from './controllers/assets.controller';
-import FileController from './controllers/files.controller';
+import { UsersController } from './controllers/users.controller';
+import { AssetsController } from './controllers/assets.controller';
+import { FileController } from './controllers/files.controller';
 
 export class RoutesMap {
 
@@ -11,9 +11,9 @@ export class RoutesMap {
 
         let router = Router();
 
-        router.use(Routes.users, UsersController);
-        router.use(Routes.assets, AssetsController);
-        router.use(Routes.files, FileController);
+        router.use(Routes.users, new UsersController().router);
+        router.use(Routes.assets, new AssetsController().router);
+        router.use(Routes.files, new FileController().router);
 
         return router;
     }

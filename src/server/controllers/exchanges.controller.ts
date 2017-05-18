@@ -7,6 +7,11 @@ import { Routes } from '../routes';
 
 export class ExchangesController extends BaseController {
 
+    constructor() {
+        super();
+        this.config();
+    }
+
     protected config(): void {
 
         this.router.post(Routes.root, this.create);

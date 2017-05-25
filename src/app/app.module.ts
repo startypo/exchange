@@ -19,6 +19,7 @@ import { ModalModule } from './modules/ui/modal';
 import { MaskedInputModule } from './modules/ui/masked-input';
 import { NotifyModule, NotifyService } from './modules/ui/notify';
 import { UIService } from './modules/ui/ui.service';
+import { FileService } from './modules/ui/fileuploader/file.service';
 
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './components/no-content';
@@ -61,7 +62,7 @@ type StoreType = {
            ],
   providers: [
                ENV_PROVIDERS, APP_PROVIDERS,
-               UserService, UIService, AuthGuard, AssetService, NotifyService
+               UserService, UIService, AuthGuard, AssetService, NotifyService, FileService
              ]
 })
 export class AppModule {

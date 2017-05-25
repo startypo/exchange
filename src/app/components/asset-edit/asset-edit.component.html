@@ -3,7 +3,7 @@
     <h2>New Asset</h2>
     <hr class="w-100">
   </div>
-  <div novalidate [formGroup]="form" role="form" (keyup.enter)="submit(form)">
+  <div novalidate [formGroup]="form" role="form">
     <div class="d-flex flex-row justify-content-between mt-3">
       <div class="d-flex flex-column w-50 mr-5">
         <div class="form-group">
@@ -29,8 +29,9 @@
       <div class="d-flex flex-column w-50">
         <div class="form-group">
           <label for="fileupload" [class.text-danger]="form.controls.imgs.invalid && form.controls.imgs.dirty">Images</label>
-          <fileuploader [settings]="{color: 'primary', allowedExtensions: ['jpg', 'jpeg', 'image/jpeg'], xhrAuthToken: userService.user.token }" 
-                        (uploadDone)="uploadDone($event.filename)" name="img">
+          <fileuploader [settings]="{ authToken: userService.user.token }" name="img"
+                        (uploadDone)="uploadDone($event)" (uploadError)="uploadError()"
+                        (remove)="remove($event)" (rejected)="rejected($event)">
           </fileuploader>
           <div *ngIf="form.controls.imgs.invalid && form.controls.imgs.dirty" class="form-control-feedback text-danger">Field is required</div>
         </div>

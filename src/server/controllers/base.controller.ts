@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response, NextFunction, Router } from 'express';
 import HttpStatus  from 'http-status-codes';
 import { IDocument, IModel } from 'mongoose';
 
@@ -10,7 +10,7 @@ export abstract class BaseController {
 
     constructor(protected model?: IModel<IDocument>) {}
 
-    protected create = (req: Request, res: Response): void => {
+    protected create = (req: Request, res: Response, next: NextFunction): void => {
 
         let obj = req.body;
         obj.owner = req.user.id;

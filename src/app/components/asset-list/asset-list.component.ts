@@ -1,11 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AppState } from '../../app.service';
+import { Subscription } from 'rxjs';
 
 import { NotifyService } from '../../modules/ui/notify';
 import { AssetService } from '../../services/asset.service';
 import { PaginatedList } from '../../models/paginated-list.model';
-import { AssetModel } from '../../models/asset.model';
+import { Asset } from '../../models/asset.model';
 import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
 
 @Component({
@@ -15,55 +15,59 @@ import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
     styleUrls: ['asset-list.component.css']
 })
 
-export class AssetListComponent implements OnDestroy {
+export class AssetListComponent implements OnInit, OnDestroy {
 
-    public model: PaginatedList<AssetModel> = new PaginatedList<AssetModel>();
+    public model: PaginatedList<Asset> = new PaginatedList<Asset>();
     public term: string;
-    public sub: any;
+
+    private onParams: Subscription;
+    private onList: Subscription;
+    private onSearch: Subscription;
+    private onError: Subscription;
 
     constructor(private service: AssetService, private notify: NotifyService,
-                private router: Router, private route: ActivatedRoute) {
+                private router: Router, private route: ActivatedRoute) {}
+
+    public ngOnInit(): void {
+
+        this.onSearch = this.service.onSearch.subscribe(
+            (assets: PaginatedList<Asset>) => this.model = assets
+        );
+
+        this.onList = this.service.onList.subscribe(
+            (assets: PaginatedList<Asset>) => this.model = assets
+        );
+
+        this.onError = this.service.onError.subscribe(
+            (err) => this.notify.error('Xchanges', 'Something went wrong.')
+        );
 
         this.term = this.route.snapshot.params['term'];
 
         if (this.term) {
-
-            this.sub = this.route.params.subscribe(params => {
+            this.onParams = this.route.params.subscribe(params => {
                 this.term = params['term'];
-                this.search(1, this.term);
+                this.service.search(this.term, 1);
             });
-
         } else
-            this.listUserAssets(1);
+            this.service.list(1);
     }
 
     public ngOnDestroy(): void {
 
-        if (this.sub)
-            this.sub.unsubscribe();
+        if (this.onParams)
+            this.onParams.unsubscribe();
+
+        this.onList.unsubscribe();
+        this.onSearch.unsubscribe();
+        this.onError.unsubscribe();
     }
 
     public paginate(page: number, term?: string) {
 
         if (term)
-            this.search(page, term);
+            this.service.search(term, page);
         else
-            this.listUserAssets(page);
-    }
-
-    private listUserAssets(page: number) {
-
-        this.service.list(page).subscribe(
-            (list: PaginatedList<AssetModel>) => this.model = list,
-            (err) => this.notify.error('Xchanges', 'Something went wrong.')
-        );
-    }
-
-    private search(page: number, term: string) {
-
-        this.service.search(term, page).subscribe(
-            (search: PaginatedList<AssetModel>) => this.model = search,
-            (err) => this.notify.error('Xchanges', 'Something went wrong.')
-        );
+            this.service.list(page);
     }
 }

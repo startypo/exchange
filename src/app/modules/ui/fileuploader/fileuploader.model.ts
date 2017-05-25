@@ -1,7 +1,7 @@
 export interface FileUploaderSettings {
     color?: string;
     size?: string;
-    multiple?: boolean;
+    maxNumberOfFiles?: number;
     filterExtensions?: boolean;
     allowedExtensions?: string[];
     imagesExtensions?: string[];
@@ -9,12 +9,12 @@ export interface FileUploaderSettings {
     showPreview?: boolean;
     autoupload?: boolean;
     speedProgress?: boolean;
-    xhrMethod?: string;
-    xhrUrl?: string;
-    xhrCredentials?: boolean;
-    xhrHeaders?: string[];
-    xhrAuthToken?: string;
-    xhrAuthTokenPrefix?: string;
+    url?: string;
+    query?: string;
+    credentials?: boolean;
+    headers?: string[];
+    authToken?: string;
+    authTokenPrefix?: string;
     iconsPath?: string;
     viewCounter?: boolean;
     showFilename?: boolean;
@@ -28,4 +28,5 @@ export interface FileUploaderLangs {
     zeroBytes?: string;
     removeFile?: string;
     uploadedCounter?: string;
+    maxNumberOfFiles?: string;
 }

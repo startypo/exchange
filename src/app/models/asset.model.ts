@@ -1,4 +1,4 @@
-export class AssetModel {
+export class Asset {
 
     public id: string = '';
     public name: string = '';

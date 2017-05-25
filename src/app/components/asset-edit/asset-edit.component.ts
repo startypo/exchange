@@ -1,14 +1,18 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
 import { AssetService } from '../../services/asset.service';
 import { NotifyService } from '../../modules/ui/notify';
 import { UserService } from '../../modules/user/user.service';
+import { FileService } from '../../modules/ui/fileuploader/file.service';
 import { CustomValidators } from '../../modules/ui/validate';
 import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
-import { AssetModel } from '../../models/asset.model';
+import { Asset } from '../../models/asset.model';
+
+import { ReadHttpError } from '../../services/http-errors';
 
 @Component({
     selector: 'asset-edit',
@@ -16,25 +20,76 @@ import { AssetModel } from '../../models/asset.model';
     styleUrls: ['asset-edit.component.css']
 })
 
-export class AssetEditComponent implements OnInit {
+export class AssetEditComponent implements OnInit, OnDestroy {
 
     public form: FormGroup;
+    public model: Asset = new Asset();
     public currencyMask: any;
-    private id: string;
+    public files: any[] = [];
 
-    constructor (private service: AssetService, private notify: NotifyService,
-                 private router: Router, private route: ActivatedRoute,
-                 private fb: FormBuilder, public currencyPipe: CurrencyPipe,
-                 public userService: UserService) {
+    private onCreate: Subscription;
+    private onRead: Subscription;
+    private onUpdate: Subscription;
+    private onRemove: Subscription;
+    private onError: Subscription;
+
+    constructor (private service: AssetService, public userService: UserService,
+                 private notify: NotifyService, private fileService: FileService,
+                 private router: Router, private route: ActivatedRoute, 
+                 private fb: FormBuilder, public currencyPipe: CurrencyPipe) {
 
         this.configForm();
-
-        this.id = this.route.snapshot.params['id'];
-        if (this.id)
-            this.read(this.id);
     }
 
-    public ngOnInit(): void {}
+    public ngOnInit(): void {
+
+        this.onCreate = this.service.onCreate.subscribe(
+            asset => {
+                this.notify.success('XChanges', 'Asset was successfully created.');
+                this.router.navigate(['/assets']);
+            }
+        );
+
+        this.onRead = this.service.onRead.subscribe((asset: Asset) => {
+            this.form.patchValue(asset);
+            asset.imgs.forEach(filename => this.fileService.download(filename));
+        });
+
+        this.onUpdate = this.service.onUpdate.subscribe(
+            asset => {
+                this.notify.success('XChanges', 'Asset was successfully updated.');
+                this.router.navigate(['/assets']);
+            }
+        );
+
+        this.onRemove = this.fileService.onRemove.subscribe(
+            (filename: string) => {
+
+                let asset: Asset = this.form.value;
+                let index = asset.imgs.indexOf(filename);
+                asset.imgs.splice(index, 1);
+                this.form.patchValue(asset);
+            }
+        );
+
+        this.onError = this.service.onError.subscribe(
+            err => this.notify.error('XChanges', 'Something went wrong.')
+        );
+
+        this.model.id = this.route.snapshot.params['id'];
+
+        if (this.model.id)
+            this.service.read(this.model.id);
+    }
+
+    public ngOnDestroy(): void {
+
+        this.onCreate.unsubscribe();
+        this.onRead.unsubscribe();
+        this.onUpdate.unsubscribe();
+        this.onRemove.unsubscribe();
+        this.onError.unsubscribe();
+    }
 
     public submit(form: FormGroup) {
 
@@ -48,34 +103,28 @@ export class AssetEditComponent implements OnInit {
         }
 
         form.valueChanges.subscribe(() => this.notify.removeAll());
+        (<any> Object).assign(this.model, form.value);
 
-        if (this.id) {
-
-            let asset: AssetModel = form.value;
-            asset.id = this.id;
-
-            this.service.update(asset).subscribe(
-                (res) => this.router.navigate(['/assets']),
-                (err) => this.notify.error('XChanges', 'Something went wrong.'),
-                () => this.notify.success('XChanges', 'Asset was successfully updated.')
-            );
-
-        } else {
-
-            this.service.create(form.value).subscribe(
-                (res) => this.router.navigate(['/assets']),
-                (err) => this.notify.error('XChanges', 'Something went wrong.'),
-                () => this.notify.success('XChanges', 'Asset was successfully created.')
-            );
-        }
+        if (this.model.id)
+            this.service.update(this.model);
+        else
+            this.service.create(this.model);
     }
 
-    public uploadDone(filename: string): void {
+    public uploadDone(event: any): void {
 
-        let asset: AssetModel = this.form.value;
-        asset.imgs.push(filename);
+        let asset: Asset = this.form.value;
+        asset.imgs.push(event.filename);
         this.form.patchValue(asset);
         this.form.controls.imgs.markAsDirty();
+    }
+
+    public uploadError(event: any) {
+        this.notify.error('File Upload', 'Something went wrong.');
+    }
+
+    public rejected(event: any) {
+        this.notify.warning('File Upload', event.reason);
     }
 
     private configForm() {
@@ -92,16 +141,5 @@ export class AssetEditComponent implements OnInit {
             suffix: '',
             allowDecimal: true
         });
-    }
-
-    private read(id: string) {
-
-        this.service.read(id).subscribe(
-            (asset) => {
-
-                this.form.patchValue(asset);
-            },
-            (err) => this.notify.error('XChanges', 'Something went wrong.')
-        );
     }
 }

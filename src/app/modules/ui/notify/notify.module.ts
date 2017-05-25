@@ -22,5 +22,5 @@ const COMPONENTS = [
     exports: COMPONENTS
 })
 export class NotifyModule {
-    static forRoot(): ModuleWithProviders { return {ngModule: NotifyModule, providers: [NotifyService]}; }
+    public static forRoot(): ModuleWithProviders { return {ngModule: NotifyModule, providers: [NotifyService]}; }
 }

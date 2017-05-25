@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 export class Config {
 
     public static security = {
@@ -26,4 +28,8 @@ export class Config {
         hash: 'teste1234b%[fScj#',
         profile: 'admin'
     };
+
+    public static uploadPath = path.join(process.env.NODE_ENV === 'production' ?
+                               path.resolve() :
+                               path.dirname(process.mainModule.filename), 'uploads');
 }

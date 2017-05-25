@@ -66,22 +66,22 @@ export class UIService implements OnInit {
      * Fileuploader
      */
     protected fileuploaderSettings: FileUploaderSettings = {
-        multiple: true,
-        color: 'secondary',
+
+        color: 'primary',
         size: 'md',
+        maxNumberOfFiles: 5,
         filterExtensions: true,
-        allowedExtensions: ['jpg', 'png', 'image/jpeg', 'image/png'],
         imagesExtensions: ['jpg', 'png', 'image/jpeg', 'image/png'],
         filesExtensions: ['txt', 'pdf', 'text/plain', 'application/pdf'],
         showPreview: true,
         autoupload: true,
         speedProgress: true,
-        xhrMethod: 'POST',
-        xhrUrl: '/api/v1/file',
-        xhrCredentials: false,
-        xhrHeaders: [],
-        xhrAuthToken: null,
-        xhrAuthTokenPrefix: 'Bearer',
+        url: '/api/v1/file',
+        query: 'filename',
+        credentials: false,
+        headers: [],
+        authToken: null,
+        authTokenPrefix: 'Bearer',
         iconsPath: '',
         viewCounter: false,
         showFilename: false
@@ -91,10 +91,11 @@ export class UIService implements OnInit {
         addFileButton: '<i class="fa fa-plus" aria-hidden="true"></i> Add',
         uploadButton: '<i class="fa fa-upload" aria-hidden="true"></i> Upload',
         clearAllButton: '<i class="fa fa-trash-o" aria-hidden="true"></i> Clear all',
-        extensionNotAllowed: 'Extension not allowed to upload',
-        zeroBytes: '0 Byte',
         removeFile: '<i class="fa fa-times"></i>',
-        uploadedCounter: 'files is uploaded'
+        zeroBytes: '0 Byte',
+        uploadedCounter: 'files is uploaded',
+        extensionNotAllowed: 'Extension is not allowed to upload',
+        maxNumberOfFiles: 'The maximum number of files is ' + this.fileuploaderSettings.maxNumberOfFiles
     };
 
     /**

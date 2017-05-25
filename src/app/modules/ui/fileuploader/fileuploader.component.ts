@@ -1,5 +1,8 @@
-import { Component, OnInit, OnChanges, DoCheck, Input, Output, EventEmitter, ElementRef, ViewChild, KeyValueDiffers } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ElementRef, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
+
 import { FileUploaderSettings, FileUploaderLangs } from './fileuploader.model';
+import { FileService } from './file.service';
 import { UIService } from '../ui.service';
 
 @Component({
@@ -7,19 +10,19 @@ import { UIService } from '../ui.service';
     templateUrl: 'fileuploader.component.html',
     styleUrls: ['fileuploader.component.css']
 })
-export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
+export class FileUploaderComponent implements OnInit, OnChanges {
 
     @Input() public name: string = '';
     @Input() public disabled: boolean;
     @Input() public settings: FileUploaderSettings;
     @Input() public langs: FileUploaderLangs;
-    @Input() public files: any = [];
+    @Input() public files: any[] = [];
 
     @Output() public clicked: EventEmitter<any> = new EventEmitter();
     @Output() public rejected: EventEmitter<any> = new EventEmitter();
     @Output() public preview: EventEmitter<any> = new EventEmitter();
     @Output() public remove: EventEmitter<any> = new EventEmitter();
-    @Output() public upload: EventEmitter<any> = new EventEmitter();
+    @Output() public uploadStart: EventEmitter<any> = new EventEmitter();
     @Output() public uploadProgress: EventEmitter<any> = new EventEmitter();
     @Output() public uploadAbort: EventEmitter<any> = new EventEmitter();
     @Output() public uploadError: EventEmitter<any> = new EventEmitter();
@@ -27,7 +30,6 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
 
     @ViewChild('fileInput') public fileInput: ElementRef;
 
-    public fileValue: any;
     public previewPrefix: string = 'preview';
 
     protected queueList: any[] = [];
@@ -45,29 +47,22 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
     protected abort: boolean = false;
     protected defaultSettings: FileUploaderSettings;
     protected defaultLangs: FileUploaderLangs;
-    protected differ: any;
 
-    constructor(private el: ElementRef, private differs: KeyValueDiffers, private uiService: UIService) {
+    constructor(private el: ElementRef, private uiService: UIService, private service: FileService) {
 
         this.defaultSettings = uiService.getSettings('fileuploader');
         this.defaultLangs = uiService.getLangs('fileuploader');
 
-        this.differ = differs.find({}).create(null);
+        this.service.onDownload.subscribe((file: File) => {
+                this.files.push(file);
+                this.createFilePreview(file);
+        });
     }
 
     public ngOnInit() {
+
         this.settings = (<any> Object).assign({}, this.defaultSettings, this.settings);
         this.langs = (<any> Object).assign({}, this.defaultLangs, this.langs);
-    }
-
-    public ngDoCheck() {
-        // let changes = this.differ.diff(this.files);
-
-        // if (changes) {
-        //     changes.forEachAddedItem((file: any) => {
-        //         this.addToQueue([file.currentValue]);
-        //     });
-        // }
     }
 
     public ngOnChanges(changes: any) {
@@ -83,47 +78,49 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
         }
     }
 
-    public viewUploadDialog(event: any): void {
+    public showUploadDialog(): void {
         this.fileInput.nativeElement.click();
     }
 
     public onClick(event: any): void {
-        this.clicked.emit({originalEvent: event});
+        this.clicked.emit({ originalEvent: event });
     }
 
     public onChange(file: any): void {
 
-        if (this.settings.multiple)
-            this.files.push(file);
+        if (this.isMaxNumberOfFiles()) {
+            this.rejected.emit({ file: file, reason: this.langs.maxNumberOfFiles });
+            return;
+        }
+
+        if (!this.fileIsAllowed(file)) {
+            this.rejected.emit({ file: file, reason: this.langs.extensionNotAllowed });
+            return;
+        }
+
+        if (this.settings.autoupload)
+            this.uploadFile(file);
         else
-            this.files[0] = file;
+            this.addToQueue(file);
+    }
 
-        if (this.settings.filterExtensions && this.settings.allowedExtensions)
-            this.filterByExtension();
-
-        this.addToQueue(file);
+    public isMaxNumberOfFiles() {
+        return this.files.length === this.settings.maxNumberOfFiles;
     }
 
     public addToQueue(file: any): void {
 
-        if (!this.settings.multiple)
-            this.queueList = [];
-
-        if (this.isFile(file) && !this.inQueue(file))
+        if (!this.inQueue(file))
             this.queueList.push(file);
 
         if (this.settings.showPreview)
-            this.createFileUrl(file);
-
-        if (this.settings.autoupload)
-            this.uploadInQueue();
+            this.createFilePreview(file);
     }
 
     public uploadInQueue(): void {
 
         this.queueList.forEach((file) => {
             this.uploadFile(file);
-            this.upload.emit({file: file});
         });
 
         this.clearQueue();
@@ -170,25 +167,41 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
             this.uploadError.emit(loadData);
         };
 
-        xhr.open(this.settings.xhrMethod, this.settings.xhrUrl, true);
-        xhr.withCredentials = this.settings.xhrCredentials;
+        xhr.open('POST', this.settings.url, true);
+        xhr.withCredentials = this.settings.credentials;
 
-        if (this.settings.xhrHeaders.length) {
-            Object.keys(this.settings.xhrHeaders).forEach((key) => {
-                xhr.setRequestHeader(key, this.settings.xhrHeaders[key]);
+        if (this.settings.headers.length) {
+            Object.keys(this.settings.headers).forEach((key) => {
+                xhr.setRequestHeader(key, this.settings.headers[key]);
             });
         }
 
-        if (this.settings.xhrAuthToken)
-            xhr.setRequestHeader('Authorization', `${this.settings.xhrAuthTokenPrefix} ${this.settings.xhrAuthToken}`);
+        if (this.settings.authToken)
+            xhr.setRequestHeader('Authorization', `${this.settings.authTokenPrefix} ${this.settings.authToken}`);
 
+        this.uploadStart.emit({ file: file });
         xhr.send(form);
 
         xhr.onreadystatechange = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
-                 this.uploadDone.emit(JSON.parse(xhr.response));
+                let res = JSON.parse(xhr.response);
+
+                file.id = res.id;
+                this.files.push(file);
+                if (this.settings.showPreview && this.settings.autoupload)
+                    this.createFilePreview(file);
+
+                this.uploadDone.emit({ filename: res.filename });
+            }
         };
+    }
+
+    public removeFile(index: number): void {
+
+        let file: File = this.files[index];
+        this.files.splice(index, 1);
+        this.service.remove(file.name);
     }
 
     public progressData(event: ProgressEvent): any {
@@ -200,14 +213,14 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
         data.loaded = event.loaded;
         data.load = event.loaded - data.load;
         data.speed = data.load / data.time * 1000;
-        data.speed = parseInt(<any> data.speed, 10);
+        data.speed = parseInt(<any>data.speed, 10);
         data.convertedSpeed = this.convertBytes(data.speed);
         data.percent = Math.round(event.loaded / event.total * 100);
 
         return data;
     }
 
-    public createFileUrl(file: File): void {
+    public createFilePreview(file: File): void {
 
         let reader: FileReader = new FileReader();
 
@@ -224,31 +237,23 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
                 let extIndex = file.type.lastIndexOf('/');
                 renderResult = this.settings.iconsPath + '/' + file.type.substring(extIndex + 1) + '.png';
                 fileEl.setAttribute('src', renderResult);
-                this.preview.emit({url: renderResult});
+                this.preview.emit({ url: renderResult });
             } else {
                 renderResult = '';
-                this.preview.emit({url: renderResult});
+                this.preview.emit({ url: renderResult });
             }
         });
 
         reader.readAsDataURL(file);
     }
 
-    public isFile(file: any): boolean {
-        return file !== null && (file instanceof Blob || (file.name && file.size));
-    }
+    // public isFile(file: any): boolean {
+    //     return file !== null && (file instanceof Blob || (file.name && file.size));
+    // }
 
     public inQueue(file: any): boolean {
         let fileInQueue = this.queueList.filter((f) => { return f === file; });
         return fileInQueue.length ? true : false;
-    }
-
-    public removeFromQueue(index: number): void {
-
-        this.remove.emit({file: this.files[index], files: this.files});
-
-        this.queueList.splice(index, 1);
-        this.files.splice(index, 1);
     }
 
     public clearQueue(): void {
@@ -256,29 +261,24 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
     }
 
     public clearAll(): void {
-        this.clearQueue();
-        this.files = [];
-    }
 
-    public getQueueLength(): number {
-        return this.queueList.length;
-    }
-
-    public filterByExtension(): void {
-
-        this.files = this.files.filter((file: any) => {
-
-            let extension: string = file.name.split('.').pop();
-            if (this.extensionIsAllow(file.type) || this.extensionIsAllow(extension))
-                return true;
-            this.rejected.emit({file: file, reason: this.langs.extensionNotAllowed});
-            return false;
+        this.files.forEach(file => {
+            this.service.remove(file.name);
         });
+
+        this.files = [];
+        this.clearQueue();
     }
 
-    public extensionIsAllow(extension: string): boolean {
+    // public getQueueLength(): number {
+    //     return this.queueList.length;
+    // }
 
-        if (this.settings.allowedExtensions.indexOf(extension) !== -1 )
+    public fileIsAllowed(file: any): boolean {
+
+        let extension: string = file.name.split('.').pop();
+        if (this.fileExtensionIsAllow(file.type) || this.fileExtensionIsAllow(extension) ||
+            this.imageExtensionIsAllow(file.type) || this.imageExtensionIsAllow(file.type))
             return true;
 
         return false;
@@ -286,7 +286,7 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
 
     public fileExtensionIsAllow(extension: string): boolean {
 
-        if (this.settings.filesExtensions.indexOf(extension) !== -1 )
+        if (this.settings.filesExtensions.indexOf(extension) !== -1)
             return true;
 
         return false;
@@ -294,7 +294,7 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
 
     public imageExtensionIsAllow(extension: string): boolean {
 
-        if (this.settings.imagesExtensions.indexOf(extension) !== -1 )
+        if (this.settings.imagesExtensions.indexOf(extension) !== -1)
             return true;
 
         return false;
@@ -312,6 +312,6 @@ export class FileUploaderComponent implements OnInit, OnChanges, DoCheck {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i] + '/s';
     }
 
-    protected onTouchedCallback: () => void = () => {};
-    protected onChangeCallback: (_: any) => void = () => {};
+    protected onTouchedCallback: () => void = () => { };
+    protected onChangeCallback: (_: any) => void = () => { };
 }

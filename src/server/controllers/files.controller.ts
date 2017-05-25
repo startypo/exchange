@@ -4,16 +4,14 @@ import HttpStatus  from 'http-status-codes';
 import * as multer from 'multer';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as mime from 'mime';
+import * as crypto from 'crypto';
 
 import { BaseController } from './base.controller';
 import { Routes } from '../routes';
-import { DBConnection } from '../db.connection';
+import { Config } from '../config';
 
 export class FileController extends BaseController {
-
-    private uploadPath = path.join(process.env.NODE_ENV === 'production' ?
-                         path.resolve() :
-                         path.dirname(process.mainModule.filename), 'uploads');
 
     constructor() {
         super();
@@ -22,17 +20,37 @@ export class FileController extends BaseController {
 
     public create = (req: any, res: Response): void => {
 
-        res.status(HttpStatus.OK).json({ filename: req.file.filename });
+        let uploadPath = path.join(Config.uploadPath, req.user.id);
+
+        let upload = multer({ storage: multer.diskStorage({
+                destination: uploadPath,
+                filename: (request, file, cb) => {
+                    let extension = path.extname(file.originalname);
+                    extension = extension.length > 1 ? extension : '.' + mime.extension(file.mimetype);
+                    crypto.pseudoRandomBytes(16, function (err, raw) {
+                            cb(err, err ? undefined : raw.toString('hex') + extension);
+                    });
+                }
+            })
+        }).single('img');
+
+        upload(req, res, (err) => {
+            res.status(HttpStatus.OK).json({ filename: req.file.filename });
+        });
     }
 
     public read = (req: any, res: Response): void => {
 
-        res.status(HttpStatus.OK).sendFile(path.join(this.uploadPath, req.query.filename));
+        let filePath = path.join(Config.uploadPath, req.query.filename);
+        let mimeType = mime.lookup(filePath);
+        res.setHeader('Content-type', mimeType);
+
+        res.download(path.join(Config.uploadPath, req.query.filename), req.query.filename);
     }
 
     public delete = (req: any, res: Response): void => {
 
-        let filePath = path.join(this.uploadPath, req.query.filename);
+        let filePath = path.join(Config.uploadPath, req.query.filename);
 
         fs.access(filePath, fs.constants.W_OK, (err) => {
 
@@ -55,9 +73,7 @@ export class FileController extends BaseController {
 
     protected config(): void {
 
-        let file = multer({ dest: this.uploadPath });
-
-        this.router.post(Routes.root, Passport.authorize('jwt', this.authOptions), file.single('img'), this.create);
+        this.router.post(Routes.root, Passport.authorize('jwt', this.authOptions), this.create);
         this.router.get(Routes.root, this.read);
         this.router.delete(Routes.root, Passport.authorize('jwt', this.authOptions), this.delete);
     }

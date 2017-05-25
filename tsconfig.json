@@ -32,7 +32,8 @@
       "mongodb",
       "http-status-codes",
       "mongoose-paginate",
-      "redis"
+      "redis",
+      "multer"
     ]
   },
   "exclude": [

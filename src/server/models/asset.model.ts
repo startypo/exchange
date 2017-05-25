@@ -11,6 +11,7 @@ export interface IAssetDocument extends IDocument {
     name: string;
     description: string;
     price: number;
+    imgs: string[];
     owner: IUserDocument | string;
 }
 
@@ -40,7 +41,7 @@ let schema = BaseModel.createSchema({
         ref: 'users',
         required: true
     },
-    imgs: []
+    imgs: [String]
 });
 
 schema.plugin(paginate);

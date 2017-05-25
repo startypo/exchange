@@ -120,6 +120,7 @@
     "@types/mongodb": "^2.1.41",
     "@types/mongoose": "^4.7.9",
     "@types/mongoose-paginate": "^5.0.4",
+    "@types/multer": "0.0.33",
     "@types/node": "^7.0.0",
     "@types/passport": "^0.3.3",
     "@types/passport-jwt": "^2.0.19",

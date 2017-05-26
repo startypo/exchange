@@ -28,7 +28,9 @@ import { HomeComponent } from './components/home';
 import { AssetListComponent } from './components/asset-list';
 import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
+import { CreditsComponent } from './components/credits/credits.component';
 import { AssetService } from './services/asset.service';
+
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -52,7 +54,7 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
                   AppComponent, NoContentComponent, NavMenuComponent, HomeComponent,
-                  AssetListComponent, AssetDetailComponent, AssetEditComponent
+                  AssetListComponent, AssetDetailComponent, AssetEditComponent, CreditsComponent
                 ],
   imports: [
              BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,

@@ -13,11 +13,11 @@ export class Config {
 
         user: 'xchs_user',
         passwd: 'JT#H\a]&:D52YmjF',
-        connString: process.env.NODE_ENV === 'production' ? 'mongodb://104.41.61.154:27017/xchs' : 'mongodb://172.17.0.2:27017/xchs'
+        connString: process.env.NODE_ENV === 'production' ? 'mongodb://104.41.45.249:27017/xchs' : 'mongodb://172.17.0.2:27017/xchs'
     };
 
     public static redis = {
-        url: process.env.NODE_ENV === 'production' ? 'redis://104.41.61.154:6379' : 'redis://172.17.0.3:6379'
+        url: process.env.NODE_ENV === 'production' ? 'redis://104.41.45.249:6379' : 'redis://172.17.0.3:6379'
     };
 
     public static adminUser = {

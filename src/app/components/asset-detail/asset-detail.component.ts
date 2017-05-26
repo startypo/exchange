@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AppState } from '../../app.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -25,10 +24,7 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
 
     constructor(private service: AssetService, private notify: NotifyService,
                 public userService: UserService, private router: Router,
-                private route: ActivatedRoute, private app: AppState) {
-
-
-    }
+                private route: ActivatedRoute) {}
 
     public ngOnInit(): void {
 

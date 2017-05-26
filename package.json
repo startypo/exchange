@@ -108,10 +108,12 @@
     "tether": "^1.4.0",
     "text-mask-addons": "^3.5.1",
     "text-mask-core": "^5.0.1",
+    "videogular2": "^5.3.0",
     "zone.js": "^0.7.7"
   },
   "devDependencies": {
     "@angular/compiler-cli": "2.4.6",
+    "@types/core-js": "^0.9.41",
     "@types/express": "^4.0.35",
     "@types/hammerjs": "^2.0.33",
     "@types/http-status-codes": "^1.0.29",

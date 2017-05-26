@@ -10,6 +10,11 @@ import { ROUTES } from './app.routes';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
+import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+import { VgBufferingModule } from 'videogular2/buffering';
+
 import { UserModule, UserService, AuthGuard } from './modules/user';
 import { FileUploaderModule } from './modules/ui/fileuploader';
 import { EditorModule } from './modules/ui/editor';
@@ -30,7 +35,6 @@ import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
 import { CreditsComponent } from './components/credits/credits.component';
 import { AssetService } from './services/asset.service';
-
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -59,7 +63,8 @@ type StoreType = {
   imports: [
              BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,
              UserModule, FileUploaderModule, EditorModule, ValidateModule, NotifyModule,
-             MaskedInputModule, PaginationModule, ModalModule,
+             MaskedInputModule, PaginationModule, ModalModule, VgCoreModule, VgControlsModule,
+             VgOverlayPlayModule, VgBufferingModule,
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
   providers: [

@@ -11,7 +11,7 @@ export class CurrencyPipe implements PipeTransform {
     private PREFIX: string = 'ϝ ';
 
     public transform(value: number | string, fractionSize: number = 2): string {
-        let [ integer, fraction = '' ] = (value || '').toString()
+        let [ integer, fraction = '' ] = (value).toString()
         .split(this.DECIMAL_SEPARATOR);
 
         fraction = fractionSize > 0

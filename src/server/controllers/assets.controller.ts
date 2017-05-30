@@ -112,7 +112,7 @@ export class AssetsController extends BaseController {
 
         let doc: IAssetDocument = req.body;
 
-        this.model.findById(doc.id, (findErr, asset: IAssetDocument) => {
+        this.model.findById(doc.id).populate('owner').exec((findErr, asset: IAssetDocument) => {
 
             if (findErr) {
                 res.status(HttpStatus.FORBIDDEN).json();
@@ -126,7 +126,7 @@ export class AssetsController extends BaseController {
             }
 
             // If a user is not the owner of the resource, it forbids update.
-            if (asset.owner !== req.user.id) {
+            if (asset.owner.id !== req.user.id) {
                 res.status(HttpStatus.FORBIDDEN).json();
                 return;
             }

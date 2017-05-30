@@ -3,6 +3,7 @@ import { Routes } from './routes';
 
 import { UsersController } from './controllers/users.controller';
 import { AssetsController } from './controllers/assets.controller';
+import { HandsController } from './controllers/hands.controller';
 import { FileController } from './controllers/files.controller';
 
 export class RoutesMap {
@@ -11,9 +12,15 @@ export class RoutesMap {
 
         let router = Router();
 
-        router.use(Routes.users, new UsersController().router);
-        router.use(Routes.assets, new AssetsController().router);
-        router.use(Routes.files, new FileController().router);
+        let usersController = new UsersController().router;
+        let assetsController = new AssetsController().router;
+        let handsController = new HandsController().router;
+        let filesController = new FileController().router;
+
+        router.use(Routes.users, usersController);
+        router.use(Routes.assets, assetsController);
+        router.use(Routes.hands, handsController);
+        router.use(Routes.files, filesController);
 
         return router;
     }

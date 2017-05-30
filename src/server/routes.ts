@@ -11,6 +11,7 @@ export const Routes = {
     // controllers routes
     exchanges: '/exchange',
     assets: '/asset',
+    hands: '/hand',
     files: '/file',
 
     // methods routes

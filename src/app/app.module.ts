@@ -25,6 +25,8 @@ import { MaskedInputModule } from './modules/ui/masked-input';
 import { NotifyModule, NotifyService } from './modules/ui/notify';
 import { UIService } from './modules/ui/ui.service';
 import { FileService } from './modules/ui/fileuploader/file.service';
+import { AssetService } from './services/asset.service';
+import { HandService } from './services/hand.service';
 
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './components/no-content';
@@ -34,7 +36,7 @@ import { AssetListComponent } from './components/asset-list';
 import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
 import { CreditsComponent } from './components/credits/credits.component';
-import { AssetService } from './services/asset.service';
+
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -69,7 +71,7 @@ type StoreType = {
            ],
   providers: [
                ENV_PROVIDERS, APP_PROVIDERS,
-               UserService, UIService, AuthGuard, AssetService, NotifyService, FileService
+               UserService, UIService, AuthGuard, AssetService, HandService, NotifyService, FileService
              ]
 })
 export class AppModule {

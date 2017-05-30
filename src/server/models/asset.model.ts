@@ -2,8 +2,7 @@ import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
 import paginate  from 'mongoose-paginate';
 
 import { DBConnection } from '../db.connection';
-import { UserSchema, IUserDocument } from './user.model';
-import { IUser } from '../../domain.interfaces';
+import { IUserDocument } from './user.model';
 import { BaseModel } from './base.model';
 
 export interface IAssetDocument extends IDocument {
@@ -12,7 +11,7 @@ export interface IAssetDocument extends IDocument {
     description: string;
     price: number;
     imgs: string[];
-    owner: IUserDocument | string;
+    owner: IUserDocument;
 }
 
 export interface IAssetModel extends IModel<IAssetDocument> {
@@ -37,7 +36,7 @@ let schema = BaseModel.createSchema({
         required: true
     },
     owner: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: 'users',
         required: true
     },
@@ -46,4 +45,4 @@ let schema = BaseModel.createSchema({
 
 schema.plugin(paginate);
 
-export const AssetModel = <IAssetModel> DBConnection.createConnection('AssetModel').model<IAssetDocument>('assets', schema);
+export const AssetModel = <IAssetModel> DBConnection.getConnection().model<IAssetDocument>('assets', schema);

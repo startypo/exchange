@@ -51,7 +51,7 @@ export abstract class BaseController {
         let obj: any = req.body;
         let userId = req.user.id;
 
-        this.model.findById(obj.id, (err, doc: any) => {
+        this.model.findById(obj.id).populate('owner').exec((err, doc: any) => {
 
             if (err) {
                 res.status(HttpStatus.FORBIDDEN).json();
@@ -65,7 +65,7 @@ export abstract class BaseController {
             }
 
             // If a user is not the owner of the resource, it forbids update.
-            if (doc.owner !== userId) {
+            if (doc.owner.id !== userId) {
                 res.status(HttpStatus.FORBIDDEN).json();
                 return;
             }
@@ -89,7 +89,7 @@ export abstract class BaseController {
         let id: string = req.query.id;
         let userId = req.user.id;
 
-        this.model.findById(id, (err, doc: any) => {
+        this.model.findById(id).populate('owner').exec((err, doc: any) => {
 
             if (err) {
                 res.status(HttpStatus.FORBIDDEN).json();
@@ -103,7 +103,7 @@ export abstract class BaseController {
             }
 
             // If a user is not the owner of the resource, it forbids deletion.
-            if (doc.owner !== userId) {
+            if (doc.owner.id !== userId) {
                 res.status(HttpStatus.FORBIDDEN).json();
                 return;
             }

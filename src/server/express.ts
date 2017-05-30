@@ -9,7 +9,6 @@ import { Request, Response, NextFunction } from 'express';
 
 import passport from './passport';
 import{ RoutesMap } from './routes.map';
-import { DBConnection } from './db.connection';
 
 class Express {
 
@@ -31,8 +30,8 @@ class Express {
     this.express.use(compression());
     this.express.use(favicon(path.join(this.execPath, 'public', 'assets', 'icon', 'favicon.ico')));
     this.express.use(express.static(path.join(this.execPath, 'public')));
-    this.express.use(bodyParser.json({ limit: '20mb' }));
-    this.express.use(bodyParser.urlencoded({ limit: '20mb', extended: true }));
+    this.express.use(bodyParser.json({ limit: '6mb' }));
+    this.express.use(bodyParser.urlencoded({ limit: '12mb', extended: true }));
     this.express.use(cookieParser());
     this.express.use(passport.initialize());
   }

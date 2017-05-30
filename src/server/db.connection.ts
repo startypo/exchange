@@ -5,19 +5,22 @@ import { Config } from './config';
 
 export class DBConnection {
 
-    public static createConnection(model: string): mongoose.Connection {
+    public static getConnection(): mongoose.Connection {
 
-        const conn = mongoose.createConnection(Config.db.connString, (err) => {
+        if (this.conn)
+            return this.conn;
+
+        this.conn = mongoose.createConnection(Config.db.connString, (err) => {
 
             if (err) {
                 console.log(err);
                 return;
             }
 
-            console.log('Mongoose: ' + model + ' connected at: %s', Config.db.connString);
+            console.log('Mongoose: connected at: %s', Config.db.connString);
         });
 
-        return conn;
+        return this.conn;
     }
 
     public static connectToRedis(): void {
@@ -37,4 +40,5 @@ export class DBConnection {
     }
 
     private static redisClient: RedisClient;
+    private static conn: mongoose.Connection;
 }

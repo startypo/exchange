@@ -6,13 +6,13 @@
             <div class="card mt-4">
                 <div>
                     <vg-player (onPlayerReady)="onPlayerReady($event)" class="d-flex justify-content-center video-display">
+                        <vg-overlay-play [vgFor]="video"></vg-overlay-play>
+                        <video [vgMedia]="media" #media id="video1" preload="auto" controls>
+                             <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
+                        </video>
                         <vg-controls  [vgFor]="video">
                              <vg-time-display [vgFor]="video" [vgProperty]="'current'" [vgFormat]="'mm:ss'"></vg-time-display>
                         </vg-controls>
-                        <vg-overlay-play [vgFor]="video"></vg-overlay-play>
-                        <video [vgMedia]="media" #media id="video" preload="auto" controls>
-                            <source src="assets/videos/uber.mp4" type="video/mp4">
-                        </video>
                     </vg-player>
                 </div>
                 <div class="card-block">
@@ -21,6 +21,7 @@
                         To receive credits just see the ads of our partners. 
                         While you watch the videos, we will credit your account for the time-related credits.
                     </p>
+                    <span class="text-info">{{ model.amount | coin }}</span>
                 </div>
             </div>
         </div>

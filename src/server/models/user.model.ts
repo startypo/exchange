@@ -5,6 +5,8 @@ import { IUser } from '../../domain.interfaces';
 import { Config } from '../config';
 import { DBConnection } from '../db.connection';
 import { BaseModel } from './base.model';
+import { IHandDocument, HandModel } from './hand.model';
+import { IAssetDocument } from './asset.model';
 
 export interface IUserDocument extends IDocument {
 
@@ -13,6 +15,8 @@ export interface IUserDocument extends IDocument {
     passwdDigest: string;
     salt: string;
     profile: string;
+    hand: IHandDocument;
+    assets: IAssetDocument[];
 
     secureUser(passwd: string): void;
     verifyPassword(passwd: string): boolean;
@@ -52,7 +56,15 @@ let schema = BaseModel.createSchema({
     profile: {
         type: String,
         required: true
-    }
+    },
+    hand: {
+        type: Schema.Types.ObjectId,
+        ref: 'hands'
+    },
+    assets: [{
+        type: Schema.Types.ObjectId,
+        ref: 'assets'
+    }]
 });
 
 
@@ -91,7 +103,6 @@ schema.statics.register = function(newUser, callback): void {
     let model: IUserModel = this;
 
     model.findOne({ email: newUser.email })
-             .exec()
              .then((user) => {
 
                 if (user)
@@ -101,11 +112,11 @@ schema.statics.register = function(newUser, callback): void {
                 user.secureUser(newUser.passwd);
                 return user.save();
 
-             }).catch((err) => {
-                 callback(err, null);
-             }).then((user) => {
-                callback(null, user);
-             });
+             })
+             .catch((err) => callback(err, null))
+             .then((user: IUserDocument) => HandModel.create({ amount: 0, owner: user.id }))
+             .catch((err) => callback(err, null))
+             .then(hand => callback(null, hand));
 };
 
 schema.methods.createToken = function(): string {
@@ -145,9 +156,9 @@ schema.methods.verifyPassword = function(passwd: string): boolean {
     return doc.passwdDigest === passwd + doc.salt;
 };
 
-const conn = DBConnection.createConnection('UserModel');
+const conn = DBConnection.getConnection();
+
 export const UserModel = <IUserModel> conn.model<IUserDocument>('users', schema);
-export const UserSchema = schema;
 
 conn.once('open', () => {
 

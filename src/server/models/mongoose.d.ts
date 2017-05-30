@@ -10,9 +10,7 @@ declare module 'mongoose' {
     }
 
     // statics
-    export interface IModel<T extends IDocument> extends Model<T> {
-        findOrCreate(conditions: any, document: any, options?: any, callback?: (err: any, found: any, created: boolean) => void): void;
-    }
+    export interface IModel<T extends IDocument> extends Model<T> {}
 
     export interface ISchema extends Schema {}
  

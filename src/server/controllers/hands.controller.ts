@@ -37,11 +37,23 @@ export class HandsController extends BaseController {
 
     protected update = (req: Request, res: Response): void => {
 
-        let watchTime: number = +req.body.time;
+        this.model.findOne({ owner: req.user.id }, (err, hand: IHandDocument) => {
 
-        
+            if (err)
+                res.status(HttpStatus.FORBIDDEN).json();
 
-        res.status(HttpStatus.OK).json({ amount: 3.49 });
+            hand.credit(+req.body.time);
+
+            hand.save((error, updated) => {
+
+                if (error) {
+                    res.status(HttpStatus.FORBIDDEN).json();
+                    return;
+                }
+
+                res.status(HttpStatus.OK).json({ amount: updated.amount });
+            });
+        });
     }
 
     protected config(): void {

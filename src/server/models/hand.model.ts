@@ -31,5 +31,16 @@ let schema = BaseModel.createSchema({
     }
 });
 
+schema.methods.credit = function(time: number): void {
+
+    let minutes: number = time / 60;
+    let value: number = minutes * 0.25;
+    this.amount += +value.toFixed(2);
+};
+
+schema.methods.debit = function(value: number): void {
+    this.amount -= value;
+};
+
 export const HandModel = <IHandModel> DBConnection.getConnection().model<IHandDocument>('hands', schema);
 

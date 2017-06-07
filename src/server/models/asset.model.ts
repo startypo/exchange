@@ -40,6 +40,10 @@ let schema = BaseModel.createSchema({
         ref: 'users',
         required: true
     },
+    exchange: {
+        type: Schema.Types.ObjectId,
+        ref: 'exchanges'
+    },
     imgs: [String]
 });
 

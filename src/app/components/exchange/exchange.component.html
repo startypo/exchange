@@ -1,0 +1,37 @@
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3">
+            <h1 class="my-4">Filters</h1>
+            <div class="list-group">
+                <a href="#" class="list-group-item">Category</a>
+            </div>
+        </div>
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-9 my-4">
+            <div class="row justify-content-between">
+                <pagination class="ml-3" [settings]="{max: 5}" [(ngModel)]="model.page" [total]="model.pages"  (selected)="paginate($event.page, term)"></pagination>
+            </div>
+            <div class="row my-3">
+                <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of model.docs">
+                    <div class="card h-100">
+                        <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="" alt=""></a>
+                        <div class="card-block">
+                            <h4 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h4>
+                            <h5>{{ item.price | coin }}</h5>
+                            <p class="card-text">{{ item.description }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <pagination [settings]="{max: 5}" [(ngModel)]="model.page" [total]="model.pages" class="ml-3" (selected)="paginate($event.page, term)"></pagination>
+        </div>
+        <!-- /.col-lg-9 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->

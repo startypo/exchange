@@ -10,7 +10,8 @@ export class Passport {
         user: [
             { route: Routes.assets, methods: ['*'] },
             { route: Routes.files, methods: ['post'] },
-            { route: Routes.hands, methods: ['get', 'put'] }
+            { route: Routes.hands, methods: ['get', 'put'] },
+            { route: Routes.exchanges, methods: ['get', 'post'] }
         ]
     };
 

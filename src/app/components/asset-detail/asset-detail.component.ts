@@ -4,9 +4,12 @@ import { Subscription } from 'rxjs';
 
 
 import { AssetService } from '../../services/asset.service';
-import { NotifyService } from '../../modules/ui/notify/notify.service';
-import { Asset } from '../../models/asset.model';
+import { ExchangeService } from '../../services/exchange.service';
 import { UserService } from '../../modules/user/user.service';
+import { NotifyService } from '../../modules/ui/notify/notify.service';
+
+import { Asset } from '../../models/asset.model';
+
 
 @Component({
     selector: 'asset-detail',
@@ -21,10 +24,12 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
     private onRead: Subscription;
     private onDelete: Subscription;
     private onError: Subscription;
+    private onExchangeCreate: Subscription;
+    private onExchangeError: Subscription;
 
-    constructor(private service: AssetService, private notify: NotifyService,
-                public userService: UserService, private router: Router,
-                private route: ActivatedRoute) {}
+    constructor(private service: AssetService, private exchangeService: ExchangeService,
+                private notify: NotifyService, public userService: UserService,
+                private router: Router, private route: ActivatedRoute) {}
 
     public ngOnInit(): void {
 
@@ -39,6 +44,10 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
 
         this.onError = this.service.onError.subscribe(
             (err) => this.notify.error('XChanges', 'Something went wrong.')
+        );
+
+        this.onExchangeCreate = this.exchangeService.onCreate.subscribe(
+            () => console.log('criou a troca!')
         );
 
         let id = this.route.snapshot.params['id'];
@@ -56,5 +65,9 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
 
     public delete() {
         this.service.delete(this.model.id);
+    }
+
+    public exchange() {
+        this.exchangeService.create(this.model.id);
     }
 }

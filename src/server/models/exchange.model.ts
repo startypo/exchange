@@ -1,32 +1,49 @@
 import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
 
 import { DBConnection } from '../db.connection';
-import { IUserDocument } from './user.model';
 import { BaseModel } from './base.model';
+import { IUserDocument } from './user.model';
+import { IAssetDocument } from './asset.model';
 
+
+export class Status {
+
+    public static initiated = new Status('I');
+    public static sent = new Status('S');
+    public static received = new Status('R');
+
+    constructor(private value: string){}
+
+    public toString() {
+        return this.value;
+    }
+}
 
 export interface IExchangeDocument extends IDocument {
 
-
+    asset: IAssetDocument | string;
+    receiver: IUserDocument | string;
+    status: Status;
 }
 
-export interface IExchangeModel extends IModel<IExchangeDocument> {
-
-}
+export interface IExchangeModel extends IModel<IExchangeDocument> {}
 
 let schema = BaseModel.createSchema({
 
-    buyer: {
+    asset: {
+        type: Schema.Types.ObjectId,
+        required: true
+    },
+    receiver: {
         type: String,
         ref: 'users',
         required: true
     },
-    seller: {
+    status: {
         type: String,
-        ref: 'users',
-        required: true
-    },
-    value: Number
+        required: true,
+        default: Status.initiated
+    }
 });
 
-export const AssetModel = <IExchangeModel> DBConnection.getConnection().model<IExchangeDocument>('exchange', schema);
+export const ExchangeModel = <IExchangeModel> DBConnection.getConnection().model<IExchangeDocument>('exchanges', schema);

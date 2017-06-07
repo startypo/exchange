@@ -39,6 +39,12 @@ schema.methods.credit = function(time: number): void {
 };
 
 schema.methods.debit = function(value: number): void {
+
+    if (value > this.amount) {
+        let err = new Error('Value to debit is bigger than amount.');
+        err.name = 'Invalid argument';
+    }
+
     this.amount -= value;
 };
 

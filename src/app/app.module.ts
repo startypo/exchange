@@ -27,6 +27,7 @@ import { UIService } from './modules/ui/ui.service';
 import { FileService } from './modules/ui/fileuploader/file.service';
 import { AssetService } from './services/asset.service';
 import { HandService } from './services/hand.service';
+import { ExchangeService } from './services/exchange.service';
 
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './components/no-content';
@@ -36,6 +37,7 @@ import { AssetListComponent } from './components/asset-list';
 import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
 import { CreditsComponent } from './components/credits/credits.component';
+import { ExchangeComponent } from './components/exchange/exchange.component';
 
 
 import '../styles/styles.scss';
@@ -60,7 +62,8 @@ type StoreType = {
   bootstrap: [ AppComponent ],
   declarations: [
                   AppComponent, NoContentComponent, NavMenuComponent, HomeComponent,
-                  AssetListComponent, AssetDetailComponent, AssetEditComponent, CreditsComponent
+                  AssetListComponent, AssetDetailComponent, AssetEditComponent,
+                  CreditsComponent, ExchangeComponent
                 ],
   imports: [
              BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,
@@ -71,7 +74,7 @@ type StoreType = {
            ],
   providers: [
                ENV_PROVIDERS, APP_PROVIDERS,
-               UserService, UIService, AuthGuard, AssetService, HandService, NotifyService, FileService
+               UserService, AssetService, HandService, ExchangeService, UIService, AuthGuard, NotifyService, FileService
              ]
 })
 export class AppModule {

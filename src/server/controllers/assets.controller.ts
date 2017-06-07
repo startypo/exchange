@@ -19,7 +19,7 @@ export class AssetsController extends BaseController {
 
     public list(req: Request, res: Response ): void {
 
-        let query = { owner: req.user.id, deletedAt: null };
+        let query = { owner: req.user.id, deletedAt: null, exchange: null };
         let pageNumber: number = +req.query.page;
         let paginateInfo = { select: 'id name description price imgs createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
 
@@ -46,6 +46,7 @@ export class AssetsController extends BaseController {
         let query = {
 
             deletedAt: null,
+            exchange: null,
             $or:
             [{
                 name: { $in: likeRegExps }

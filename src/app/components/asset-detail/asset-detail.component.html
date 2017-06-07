@@ -37,14 +37,15 @@
                                 data-toggle="modal" data-target="#confirmDeletion" *ngIf="userService.isOwner(model.owner)">
                             <i class="fa fa-trash"></i> Delete
                         </button>
-                        <button type="button" class="btn btn-success btn-lg ml-3" *ngIf="!userService.isOwner(model.owner)">
+                        <button type="button" class="btn btn-success btn-lg ml-3" 
+                                 data-toggle="modal" data-target="#confirmExchange" *ngIf="!userService.isOwner(model.owner)">
                             <i class="fa fa-shopping-cart"></i> Exchange
                         </button>
                     </div>
                 </div>
             </div>
             <!-- /.card -->
-            <div class="card card-outline-secondary my-4">
+            <!--<div class="card card-outline-secondary my-4">
                 <div class="card-header">
                     Product Reviews
                 </div>
@@ -60,7 +61,7 @@
                     <hr>
                     <a href="#" class="btn btn-success">Leave a Review</a>
                 </div>
-            </div>
+            </div>-->
             <!-- /.card -->
         </div>
         <!-- /.col-lg-9 -->
@@ -68,7 +69,7 @@
 </div>
 <!-- /.container -->
 
-<!-- Modal -->
+<!-- Modals -->
 <div class="modal fade" id="confirmDeletion" tabindex="-1" role="dialog" aria-labelledby="confirmDeletionLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -81,6 +82,23 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="confirmExchange" tabindex="-1" role="dialog" aria-labelledby="confirmDeletionLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeletionLabel">XChanges</h5>
+      </div>
+      <div class="modal-body">
+        Do you confirm the exchange?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="exchange()">Yes</button>
       </div>
     </div>
   </div>

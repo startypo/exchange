@@ -8,11 +8,9 @@ import { NotifyService } from '../../modules/ui/notify';
 
 import { PaginatedList } from '../../models/paginated-list.model';
 import { Exchange } from '../../models/exchange.model';
-import { Asset } from '../../models/asset.model';
 import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
 
 @Component({
-
     selector: 'exchange',
     templateUrl: 'exchange.component.html',
     styleUrls: ['exchange.component.css']
@@ -20,8 +18,9 @@ import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
 
 export class ExchangeComponent implements OnInit, OnDestroy {
 
-    public model: PaginatedList<Asset> = new PaginatedList<Asset>();
+    public model: PaginatedList<Exchange> = new PaginatedList<Exchange>();
 
+    private onList: Subscription;
     private onError: Subscription;
 
     constructor(private service: ExchangeService, private notify: NotifyService,
@@ -29,20 +28,24 @@ export class ExchangeComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
 
+        this.onList = this.service.onList.subscribe(
+            (data: PaginatedList<Exchange>) => this.model = data
+        );
 
         this.onError = this.service.onError.subscribe(
             (err) => this.notify.error('Xchanges', 'Something went wrong.')
         );
 
+        this.service.list(1);
     }
 
     public ngOnDestroy(): void {
 
+        this.onList.unsubscribe();
         this.onError.unsubscribe();
     }
 
-    public paginate(page: number, term?: string) {
-
-
+    public paginate(event: any) {
+        this.service.list(event.page);
     }
 }

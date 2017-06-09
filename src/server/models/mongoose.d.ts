@@ -10,7 +10,9 @@ declare module 'mongoose' {
     }
 
     // statics
-    export interface IModel<T extends IDocument> extends Model<T> {}
+    export interface IModel<T extends IDocument> extends Model<T> {
+        paginate(query: any, options?: any, callback?: (err: any, result: IDocument) => void): Promise<IModel<IDocument>> | void;
+    }
 
     export interface ISchema extends Schema {}
  

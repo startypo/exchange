@@ -3,6 +3,7 @@ import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
 import { DBConnection } from '../db.connection';
 import { IUserDocument } from './user.model';
 import { BaseModel } from './base.model';
+import { XChangesError, ErrorType } from '../xchanges.error';
 
 
 export interface IHandDocument extends IDocument {
@@ -40,10 +41,8 @@ schema.methods.credit = function(time: number): void {
 
 schema.methods.debit = function(value: number): void {
 
-    if (value > this.amount) {
-        let err = new Error('Value to debit is bigger than amount.');
-        err.name = 'Invalid argument';
-    }
+    if (value < 0 || value > this.amount)
+        throw new XChangesError(ErrorType.debit);
 
     this.amount -= value;
 };

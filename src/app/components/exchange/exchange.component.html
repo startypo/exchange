@@ -10,7 +10,7 @@
         <!-- /.col-lg-3 -->
         <div class="col-lg-9 my-4">
             <div class="row justify-content-between">
-                <pagination class="ml-3" [settings]="{max: 5}" [(ngModel)]="model.page" [total]="model.pages"  (selected)="paginate($event.page, term)"></pagination>
+                <pagination class="ml-3" [settings]="{max: 5}" [(ngModel)]="model.page" [total]="model.pages"  (selected)="paginate($event)"></pagination>
             </div>
             <div class="row my-3">
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of model.docs">
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <!-- /.row -->
-            <pagination [settings]="{max: 5}" [(ngModel)]="model.page" [total]="model.pages" class="ml-3" (selected)="paginate($event.page, term)"></pagination>
+            <pagination [settings]="{max: 5}" [(ngModel)]="model.page" [total]="model.pages" class="ml-3" (selected)="paginate($event)"></pagination>
         </div>
         <!-- /.col-lg-9 -->
     </div>

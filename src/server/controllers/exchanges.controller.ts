@@ -9,6 +9,8 @@ import { ExchangeService } from '../services/exchange.service';
 import { ExchangeModel } from '../models/exchange.model';
 import { AssetModel } from '../models/asset.model';
 import { HandModel } from '../models/hand.model';
+import { XChangesError } from '../xchanges.error';
+
 
 export class ExchangesController extends BaseController {
 
@@ -21,17 +23,46 @@ export class ExchangesController extends BaseController {
 
         let service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
 
-        service.create(req.body.assetId, req.user.id, (err, exchange) => {
+        service.create(req.body.assetId, req.user.id, err => {
 
-            if (err)
-                return res.status(HttpStatus.FORBIDDEN).json();
+            if (err) {
 
-            res.status(HttpStatus.OK).json(exchange);
+                if (err instanceof XChangesError)
+                    res.status(err.status).json(err);
+                else
+                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
+
+                return;
+            }
+
+            res.status(HttpStatus.CREATED).json();
+        });
+    }
+
+    protected list(req: Request, res: Response): void {
+
+        let service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
+
+        service.list(req.user.id, (err, result) => {
+
+            if (err) {
+
+                if (err instanceof XChangesError)
+                    res.status(err.status).json(err);
+                else
+                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
+
+                return;
+            }
+
+            res.status(HttpStatus.OK).json(result);
         });
     }
 
     protected config(): void {
 
         this.router.post(Routes.root, Passport.authorize('jwt', this.authOptions), this.create);
+
+        this.router.get(Routes.list, Passport.authorize('jwt', this.authOptions), this.list);
     }
 }

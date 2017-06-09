@@ -4,7 +4,7 @@ export class BaseModel {
 
     public static createSchema(childSchema: any): Schema {
 
-        let schema = new Schema(Object.assign(childSchema , {
+        let schema = new Schema(Object.assign(childSchema, {
 
             deletedAt: Date
         }),

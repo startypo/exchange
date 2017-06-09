@@ -1,4 +1,5 @@
 import { Schema, IDocument, IModel, Model, Document } from 'mongoose';
+import paginate  from 'mongoose-paginate';
 
 import { DBConnection } from '../db.connection';
 import { BaseModel } from './base.model';
@@ -22,6 +23,7 @@ export class Status {
 export interface IExchangeDocument extends IDocument {
 
     asset: IAssetDocument | string;
+    sender: IUserDocument | string;
     receiver: IUserDocument | string;
     status: Status;
 }
@@ -32,10 +34,16 @@ let schema = BaseModel.createSchema({
 
     asset: {
         type: Schema.Types.ObjectId,
+        ref: 'assets',
+        required: true
+    },
+    sender: {
+        type: Schema.Types.ObjectId,
+        ref: 'users',
         required: true
     },
     receiver: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: 'users',
         required: true
     },
@@ -45,5 +53,7 @@ let schema = BaseModel.createSchema({
         default: Status.initiated
     }
 });
+
+schema.plugin(paginate);
 
 export const ExchangeModel = <IExchangeModel> DBConnection.getConnection().model<IExchangeDocument>('exchanges', schema);

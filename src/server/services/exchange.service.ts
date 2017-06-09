@@ -3,10 +3,9 @@ import { IAssetModel, IAssetDocument } from '../models/asset.model';
 import { IHandModel, IHandDocument } from '../models/hand.model';
 import { XChangesError, ErrorType } from '../xchanges.error';
 
-
 export class ExchangeService {
 
-    constructor(private exchangeModel: IExchangeModel, private assetModel: IAssetModel, private handModel: IHandModel){}
+    constructor(private exchangeModel: IExchangeModel, private assetModel: IAssetModel, private handModel: IHandModel) {}
 
     public create(assetId: string, receiverId: string, callback: (err: any) => void): void {
 
@@ -53,26 +52,6 @@ export class ExchangeService {
                 });
             });
         });
-
-
-
-
-            // .then((asset) => {
-            //     exchange.asset = asset.id;
-            //     debitValue = asset.price;
-            //     return this.handModel.findOne({ owner: receiverId });
-            // })
-            // .catch(err => callback(err, null))
-            // .then((hand: IHandDocument) => {
-            //     hand.debit(debitValue);
-            //     hand.save();
-            //     return exchange.save();
-            // })
-            // .catch(err => callback(err, null))
-            // .then((ex: IExchangeDocument) => {
-            //     callback(null, ex);
-            // })
-            // .catch(err => callback(err, null));
     }
 
     public list(userId: string, callback: (err: any, result) => void): void {

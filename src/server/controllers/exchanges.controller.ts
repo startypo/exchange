@@ -11,7 +11,6 @@ import { AssetModel } from '../models/asset.model';
 import { HandModel } from '../models/hand.model';
 import { XChangesError } from '../xchanges.error';
 
-
 export class ExchangesController extends BaseController {
 
     constructor() {

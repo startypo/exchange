@@ -21,7 +21,7 @@ export class CreditsComponent implements OnInit, OnDestroy {
     private onRead: Subscription;
     private onCredit: Subscription;
     private onError: Subscription;
-    private onVideoEnd: Subscription;
+    private onVideoEnd: any;
 
     constructor(private service: HandService, private notify: NotifyService,
                 private router: Router, private route: ActivatedRoute) {}

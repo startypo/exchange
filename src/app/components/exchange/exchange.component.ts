@@ -5,10 +5,8 @@ import { Subscription } from 'rxjs';
 import { ExchangeService } from '../../services/exchange.service';
 import { NotifyService } from '../../modules/ui/notify';
 
-
-import { PaginatedList } from '../../models/paginated-list.model';
-import { Exchange } from '../../models/exchange.model';
 import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
+import { ExchangeList } from '../../models/exchange-list.model';
 
 @Component({
     selector: 'exchange',
@@ -18,7 +16,7 @@ import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
 
 export class ExchangeComponent implements OnInit, OnDestroy {
 
-    public model: PaginatedList<Exchange> = new PaginatedList<Exchange>();
+    public model: ExchangeList = new ExchangeList();
 
     private onList: Subscription;
     private onError: Subscription;
@@ -29,23 +27,19 @@ export class ExchangeComponent implements OnInit, OnDestroy {
     public ngOnInit(): void {
 
         this.onList = this.service.onList.subscribe(
-            (data: PaginatedList<Exchange>) => this.model = data
+            (data: ExchangeList) => this.model = data
         );
 
         this.onError = this.service.onError.subscribe(
             (err) => this.notify.error('Xchanges', 'Something went wrong.')
         );
 
-        this.service.list(1);
+        this.service.list();
     }
 
     public ngOnDestroy(): void {
 
         this.onList.unsubscribe();
         this.onError.unsubscribe();
-    }
-
-    public paginate(event: any) {
-        this.service.list(event.page);
     }
 }

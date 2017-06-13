@@ -67,7 +67,7 @@ export class AssetsController extends BaseController {
         });
     }
 
-    protected create = (req: Request, res: Response, next: NextFunction): void => {
+    protected create = (req: Request, res: Response): void => {
 
         let doc: IAssetDocument = req.body;
 

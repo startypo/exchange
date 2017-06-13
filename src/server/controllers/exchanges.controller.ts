@@ -18,7 +18,7 @@ export class ExchangesController extends BaseController {
         this.config();
     }
 
-    protected create = (req: Request, res: Response, next: NextFunction): void => {
+    protected create = (req: Request, res: Response): void => {
 
         let service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
 
@@ -38,7 +38,7 @@ export class ExchangesController extends BaseController {
         });
     }
 
-    protected list(req: Request, res: Response): void {
+    protected list = (req: Request, res: Response): void => {
 
         let service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
 
@@ -57,6 +57,27 @@ export class ExchangesController extends BaseController {
             res.status(HttpStatus.OK).json(result);
         });
     }
+
+    protected read = (req: Request, res: Response): void => {
+
+        ExchangeModel.findOne({ asset: req.query.id })
+                     .populate('asset').exec((err, result) => {
+
+            if (err) {
+
+                if (err instanceof XChangesError)
+                    res.status(err.status).json(err);
+                else
+                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
+
+                return;
+            }
+
+            res.status(HttpStatus.OK).json(result);
+        });
+    }
+
+
 
     protected config(): void {
 

@@ -10,7 +10,7 @@ export abstract class BaseController {
 
     constructor(protected model?: IModel<IDocument>) {}
 
-    protected create = (req: Request, res: Response, next: NextFunction): void => {
+    protected create = (req: Request, res: Response): void => {
 
         let obj = req.body;
         obj.owner = req.user.id;

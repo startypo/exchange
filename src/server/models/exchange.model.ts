@@ -54,6 +54,7 @@ let schema = BaseModel.createSchema({
     }
 });
 
+
 schema.plugin(paginate);
 
 export const ExchangeModel = <IExchangeModel> DBConnection.getConnection().model<IExchangeDocument>('exchanges', schema);

@@ -7,21 +7,22 @@ import { Exchange } from '../models/exchange.model';
 import { PaginatedList } from '../models/paginated-list.model';
 
 import { CreateHttpError, ReadHttpError, UpdateHttpError, DeleteHttpError } from './http-errors';
+import { ExchangeList } from '../models/exchange-list.model';
 
 
 
 @Injectable()
 export class ExchangeService extends BaseService<Exchange> {
 
-    public onList: Observable<PaginatedList<Exchange>>;
-    protected listSubject: Subject<PaginatedList<Exchange>>;
+    public onList: Observable<ExchangeList>;
+    protected listSubject: Subject<ExchangeList>;
 
     private resourceUrl = '/exchange';
 
     constructor(protected http: Http) {
         super(http);
 
-        this.listSubject = new Subject<PaginatedList<Exchange>>();
+        this.listSubject = new Subject<ExchangeList>();
         this.onList = this.listSubject.asObservable();
     }
 
@@ -36,18 +37,13 @@ export class ExchangeService extends BaseService<Exchange> {
                 );
     }
 
-    public list(page: number): void {
+    public list(): void {
 
-        let params = new URLSearchParams();
-        params.set('page', page.toString());
-        let options = this.getOptions();
-        options.search = params;
-
-        this.http.get(this.apiUrl + this.resourceUrl + '/list', options)
+        this.http.get(this.apiUrl + this.resourceUrl + '/list', this.getOptions())
                  .map((res) => res.json())
                  .catch(err => Observable.throw(new ReadHttpError(err.text())))
                  .subscribe(
-                     (data: PaginatedList<Exchange>) => this.listSubject.next(data),
+                     (data: ExchangeList) => this.listSubject.next(data),
                      (err: ReadHttpError) => this.errorSubject.next(err)
                  );
     }

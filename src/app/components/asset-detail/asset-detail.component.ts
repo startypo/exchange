@@ -2,14 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-
 import { AssetService } from '../../services/asset.service';
 import { ExchangeService } from '../../services/exchange.service';
 import { UserService } from '../../modules/user/user.service';
 import { NotifyService } from '../../modules/ui/notify/notify.service';
 
 import { Asset } from '../../models/asset.model';
-
 
 @Component({
     selector: 'asset-detail',
@@ -50,7 +48,7 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
             () => console.log('criou a troca!')
         );
 
-        let id = this.route.snapshot.params['id'];
+        const id = this.route.snapshot.params['id'];
 
         if (id)
             this.service.read(id);

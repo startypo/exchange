@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import Passport from '../passport';
-import HttpStatus  from 'http-status-codes';
+import HttpStatus from 'http-status-codes';
 
 import { BaseController } from './base.controller';
 
@@ -40,7 +40,7 @@ export class ExchangesController extends BaseController {
 
     protected list = (req: Request, res: Response): void => {
 
-        let service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
+        const service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
 
         service.list(req.user.id, (err, result) => {
 
@@ -77,11 +77,10 @@ export class ExchangesController extends BaseController {
         });
     }
 
-
-
     protected config(): void {
 
         this.router.post(Routes.root, Passport.authorize('jwt', this.authOptions), this.create);
+        this.router.get(Routes.root, Passport.authorize('jwt', this.authOptions), this.read);
 
         this.router.get(Routes.list, Passport.authorize('jwt', this.authOptions), this.list);
     }

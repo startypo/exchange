@@ -8,7 +8,6 @@ import { Asset } from '../models/asset.model';
 
 import { CreateHttpError, ReadHttpError, UpdateHttpError, DeleteHttpError } from './http-errors';
 
-
 @Injectable()
 export class AssetService extends BaseService<Asset> {
 
@@ -42,9 +41,9 @@ export class AssetService extends BaseService<Asset> {
 
     public read(id: string): void {
 
-        let params = new URLSearchParams();
+        const params = new URLSearchParams();
         params.set('id', id);
-        let options = this.getOptions();
+        const options = this.getOptions();
         options.search = params;
 
         this.http.get(this.apiUrl + this.resourceUrl, options)
@@ -68,9 +67,9 @@ export class AssetService extends BaseService<Asset> {
 
     public delete(id: string): void {
 
-        let params = new URLSearchParams();
+        const params = new URLSearchParams();
         params.set('id', id);
-        let options = this.getOptions();
+        const options = this.getOptions();
         options.search = params;
 
         this.http.delete(this.apiUrl + this.resourceUrl, options)
@@ -83,9 +82,9 @@ export class AssetService extends BaseService<Asset> {
 
     public list(page: number): void {
 
-        let params = new URLSearchParams();
+        const params = new URLSearchParams();
         params.set('page', page.toString());
-        let options = this.getOptions();
+        const options = this.getOptions();
         options.search = params;
 
         this.http.get(this.apiUrl + this.resourceUrl + '/list', options)
@@ -99,10 +98,10 @@ export class AssetService extends BaseService<Asset> {
 
     public search(term: string, page: number): void {
 
-        let params = new URLSearchParams();
+        const params = new URLSearchParams();
         params.set('term', term);
         params.set('page', page.toString());
-        let options = this.getOptions();
+        const options = this.getOptions();
         options.search = params;
 
         this.http.get(this.apiUrl + this.resourceUrl + '/search', options)

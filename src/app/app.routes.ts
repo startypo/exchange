@@ -8,8 +8,7 @@ import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
 import { CreditsComponent } from './components/credits/credits.component';
 import { ExchangeComponent } from './components/exchange/exchange.component';
-
-
+import { ExchangeDetailComponent } from './components/exchange-detail/exchange-detail.component';
 
 export const ROUTES: Routes = [
   { path: '', component: HomeComponent },
@@ -22,5 +21,6 @@ export const ROUTES: Routes = [
   { path: 'assets/edit/:id', component: AssetEditComponent, canActivate: [AuthGuard] },
   { path: 'credits', component: CreditsComponent, canActivate: [AuthGuard] },
   { path: 'exchanges', component: ExchangeComponent, canActivate: [AuthGuard] },
+  { path: 'exchanges/detail/:id', component: ExchangeDetailComponent, canActivate: [AuthGuard] },
   { path: '**', component: NoContentComponent }
 ];

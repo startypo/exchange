@@ -9,8 +9,6 @@ import { PaginatedList } from '../models/paginated-list.model';
 import { CreateHttpError, ReadHttpError, UpdateHttpError, DeleteHttpError } from './http-errors';
 import { ExchangeList } from '../models/exchange-list.model';
 
-
-
 @Injectable()
 export class ExchangeService extends BaseService<Exchange> {
 
@@ -35,6 +33,22 @@ export class ExchangeService extends BaseService<Exchange> {
                     (data: Exchange) => this.createSubject.next(data),
                     (err: CreateHttpError) => this.errorSubject.next(err)
                 );
+    }
+
+    public read(id: string): void {
+
+        const params = new URLSearchParams();
+        params.set('id', id);
+        const options = this.getOptions();
+        options.search = params;
+
+        this.http.get(this.apiUrl + this.resourceUrl, options)
+                 .map(res => res.json())
+                 .catch(err => Observable.throw(new ReadHttpError(err.text())))
+                 .subscribe(
+                    (data: Exchange) => this.readSubject.next(data),
+                    (err: ReadHttpError) => this.errorSubject.next(err)
+                 );
     }
 
     public list(): void {

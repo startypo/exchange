@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import Passport from '../passport';
-import HttpStatus  from 'http-status-codes';
+import HttpStatus from 'http-status-codes';
 import * as fs from 'fs';
 import * as path from 'path';
-
 
 import { BaseController } from './base.controller';
 import { Routes } from '../routes';
@@ -19,9 +18,9 @@ export class AssetsController extends BaseController {
 
     public list(req: Request, res: Response ): void {
 
-        let query = { owner: req.user.id, deletedAt: null, exchange: null };
-        let pageNumber: number = +req.query.page;
-        let paginateInfo = { select: 'id name description price imgs createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
+        const query = { owner: req.user.id, deletedAt: null, exchange: null };
+        const pageNumber: number = +req.query.page;
+        const paginateInfo = { select: 'id name description price imgs createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
 
         AssetModel.paginate(query, paginateInfo, (err, result) => {
 
@@ -34,19 +33,20 @@ export class AssetsController extends BaseController {
 
     public search(req: Request, res: Response ): void {
 
-        let pageNumber: number = +req.query.page;
-        let terms: string[] = (<string> req.query.term).split(' ');
-        let likeRegExps: RegExp[] = [];
+        const pageNumber: number = +req.query.page;
+        const terms: string[] = (req.query.term as string).split(' ');
+        const likeRegExps: RegExp[] = [];
 
         // Add like expression for each term
         terms.forEach((item, i) => {
             likeRegExps.push(new RegExp(item, 'i'));
         });
 
-        let query = {
+        const query = {
 
             deletedAt: null,
             exchange: null,
+            owner: { $ne: req.user.id },
             $or:
             [{
                 name: { $in: likeRegExps }
@@ -56,7 +56,7 @@ export class AssetsController extends BaseController {
             }]
         };
 
-        let paginateInfo = { select: 'id name description price imgs createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
+        const paginateInfo = { select: 'id name description price imgs createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
 
         AssetModel.paginate(query, paginateInfo, (err, result) => {
 
@@ -69,7 +69,7 @@ export class AssetsController extends BaseController {
 
     protected create = (req: Request, res: Response): void => {
 
-        let doc: IAssetDocument = req.body;
+        const doc: IAssetDocument = req.body;
 
         if (doc.imgs.length === 0) {
             res.status(HttpStatus.FORBIDDEN).json();
@@ -77,20 +77,20 @@ export class AssetsController extends BaseController {
         }
 
         // verify if image files exist in temporary directory and move to production directory.
-        let tmpDirPath = path.join(Config.uploadPath, req.user.id);
+        const tmpDirPath = path.join(Config.uploadPath, req.user.id);
 
         for (let filename of doc.imgs) {
 
-            let sourceFilePath = path.join(tmpDirPath, filename);
-            let destFilePath = path.join(Config.uploadPath, filename);
+            const sourceFilePath = path.join(tmpDirPath, filename);
+            const destFilePath = path.join(Config.uploadPath, filename);
 
             if (!fs.existsSync(sourceFilePath)) {
                 res.status(HttpStatus.FORBIDDEN).json();
                 return;
             }
 
-            let source = fs.createReadStream(sourceFilePath);
-            let dest = fs.createWriteStream(destFilePath);
+            const source = fs.createReadStream(sourceFilePath);
+            const dest = fs.createWriteStream(destFilePath);
             source.pipe(dest);
             source.on('error', (err) => console.log(err));
         }
@@ -111,7 +111,7 @@ export class AssetsController extends BaseController {
 
     protected update = (req: Request, res: Response): void => {
 
-        let doc: IAssetDocument = req.body;
+        const doc: IAssetDocument = req.body;
 
         this.model.findById(doc.id).populate('owner').exec((findErr, asset: IAssetDocument) => {
 
@@ -133,13 +133,13 @@ export class AssetsController extends BaseController {
             }
 
             // Exclude removed image filenames
-            for (let filename of asset.imgs) {
+            for (const filename of asset.imgs) {
 
                 // if the filename stored on database exist in updates, it has not removed.
                 if (doc.imgs.indexOf(filename) > -1)
                     continue;
 
-                let filePath = path.join(Config.uploadPath, filename);
+                const filePath = path.join(Config.uploadPath, filename);
 
                 if (!fs.existsSync(filePath)) {
                     res.status(HttpStatus.FORBIDDEN).json();
@@ -150,22 +150,22 @@ export class AssetsController extends BaseController {
             }
 
             // verify if image files exist in temporary directory and move to production directory.
-            for (let filename of doc.imgs) {
+            for (const filename of doc.imgs) {
 
                 // if the filename in updates exist in database, it is not a new image.
                 if (asset.imgs.indexOf(filename) > -1)
                     continue;
 
-                let sourceFilePath = path.join(Config.uploadPath, req.user.id , filename);
-                let destFilePath = path.join(Config.uploadPath, filename);
+                const sourceFilePath = path.join(Config.uploadPath, req.user.id , filename);
+                const destFilePath = path.join(Config.uploadPath, filename);
 
                 if (!fs.existsSync(sourceFilePath)) {
                     res.status(HttpStatus.FORBIDDEN).json();
                     return;
                 }
 
-                let source = fs.createReadStream(sourceFilePath);
-                let dest = fs.createWriteStream(destFilePath);
+                const source = fs.createReadStream(sourceFilePath);
+                const dest = fs.createWriteStream(destFilePath);
                 source.pipe(dest);
                 source.on('error', (err) => console.log(err));
             }

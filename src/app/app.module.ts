@@ -38,7 +38,7 @@ import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
 import { CreditsComponent } from './components/credits/credits.component';
 import { ExchangeComponent } from './components/exchange/exchange.component';
-
+import { ExchangeDetailComponent } from './components/exchange-detail/exchange-detail.component';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -49,11 +49,11 @@ const APP_PROVIDERS = [
   AppState
 ];
 
-type StoreType = {
-  state: InternalStateType,
-  restoreInputValues: () => void,
-  disposeOldHosts: () => void
-};
+export interface StoreType  {
+  state: InternalStateType;
+  restoreInputValues: () => void;
+  disposeOldHosts: () => void;
+}
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -63,7 +63,7 @@ type StoreType = {
   declarations: [
                   AppComponent, NoContentComponent, NavMenuComponent, HomeComponent,
                   AssetListComponent, AssetDetailComponent, AssetEditComponent,
-                  CreditsComponent, ExchangeComponent
+                  CreditsComponent, ExchangeComponent, ExchangeDetailComponent
                 ],
   imports: [
              BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,
@@ -92,7 +92,7 @@ export class AppModule {
     this.appState._state = store.state;
     // set input values
     if ('restoreInputValues' in store) {
-      let restoreInputValues = store.restoreInputValues;
+      const restoreInputValues = store.restoreInputValues;
       setTimeout(restoreInputValues);
     }
 

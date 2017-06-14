@@ -6,7 +6,6 @@ import { HttpError } from './http-errors';
 import { PaginatedList } from '../models/paginated-list.model';
 import { UserModel } from '../modules/user/user.model';
 
-
 @Injectable()
 export class BaseService<T> {
 
@@ -44,10 +43,10 @@ export class BaseService<T> {
 
     protected getHeaders(): Headers {
 
-        let headers: Headers = new Headers();
+        const headers: Headers = new Headers();
 
         headers.append('Content-Type', 'application/json');
-        let user: UserModel = JSON.parse(sessionStorage.getItem('user'));
+        const user: UserModel = JSON.parse(sessionStorage.getItem('user'));
 
         if (user)
             headers.append('Authorization', 'Bearer ' + user.token);
@@ -55,9 +54,9 @@ export class BaseService<T> {
         return headers;
     }
 
-    protected getOptions(): RequestOptions  {
+    protected getOptions(): RequestOptions {
 
-        let options: RequestOptions = new RequestOptions();
+        const options: RequestOptions = new RequestOptions();
         options.headers = this.getHeaders();
 
         return options;

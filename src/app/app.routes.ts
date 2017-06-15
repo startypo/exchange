@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 
-import { PublicLayoutComponent } from './components/layouts/public.component';
-import { SecureLayoutComponent } from './components/layouts/secure.component';
 import { RegisterComponent, LoginComponent, AuthGuard } from './modules/user';
 import { NoContentComponent } from './components/no-content';
 import { LandingComponent } from './components/landing/landing.component';

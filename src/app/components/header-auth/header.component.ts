@@ -14,6 +14,7 @@ export class HeaderAuthComponent {
 
     public logout() {
         this.service.logout();
+        this.router.navigate(['/']);
     }
 
     public search(term: string) {

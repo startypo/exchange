@@ -1,4 +1,4 @@
-<header *ngIf="service.isLoggedIn()">
+<header>
     <section class="container-fluid">
         <nav class="container d-flex justify-content-between align-items-center flex-wrap">
             <div class="menu-trigger">
@@ -12,10 +12,13 @@
                          srcset="assets/img/logo.png 1x,assets/img/logo@2x.png 2x">
                 </a>
             </div>
-            <form class="search-desktop" action="#">
+            <form class="search-desktop">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Buscar por livros" aria-describedby="basic-addon2">
-                    <button class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <input type="text" class="form-control" placeholder="Buscar por livros" 
+                           aria-describedby="basic-addon2" #searchBar (keyup.enter)="search(searchBar.value)">
+                    <button class="input-group-addon" (click)="search(searchBar.value)">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                 </div>
             </form>
             <div class="login-desktop">
@@ -26,7 +29,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <div class="arrow-up"></div>
                         <a class="dropdown-item" [routerLink]="['/assets']"><i class="fa fa-book" aria-hidden="true"></i> Seus Itens</a>
-                        <a class="dropdown-item" [routerLink]="['/assets/new']"><i class="fa fa-plus" aria-hidden="true"></i> Plubicar Item</a>
+                        <a class="dropdown-item" [routerLink]="['/assets/new']"><i class="fa fa-plus" aria-hidden="true"></i> Publicar Item</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" [routerLink]="['/exchanges']"><i class="fa fa-exchange" aria-hidden="true"></i> Suas Trocas</a>
                         <div class="dropdown-divider"></div>
@@ -35,7 +38,7 @@
                         <div class="dropdown-divider"></div>
                         <!--<a class="dropdown-item" href="#"><i class="fa fa-cog" aria-hidden="true"></i> Configurações</a>
                         <div class="dropdown-divider"></div>-->
-                        <a class="dropdown-item" href="#"><i class="fa fa-power-off" aria-hidden="true"></i> Logout</a>
+                        <button class="dropdown-item" (click)=logout()><i class="fa fa-power-off" aria-hidden="true"></i> Logout</button>
                     </div>
                 </div>
                 <a href="#">

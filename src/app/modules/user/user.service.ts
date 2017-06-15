@@ -49,6 +49,10 @@ export class UserService {
         this.loggedUser = null;
     }
 
+    public isLoggedIn(): boolean {
+        return this.user !== null;
+    }
+
     public isOwner(owner: string) {
         return this.user.id === owner;
     }

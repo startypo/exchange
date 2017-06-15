@@ -31,8 +31,11 @@ import { ExchangeService } from './services/exchange.service';
 
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './components/no-content';
-import { NavMenuComponent } from './components/nav-menu';
-import { HomeComponent } from './components/home';
+import { NavComponent } from './components/nav/nav.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+import { MainComponent } from './components/main/main.component';
 import { AssetListComponent } from './components/asset-list';
 import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
@@ -40,8 +43,7 @@ import { CreditsComponent } from './components/credits/credits.component';
 import { ExchangeComponent } from './components/exchange/exchange.component';
 import { ExchangeDetailComponent } from './components/exchange-detail/exchange-detail.component';
 
-import '../styles/styles.scss';
-import '../styles/headings.css';
+import '../styles/landing-page.scss';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -61,9 +63,9 @@ export interface StoreType  {
 @NgModule({
   bootstrap: [ AppComponent ],
   declarations: [
-                  AppComponent, NoContentComponent, NavMenuComponent, HomeComponent,
-                  AssetListComponent, AssetDetailComponent, AssetEditComponent,
-                  CreditsComponent, ExchangeComponent, ExchangeDetailComponent
+                  AppComponent, NoContentComponent, NavComponent, HeaderComponent, FooterComponent,
+                  MainComponent, HomeComponent, AssetListComponent, AssetDetailComponent,
+                  AssetEditComponent, CreditsComponent, ExchangeComponent, ExchangeDetailComponent
                 ],
   imports: [
              BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,

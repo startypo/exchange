@@ -2,7 +2,8 @@ import { Routes } from '@angular/router';
 
 import { RegisterComponent, LoginComponent, AuthGuard } from './modules/user';
 import { NoContentComponent } from './components/no-content';
-import { HomeComponent } from './components/home';
+import { MainComponent } from './components/main/main.component';
+import { HomeComponent } from './components/home/home.component';
 import { AssetListComponent } from './components/asset-list';
 import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
@@ -14,6 +15,7 @@ export const ROUTES: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'main', component: MainComponent, canActivate: [AuthGuard] },
   { path: 'assets', component: AssetListComponent, canActivate: [AuthGuard] },
   { path: 'assets/search/:term', component: AssetListComponent, canActivate: [AuthGuard] },
   { path: 'assets/new', component: AssetEditComponent, canActivate: [AuthGuard] },

@@ -43,7 +43,8 @@ import { CreditsComponent } from './components/credits/credits.component';
 import { ExchangeComponent } from './components/exchange/exchange.component';
 import { ExchangeDetailComponent } from './components/exchange-detail/exchange-detail.component';
 
-import '../styles/landing-page.scss';
+//import '../styles/landing-page.scss';
+import '../styles/style.scss';
 
 // Application wide providers
 const APP_PROVIDERS = [

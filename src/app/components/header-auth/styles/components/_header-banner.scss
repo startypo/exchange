@@ -1,0 +1,56 @@
+.header-banner {
+    background-color: #323232;
+    background: url($img-dir +"banner-bg.jpg") repeat scroll center / cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 50px 0;
+    
+    h1 {
+        font-family: $lato !important;
+        font-size: 2.5em;
+        font-weight: bold;
+        color: $branco;
+        margin-bottom: 30px;
+    }
+
+    p {
+        font-family: $lato;
+        font-size: 1.8em;
+        font-weight: 300;
+        color: $branco;
+        margin: 30px 0;
+        max-width: 500px;
+    }
+
+    .caption-banner {
+        font-family: $raleway;
+        font-size: 1.5em;
+        font-weight: 100;
+        color: $branco;
+        margin: 30px 0;
+    }
+
+    .btn {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: $branco;
+        font-family: $open-sans;
+        font-size: 1em;
+        padding: 15px 50px;
+        margin-top: 30px;
+        border: solid 1px $branco;
+        cursor: pointer;
+        transition: all 1s ease-in-out;
+        
+        @include border-radius(3px);
+
+        &:hover {
+            background-color: $branco;
+            color: $secondary-color;
+            font-weight: bold;
+            @include drop-shadow(5px,5px,3px,1px,$preto,0.5);
+        }
+    }
+}

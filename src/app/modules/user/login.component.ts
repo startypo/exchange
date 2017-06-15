@@ -38,7 +38,7 @@ export class LoginComponent {
         form.valueChanges.subscribe(() => this.notify.removeAll());
 
         this.service.login(form.value).subscribe(() => {
-            this.router.navigate(['/assets']);
+            this.router.navigate(['/main']);
         },
         (err) => {
             if (err.status === 401)

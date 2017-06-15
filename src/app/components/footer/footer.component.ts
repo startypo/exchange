@@ -6,7 +6,7 @@ import { UserService } from '../../modules/user';
 @Component({
     selector: 'xchs-footer',
     templateUrl: 'footer.component.html',
-    styleUrls: []
+    styleUrls: ['./style.scss', './footer.component.css']
 })
 export class FooterComponent {
 

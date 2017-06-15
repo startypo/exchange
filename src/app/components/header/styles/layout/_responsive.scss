@@ -1,0 +1,138 @@
+// Breakpoints follow Bootstrap 4 settings
+// Small devices (landscape phones, 576px and up)
+
+// Up -> Down
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575px) {
+    .img-banner {
+        display: none;
+    }
+    .itens-menu, 
+    .login-desktop { 
+        display: none; 
+    }
+    .header-banner {
+        .col {
+            padding: 30px 15px;
+        }
+        .btn {
+            text-align: center;
+        }
+    }
+    .facebook {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        img {
+            margin-right: 0 !important;
+            margin-bottom: -30px;
+        }
+    }
+    .footer {
+        flex-direction: column;
+    }
+}
+
+// Small devices (landscape phones, less than 768px)
+@media (max-width: 767px) {
+    .steps {
+        .step-item {
+            flex-direction: column;
+            margin: 40px 0;
+            
+            .step-desc {
+                text-align: center;
+                margin: 30px 0;
+            }
+            &:nth-child(even){
+               .step-number {
+                    order: initial !important;
+                }
+            }
+        }
+    }
+    .facebook {
+        margin-bottom: 50px;
+    }
+}
+
+// Medium devices (tablets, less than 992px)
+@media (max-width: 991px) {}
+
+// Large devices (desktops, less than 1200px)
+@media (max-width: 1199px) {}
+
+// Down -> Up
+@media (min-width: 576px) {
+    .menu-trigger, .login-mobile {
+        display: none;
+    }
+    .itens-menu {
+        display: inline-block;
+    }
+    .login-desktop {
+        display: block;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) {
+    .itens-menu {
+        font-size: .8em;
+    }
+    
+    .input-hide {
+        visibility: visible;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) { 
+
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { 
+
+}
+
+// Exclusive devices
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575px) {}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767px) {
+    .img-banner {
+        display: none;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991px) {
+    .input-hide {
+        visibility: hidden;
+        position: absolute;
+        right: 37px;
+        opacity: 0;
+        width: 37em;
+    }
+    .header-banner {
+        .col {
+            padding: 30px 15px;
+        }
+        .btn {
+            text-align: center;
+        }
+    }    
+    .img-banner {
+        display: none;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {}

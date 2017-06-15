@@ -6,17 +6,6 @@ import { UserService } from '../../modules/user';
 @Component({
     selector: 'xchs-header',
     templateUrl: 'header.component.html',
-    styleUrls: []
+    styleUrls: ['./style.scss', './header.component.css']
 })
-export class HeaderComponent {
-
-    constructor(public service: UserService, private router: Router) {}
-
-    public logout() {
-        this.service.logout();
-    }
-
-    public search(term: string) {
-        this.router.navigate(['/assets/search', term]);
-    }
-}
+export class HeaderComponent {}

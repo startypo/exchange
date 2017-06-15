@@ -35,15 +35,20 @@ import { NavComponent } from './components/nav/nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-import { MainComponent } from './components/main/main.component';
+import { LandingComponent } from './components/landing/landing.component';
 import { AssetListComponent } from './components/asset-list';
 import { AssetDetailComponent } from './components/asset-detail';
 import { AssetEditComponent } from './components/asset-edit';
 import { CreditsComponent } from './components/credits/credits.component';
 import { ExchangeComponent } from './components/exchange/exchange.component';
 import { ExchangeDetailComponent } from './components/exchange-detail/exchange-detail.component';
+import { SecureLayoutComponent } from './components/layouts/secure.component';
+import { PublicLayoutComponent } from './components/layouts/public.component';
+import { NavAuthComponent } from './components/nav-auth/nav.component';
+import { HeaderAuthComponent } from './components/header-auth/header.component';
 
-import '../styles/landing-page.scss';
+// import '../styles/style.scss';
+// import '../styles/landing-page.scss';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -63,9 +68,11 @@ export interface StoreType  {
 @NgModule({
   bootstrap: [ AppComponent ],
   declarations: [
-                  AppComponent, NoContentComponent, NavComponent, HeaderComponent, FooterComponent,
-                  MainComponent, HomeComponent, AssetListComponent, AssetDetailComponent,
-                  AssetEditComponent, CreditsComponent, ExchangeComponent, ExchangeDetailComponent
+                  AppComponent, NoContentComponent, NavComponent, NavAuthComponent,
+                  HeaderComponent, HeaderAuthComponent, FooterComponent, PublicLayoutComponent,
+                  SecureLayoutComponent, LandingComponent, HomeComponent, AssetListComponent,
+                  AssetDetailComponent, AssetEditComponent, CreditsComponent, ExchangeComponent,
+                  ExchangeDetailComponent
                 ],
   imports: [
              BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,

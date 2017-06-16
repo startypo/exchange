@@ -9,7 +9,7 @@ import { CustomValidators } from '../ui/validate';
 @Component({
     selector: 'login',
     templateUrl: 'login.component.html',
-    styleUrls: ['login.component.css']
+    styleUrls: ['login.component.css','style.scss']
 })
 export class LoginComponent {
 

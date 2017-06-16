@@ -82,7 +82,6 @@ header {
         background-color: $secondary-color;
         border: none;
         color: $branco;
-        @include border-radius(3px);
     }
 
     input[type="text"] {

@@ -1,74 +1,49 @@
 ﻿<div class="container mt-5">
-    <div class="form-horizontal" role="form" [formGroup]="form" (keyup.enter)="submit(form)">
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <h2>Register New User</h2>
-                <hr>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label class="sr-only" for="name">Name</label>
-            </div>
-            <div class="col-md-6">
+    
+    <h1 class="title1">Cadastrar</h1>
+    
+    <div class="form-horizontal mb-5 mx-auto" role="form" [formGroup]="form" (keyup.enter)="submit(form)">
+        
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">Nome:</label>
+            <div class="col-sm-7">
                 <validate [control]="form.controls['name']">
-                    <div class="form-group">
-                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
-                            <input type="text" class="form-control" placeholder="Name" formControlName="name">
-                        </div>
-                    </div>
+                        <input type="text" class="form-control" placeholder="digite o seu nome" formControlName="name">
                 </validate>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label class="sr-only" for="email">E-Mail Address</label>
-            </div>
-            <div class="col-md-6">
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">E-Mail:</label>
+            <div class="col-sm-7">
                 <validate [control]="form.controls['email']">
-                    <div class="form-group">
-                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                            <input type="text" class="form-control" placeholder="you@domain.com" formControlName="email">
-                        </div>
-                    </div>
+                    <input type="email" class="form-control" placeholder="seu@email.com" formControlName="email">
                 </validate>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label class="sr-only" for="password">Password</label>
-            </div>
-            <div class="col-md-6">
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">Senha:</label>
+            <div class="col-sm-7">
                 <validate [control]="form.controls['passwd']">
-                    <passwd placeholder="Password" formControlName="passwd"></passwd>
+                    <passwd placeholder="digite sua senha" formControlName="passwd"></passwd>
                 </validate>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3 field-label-responsive">
-                <label class="sr-only" for="confirm">Confirm Password</label>
-            </div>
-            <div class="col-md-6">
+        <div class="form-group row">
+            <label for="confirm" class="col-sm-2 col-form-label">Confirmar Senha:</label>
+            <div class="col-sm-7">
                 <validate [control]="form.controls['confirmPasswd']">
-                    <div class="form-group">
-                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-repeat"></i></div>
-                            <input type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmPasswd">
-                        </div>
-                    </div>
+                    <input type="password" class="form-control" placeholder="confirmar senha" formControlName="confirmPasswd">
                 </validate>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-12">
                 <button type="button" class="btn btn-success" [disabled]="!form.valid" (click)="submit(form)">
                     <i class="fa fa-user-plus"></i> Register
                 </button>
             </div>
         </div>
+
     </div>
+
 </div>

@@ -109,6 +109,26 @@ export class AssetsController extends BaseController {
         });
     }
 
+    protected read = (req: Request, res: Response): void => {
+
+        let id: string = req.query.id;
+
+        this.model.findById(id).where('exchange').equals(null).exec((err, doc) => {
+
+            if (err) {
+                res.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
+                return;
+            }
+
+            if (!doc || doc.deletedAt) {
+                res.status(HttpStatus.BAD_REQUEST).json();
+                return;
+            }
+
+            res.status(HttpStatus.OK).json(doc);
+        });
+    }
+
     protected update = (req: Request, res: Response): void => {
 
         const doc: IAssetDocument = req.body;

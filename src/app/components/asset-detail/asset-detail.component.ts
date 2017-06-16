@@ -36,17 +36,23 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
         );
 
         this.onDelete = this.service.onDelete.subscribe(() => {
-            this.notify.success('XChanges', 'Asset deleted successfully.');
+            this.notify.success('Exchange', 'O livro foi excluído com sucesso.');
             this.router.navigate(['/assets']);
         });
 
         this.onError = this.service.onError.subscribe(
-            (err) => this.notify.error('XChanges', 'Something went wrong.')
+            (err) => this.notify.error('Exchange', 'Algo de errado aconteceu no servidor.')
         );
 
-        this.onExchangeCreate = this.exchangeService.onCreate.subscribe(
-            () => console.log('criou a troca!')
-        );
+        this.onExchangeCreate = this.exchangeService.onCreate.subscribe(() => {
+            this.notify.success('Exchange', 'A troca foi iniciada.');
+            this.router.navigate(['/exchanges']);
+        });
+
+        this.onExchangeError = this.exchangeService.onError.subscribe((err) => {
+            console.log(err);
+            this.notify.warning('Exchange', 'Não há créditos suficientes para realizar esta troca.');
+        });
 
         const id = this.route.snapshot.params['id'];
 
@@ -59,6 +65,8 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
         this.onRead.unsubscribe();
         this.onDelete.unsubscribe();
         this.onError.unsubscribe();
+        this.onExchangeCreate.unsubscribe();
+        this.onExchangeError.unsubscribe();
     }
 
     public delete() {

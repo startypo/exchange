@@ -34,7 +34,7 @@ export class ExchangesController extends BaseController {
                 return;
             }
 
-            res.status(HttpStatus.CREATED).json();
+            res.status(HttpStatus.OK).json();
         });
     }
 

@@ -5,7 +5,6 @@ import { IUserDocument } from './user.model';
 import { BaseModel } from './base.model';
 import { XChangesError, ErrorType } from '../xchanges.error';
 
-
 export interface IHandDocument extends IDocument {
 
     amount: number;
@@ -48,4 +47,3 @@ schema.methods.debit = function(value: number): void {
 };
 
 export const HandModel = <IHandModel> DBConnection.getConnection().model<IHandDocument>('hands', schema);
-

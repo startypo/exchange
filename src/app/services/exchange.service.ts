@@ -27,10 +27,12 @@ export class ExchangeService extends BaseService<Exchange> {
     public create(assetId: string): void {
 
        this.http.post(this.apiUrl + this.resourceUrl, JSON.stringify({ assetId: assetId }), this.getOptions())
-                .map(res => res.json())
-                .catch(err => Observable.throw(new CreateHttpError(err.text())))
+                .map(res => {
+                    res.json();
+                })
+                .catch(err => Observable.throw(new CreateHttpError('teste')))
                 .subscribe(
-                    (data: Exchange) => this.createSubject.next(data),
+                    (data: Exchange) => this.createSubject.next(null),
                     (err: CreateHttpError) => this.errorSubject.next(err)
                 );
     }

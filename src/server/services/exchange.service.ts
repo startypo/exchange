@@ -85,4 +85,27 @@ export class ExchangeService {
             callback(null, result);
         });
     }
+
+    public send(doc: IExchangeDocument, callback: (err: any, result) => void): void {
+
+        this.exchangeModel.findById(doc.id, (err, exchange) => {
+
+            if (err)
+                callback(err, null);
+
+            // somente o remetente pode enviar.
+            // se já está no estado de enviado, proibir operação.
+
+            exchange.status = Status.sent;
+            exchange.trackingCode = doc.trackingCode;
+
+            exchange.save((er, result) => {
+
+                if (er)
+                    callback(err, null);
+
+                callback(null, result);
+            });
+        });
+    }
 }

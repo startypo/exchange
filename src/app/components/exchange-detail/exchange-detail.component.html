@@ -29,6 +29,9 @@
                     <h4>{{ model.asset.price | coin }}</h4>
                     <p class="card-text">{{ model.asset.description }}</p>
                     <span class="text-warning">Status:</span> {{ getStatus() }}
+                    <span class="text-warning">Código de Rastreio:</span> {{ model.trackingCode }}
+                    <span class="text-warning">Email do remetente:</span>
+                    <span class="text-warning">Email do destinatário:</span>
                     <div class="d-flex justify-content-end">
                         <div class="input-group" *ngIf="showSend()">
                             <input type="text" class="form-control" placeholder="Código de Rastreio" 

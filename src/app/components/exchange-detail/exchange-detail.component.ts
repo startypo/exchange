@@ -34,12 +34,14 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
             (data: Exchange) => this.model = data
         );
 
-        this.onSend = this.service.onSend.subscribe(
-            (data: Exchange) => this.model = data
-        );
+        this.onSend = this.service.onSend.subscribe((data: Exchange) => {
+            data.asset = this.model.asset;
+            this.model = data;
+            this.notify.success('Exchange', 'O item foi enviado.');
+        });
 
         this.onError = this.service.onError.subscribe(
-            (err) => this.notify.error('Xchanges', 'Something went wrong.')
+            (err) => this.notify.error('Exchange', 'Something went wrong.')
         );
 
         const id = this.route.snapshot.params['id'];
@@ -52,7 +54,6 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
 
         this.onRead.unsubscribe();
         this.onSend.unsubscribe();
-        this.onReceive.unsubscribe();
         this.onError.unsubscribe();
     }
 
@@ -85,7 +86,13 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
         return status;
     }
 
-    public send(trackingCode: string) {}
+    public send(trackingCode: string) {
 
-    public receive() {}
+        this.model.trackingCode = trackingCode;
+        this.service.send(this.model);
+    }
+
+    public receive() {
+        console.log('recebido!');
+    }
 }

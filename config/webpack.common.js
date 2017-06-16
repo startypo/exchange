@@ -31,7 +31,7 @@ const CompilerPlugin = require('compiler-webpack-plugin');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'XChanges',
+  title: 'Exchange',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };

@@ -20,7 +20,7 @@ export class ExchangesController extends BaseController {
 
     protected create = (req: Request, res: Response): void => {
 
-        let service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
+        const service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
 
         service.create(req.body.assetId, req.user.id, err => {
 
@@ -35,6 +35,45 @@ export class ExchangesController extends BaseController {
             }
 
             res.status(HttpStatus.OK).json();
+        });
+    }
+
+    protected read = (req: Request, res: Response): void => {
+
+        ExchangeModel.findOne({ asset: req.query.id })
+                     .populate('asset').exec((err, result) => {
+
+            if (err) {
+
+                if (err instanceof XChangesError)
+                    res.status(err.status).json(err);
+                else
+                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
+
+                return;
+            }
+
+            res.status(HttpStatus.OK).json(result);
+        });
+    }
+
+    protected send = (req: Request, res: Response): void => {
+
+        const service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
+
+        service.send(req.body, (err, result) => {
+
+            if (err) {
+
+                if (err instanceof XChangesError)
+                    res.status(err.status).json(err);
+                else
+                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
+
+                return;
+            }
+
+            res.status(HttpStatus.OK).json(result);
         });
     }
 
@@ -58,30 +97,12 @@ export class ExchangesController extends BaseController {
         });
     }
 
-    protected read = (req: Request, res: Response): void => {
-
-        ExchangeModel.findOne({ asset: req.query.id })
-                     .populate('asset').exec((err, result) => {
-
-            if (err) {
-
-                if (err instanceof XChangesError)
-                    res.status(err.status).json(err);
-                else
-                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
-
-                return;
-            }
-
-            res.status(HttpStatus.OK).json(result);
-        });
-    }
-
     protected config(): void {
 
         this.router.post(Routes.root, Passport.authorize('jwt', this.authOptions), this.create);
         this.router.get(Routes.root, Passport.authorize('jwt', this.authOptions), this.read);
 
         this.router.get(Routes.list, Passport.authorize('jwt', this.authOptions), this.list);
+        this.router.put(Routes.send, Passport.authorize('jwt', this.authOptions), this.send);
     }
 }

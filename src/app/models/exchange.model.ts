@@ -8,4 +8,5 @@ export class Exchange {
     public asset: Asset = new Asset();
     public createdAt: Date;
     public status: string =  '';
+    public trackingCode: string = '';
 }

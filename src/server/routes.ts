@@ -16,5 +16,7 @@ export const Routes = {
 
     // methods routes
     list: '/list',
-    search: '/search'
+    search: '/search',
+    send: '/send',
+    receive: '/receive'
 };

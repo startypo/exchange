@@ -25,6 +25,9 @@ export class ExchangeService extends BaseService<Exchange> {
 
         this.listSubject = new Subject<ExchangeList>();
         this.onList = this.listSubject.asObservable();
+
+        this.sendSubject = new Subject<Exchange>();
+        this.onSend = this.sendSubject.asObservable();
     }
 
     public create(assetId: string): void {
@@ -58,7 +61,10 @@ export class ExchangeService extends BaseService<Exchange> {
 
     public send(exchange: Exchange): void {
 
-        this.http.put(this.apiUrl + this.resourceUrl, JSON.stringify(exchange), this.getOptions())
+        this.http.put(this.apiUrl + this.resourceUrl + '/send',
+                      JSON.stringify({ id: exchange.id, trackingCode: exchange.trackingCode }),
+                      this.getOptions())
+                 .map(res => res.json())
                  .catch(err => Observable.throw(new UpdateHttpError(err.text())))
                  .subscribe(
                     (data: Exchange) => this.sendSubject.next(data),

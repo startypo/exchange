@@ -24,6 +24,7 @@ export interface IExchangeDocument extends IDocument {
     sender: IUserDocument | string;
     receiver: IUserDocument | string;
     status: Status;
+    trackingCode: string;
 }
 
 export interface IExchangeModel extends IModel<IExchangeDocument> {}
@@ -49,6 +50,10 @@ let schema = BaseModel.createSchema({
         type: String,
         required: true,
         default: Status.initiated
+    },
+    trackingCode: {
+        type: String,
+        default: null
     }
 });
 

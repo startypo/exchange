@@ -42,8 +42,6 @@ import { AssetEditComponent } from './components/asset-edit';
 import { CreditsComponent } from './components/credits/credits.component';
 import { ExchangeComponent } from './components/exchange/exchange.component';
 import { ExchangeDetailComponent } from './components/exchange-detail/exchange-detail.component';
-import { SecureLayoutComponent } from './components/layouts/secure.component';
-import { PublicLayoutComponent } from './components/layouts/public.component';
 import { NavAuthComponent } from './components/nav-auth/nav.component';
 import { HeaderAuthComponent } from './components/header-auth/header.component';
 
@@ -69,10 +67,9 @@ export interface StoreType  {
   bootstrap: [ AppComponent ],
   declarations: [
                   AppComponent, NoContentComponent, NavComponent, NavAuthComponent,
-                  HeaderComponent, HeaderAuthComponent, FooterComponent, PublicLayoutComponent,
-                  SecureLayoutComponent, LandingComponent, HomeComponent, AssetListComponent,
-                  AssetDetailComponent, AssetEditComponent, CreditsComponent, ExchangeComponent,
-                  ExchangeDetailComponent
+                  HeaderComponent, HeaderAuthComponent, FooterComponent, LandingComponent,
+                  HomeComponent, AssetListComponent, AssetDetailComponent, AssetEditComponent,
+                  CreditsComponent, ExchangeComponent, ExchangeDetailComponent
                 ],
   imports: [
              BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,

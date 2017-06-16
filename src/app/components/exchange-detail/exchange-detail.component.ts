@@ -7,6 +7,7 @@ import { NotifyService } from '../../modules/ui/notify';
 
 import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
 import { Exchange } from '../../models/exchange.model';
+import { UserService } from '../../modules/user/user.service';
 
 @Component({
     selector: 'exchange-detail',
@@ -19,14 +20,21 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
     public model: Exchange = new Exchange();
 
     private onRead: Subscription;
+    private onSend: Subscription;
+    private onReceive: Subscription;
     private onError: Subscription;
 
-    constructor(private service: ExchangeService, private notify: NotifyService,
-                private router: Router, private route: ActivatedRoute) {}
+    constructor(private service: ExchangeService, private userService: UserService,
+                private notify: NotifyService, private router: Router,
+                private route: ActivatedRoute) {}
 
     public ngOnInit(): void {
 
         this.onRead = this.service.onRead.subscribe(
+            (data: Exchange) => this.model = data
+        );
+
+        this.onSend = this.service.onSend.subscribe(
             (data: Exchange) => this.model = data
         );
 
@@ -42,6 +50,42 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
 
+        this.onRead.unsubscribe();
+        this.onSend.unsubscribe();
+        this.onReceive.unsubscribe();
         this.onError.unsubscribe();
     }
+
+    public showSend(): boolean {
+       return this.model.status === 'I' && this.model.sender === this.userService.user.id;
+    }
+
+    public showReceive(): boolean {
+        return this.model.status === 'S' && this.model.receiver === this.userService.user.id;
+    }
+
+    public getStatus(): string {
+
+        let status: string = '';
+
+        switch (this.model.status) {
+            case 'I':
+                status = 'Iniciado';
+                break;
+            case 'S':
+                status = 'Enviado';
+                break;
+            case 'R':
+                status = 'Recebido';
+                break;
+            default:
+                break;
+        }
+
+        return status;
+    }
+
+    public send(trackingCode: string) {}
+
+    public receive() {}
 }

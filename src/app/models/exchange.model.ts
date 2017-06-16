@@ -6,6 +6,6 @@ export class Exchange {
     public sender: string = '';
     public receiver: string = '';
     public asset: Asset = new Asset();
-    public status: string = '';
     public createdAt: Date;
+    public status: string =  '';
 }

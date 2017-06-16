@@ -1,7 +1,7 @@
-<!-- Page Content -->
+
 <div class="container">
     <div class="row">
-        <!-- /.col-lg-3 -->
+
         <div class="col-lg-12">
             <div class="card mt-4">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -28,22 +28,23 @@
                     <h3 class="card-title">{{ model.asset.name }}</h3>
                     <h4>{{ model.asset.price | coin }}</h4>
                     <p class="card-text">{{ model.asset.description }}</p>
-                    <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> 4.0 stars
+                    <span class="text-warning">Status:</span> {{ getStatus() }}
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-success btn-lg ml-3" 
-                                data-toggle="modal" data-target="#confirmDeletion" *ngIf="true">
-                            <i class="fa fa-paper-plane-o"></i> Sent
-                        </button>
-                        <button type="button" class="btn btn-success btn-lg ml-3" 
-                                 data-toggle="modal" data-target="#confirmExchange" *ngIf="true">
-                            <i class="fa fa-thumbs-o-up"></i> Received
+                        <div class="input-group" *ngIf="showSend()">
+                            <input type="text" class="form-control" placeholder="Código de Rastreio" 
+                            aria-describedby="basic-addon2" #trackingCode (keyup.enter)="send(trackingCode.value)">
+                            <button type="button" class="btn btn-success btn-lg ml-3" (click)="send(trackingCode.value)">
+                                <i class="fa fa-paper-plane-o"></i> Enviar
+                            </button>    
+                        </div>
+                        <button type="button" class="btn btn-success btn-lg ml-3" *ngIf="showReceive()" (click)="receive()">
+                            <i class="fa fa-thumbs-o-up"></i> Receber
                         </button>
                     </div>
                 </div>
             </div>
-            <!-- /.card -->
+
         </div>
-        <!-- /.col-lg-9 -->
+
     </div>
 </div>
-<!-- /.container -->

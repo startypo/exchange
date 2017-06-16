@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import Passport from '../passport';
-import HttpStatus  from 'http-status-codes';
+import HttpStatus from 'http-status-codes';
 import * as multer from 'multer';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -27,7 +27,7 @@ export class FileController extends BaseController {
                 filename: (request, file, cb) => {
                     let extension = path.extname(file.originalname);
                     extension = extension.length > 1 ? extension : '.' + mime.extension(file.mimetype);
-                    crypto.pseudoRandomBytes(16, function (err, raw) {
+                    crypto.pseudoRandomBytes(16, function(err, raw) {
                             cb(err, err ? undefined : raw.toString('hex') + extension);
                     });
                 }
@@ -42,7 +42,7 @@ export class FileController extends BaseController {
     public read = (req: any, res: Response): void => {
 
         let filePath = path.join(Config.uploadPath, req.query.filename);
-        let mimeType = mime.lookup(filePath);
+        let mimeType = mime.lookup(filePath, '');
         res.setHeader('Content-type', mimeType);
 
         res.download(path.join(Config.uploadPath, req.query.filename), req.query.filename);

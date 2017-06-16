@@ -13,7 +13,10 @@ import { ExchangeList } from '../models/exchange-list.model';
 export class ExchangeService extends BaseService<Exchange> {
 
     public onList: Observable<ExchangeList>;
+    public onSend: Observable<Exchange>;
+
     protected listSubject: Subject<ExchangeList>;
+    protected sendSubject: Subject<Exchange>;
 
     private resourceUrl = '/exchange';
 
@@ -50,6 +53,16 @@ export class ExchangeService extends BaseService<Exchange> {
                  .subscribe(
                     (data: Exchange) => this.readSubject.next(data),
                     (err: ReadHttpError) => this.errorSubject.next(err)
+                 );
+    }
+
+    public send(exchange: Exchange): void {
+
+        this.http.put(this.apiUrl + this.resourceUrl, JSON.stringify(exchange), this.getOptions())
+                 .catch(err => Observable.throw(new UpdateHttpError(err.text())))
+                 .subscribe(
+                    (data: Exchange) => this.sendSubject.next(data),
+                    (err: UpdateHttpError) => this.errorSubject.next(err)
                  );
     }
 

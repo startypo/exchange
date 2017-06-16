@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, Router } from 'express';
-import HttpStatus  from 'http-status-codes';
+import HttpStatus from 'http-status-codes';
 import { IDocument, IModel } from 'mongoose';
 
 export abstract class BaseController {

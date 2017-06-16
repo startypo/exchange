@@ -109,7 +109,7 @@ export class UIService implements OnInit {
     };
 
     protected passwordLangs: PasswordLangs = {
-        generate: 'Generate'
+        generate: 'Gerar'
     };
 
     /**

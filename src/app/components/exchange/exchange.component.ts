@@ -11,7 +11,7 @@ import { ExchangeList } from '../../models/exchange-list.model';
 @Component({
     selector: 'exchange',
     templateUrl: 'exchange.component.html',
-    styleUrls: ['exchange.component.css']
+    styleUrls: ['exchange.component.css','./style.scss']
 })
 
 export class ExchangeComponent implements OnInit, OnDestroy {

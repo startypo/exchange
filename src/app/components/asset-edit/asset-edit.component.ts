@@ -33,10 +33,10 @@ export class AssetEditComponent implements OnInit, OnDestroy {
     private onRemove: Subscription;
     private onError: Subscription;
 
-    constructor (private service: AssetService, public userService: UserService,
-                 private notify: NotifyService, private fileService: FileService,
-                 private router: Router, private route: ActivatedRoute, 
-                 private fb: FormBuilder, public currencyPipe: CurrencyPipe) {
+    constructor(private service: AssetService, public userService: UserService,
+                private notify: NotifyService, private fileService: FileService,
+                private router: Router, private route: ActivatedRoute,
+                private fb: FormBuilder, public currencyPipe: CurrencyPipe) {
 
         this.configForm();
     }
@@ -45,7 +45,7 @@ export class AssetEditComponent implements OnInit, OnDestroy {
 
         this.onCreate = this.service.onCreate.subscribe(
             asset => {
-                this.notify.success('XChanges', 'Asset was successfully created.');
+                this.notify.success('Exchange', 'Criado com sucesso.');
                 this.router.navigate(['/assets']);
             }
         );
@@ -57,7 +57,7 @@ export class AssetEditComponent implements OnInit, OnDestroy {
 
         this.onUpdate = this.service.onUpdate.subscribe(
             asset => {
-                this.notify.success('XChanges', 'Asset was successfully updated.');
+                this.notify.success('Exchange', 'Atualizado com sucesso.');
                 this.router.navigate(['/assets']);
             }
         );
@@ -73,7 +73,7 @@ export class AssetEditComponent implements OnInit, OnDestroy {
         );
 
         this.onError = this.service.onError.subscribe(
-            err => this.notify.error('XChanges', 'Something went wrong.')
+            err => this.notify.error('Exhange', 'Algo deu errado.')
         );
 
         this.model.id = this.route.snapshot.params['id'];

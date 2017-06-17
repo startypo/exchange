@@ -41,7 +41,7 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
         });
 
         this.onError = this.service.onError.subscribe(
-            (err) => this.notify.error('Exchange', 'Something went wrong.')
+            (err) => this.notify.error('Exchange', 'Algo deu errado.')
         );
 
         const id = this.route.snapshot.params['id'];

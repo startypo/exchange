@@ -39,18 +39,18 @@ export class AssetListComponent implements OnInit, OnDestroy {
         );
 
         this.onError = this.service.onError.subscribe(
-            (err) => this.notify.error('Xchanges', 'Something went wrong.')
+            (err) => this.notify.error('Exchange', 'Algo deu errado.')
         );
 
-        this.term = this.route.snapshot.params['term'];
-
-        if (this.term) {
+        if (this.isList())
+            this.service.list(1);
+        else {
+            this.term = this.route.snapshot.params['term'];
             this.onParams = this.route.params.subscribe(params => {
                 this.term = params['term'];
                 this.service.search(this.term, 1);
             });
-        } else
-            this.service.list(1);
+        }
     }
 
     public ngOnDestroy(): void {
@@ -61,6 +61,10 @@ export class AssetListComponent implements OnInit, OnDestroy {
         this.onList.unsubscribe();
         this.onSearch.unsubscribe();
         this.onError.unsubscribe();
+    }
+
+    public isList(): boolean {
+        return this.router.isActive('/assets', true);
     }
 
     public paginate(page: number, term?: string) {

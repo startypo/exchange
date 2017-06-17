@@ -36,12 +36,12 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
         );
 
         this.onDelete = this.service.onDelete.subscribe(() => {
-            this.notify.success('Exchange', 'O livro foi excluído com sucesso.');
+            this.notify.success('Exchange', 'Excluído com sucesso.');
             this.router.navigate(['/assets']);
         });
 
         this.onError = this.service.onError.subscribe(
-            (err) => this.notify.error('Exchange', 'Algo de errado aconteceu no servidor.')
+            (err) => this.notify.error('Exchange', 'Algo deu errado.')
         );
 
         this.onExchangeCreate = this.exchangeService.onCreate.subscribe(() => {

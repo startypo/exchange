@@ -1,10 +1,12 @@
 <!-- Page Content -->
-<div class="container-fluid mt-5 mb-5">
-    <h1>Histórico de Transações</h1>
+<div class="container mt-5 mb-5">
+    <h1 class="title1">Histórico de Transações</h1>
 
     <div class="row">
         
-        <h2>Livros Vendidos</h2>    
+        <div class="col-12">
+            <h2>Livros Vendidos</h2>
+        </div>
         <div class="card-deck col-12" *ngFor="let item of model.sending">
             <div class="card">
                 <div class="card-block">
@@ -19,8 +21,10 @@
     </div>
 
     <div class="row">
-        
-        <h2>Livros Comprados</h2>
+
+        <div class="col-12">
+            <h2>Livros Comprados</h2>
+        </div>
         <div class="card-deck col-12" *ngFor="let item of model.receiving">
             <div class="card">
                 <div class="card-block">
@@ -35,8 +39,10 @@
     </div>
 
     <div class="row">
-        
-        <h2>Transações Concluídas</h2>
+
+        <div class="col-12">
+            <h2>Transações Concluídas</h2>
+        </div>
         <div class="card-deck col-12" *ngFor="let item of model.completed">
             <div class="card">
                 <div class="card-block">

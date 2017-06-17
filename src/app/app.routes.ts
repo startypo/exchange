@@ -39,6 +39,6 @@ const SECURE_ROUTES: Routes = [
 
 export const ROUTES: Routes = [
   { path: '', children: PUBLIC_ROUTES },
-  { path: '', children: SECURE_ROUTES, canActivate: [AuthGuard] },
+  { path: '', children: SECURE_ROUTES },
   { path: '**', component: NoContentComponent }
 ];

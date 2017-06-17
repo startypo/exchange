@@ -9,7 +9,6 @@
                 <ol class="carousel-indicators" *ngIf="model.asset.imgs.length > 1">
                     <li *ngFor="let img of model.imgs; let i = index" data-target="#carouselIndicators" 
                             data-slide-to="i" [class.active]="i === 0">
-                            <img src='http://placehold.it/100x50&text=slide' alt="Slide {{i}}" />
                     </li>
                 </ol>
                 <div class="carousel-inner asset-detail-carousel" role="listbox">

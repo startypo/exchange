@@ -5,7 +5,7 @@
 
         <div class="col-sm-6">
 
-            <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+            <div id="carouselIndicators" class="carousel slide mb-5" data-ride="carousel">
                 <ol class="carousel-indicators" *ngIf="model.asset.imgs.length > 1">
                     <li *ngFor="let img of model.imgs; let i = index" data-target="#carouselIndicators" 
                             data-slide-to="i" [class.active]="i === 0">
@@ -32,14 +32,14 @@
 
             <h2 class="title3">{{ model.asset.name }}</h2>
             <p>{{ model.asset.description }}</p>
-            <p>Status: {{getStatus()}}</p>
-            <p>Código de Rastreio: {{model.trackingCode}}</p>
-            <p>Email do remetente:</p>
-            <p>Email do destinatário:</p>
+            <p><strong>Status:</strong> {{getStatus()}}</p>
+            <p><strong>ódigo de Rastreio:</strong> {{model.trackingCode}}</p>
+            <p><strong>Email do remetente:</strong></p>
+            <p><strong>Email do destinatário:</strong></p>
             <div class="input-group" *ngIf="showSend()">
                 <input type="text" class="form-control" placeholder="Código de Rastreio" 
                 aria-describedby="basic-addon2" #trackingCode (keyup.enter)="send(trackingCode.value)">
-                <button type="button" class="btn btn-success btn-lg ml-3" (click)="send(trackingCode.value)">
+                <button type="button" class="btn btn-primary" (click)="send(trackingCode.value)">
                     <i class="fa fa-paper-plane-o"></i> Enviar
                 </button>    
             </div>
@@ -49,30 +49,6 @@
 
         </div>
 
-                <!--<div class="card-block">
-                    <h3 class="card-title">{{ model.asset.name }}</h3>
-                    <h4>{{ model.asset.price | coin }}</h4>
-                    <p class="card-text">{{ model.asset.description }}</p>
-                    <span class="text-warning">Status:</span> {{ getStatus() }}
-                    <span class="text-warning">Código de Rastreio:</span> {{ model.trackingCode }}
-                    <span class="text-warning">Email do remetente:</span>
-                    <span class="text-warning">Email do destinatário:</span>
-                    <div class="d-flex justify-content-end">
-                        <div class="input-group" *ngIf="showSend()">
-                            <input type="text" class="form-control" placeholder="Código de Rastreio" 
-                            aria-describedby="basic-addon2" #trackingCode (keyup.enter)="send(trackingCode.value)">
-                            <button type="button" class="btn btn-success btn-lg ml-3" (click)="send(trackingCode.value)">
-                                <i class="fa fa-paper-plane-o"></i> Enviar
-                            </button>    
-                        </div>
-                        <button type="button" class="btn btn-success btn-lg ml-3" *ngIf="showReceive()" (click)="receive()">
-                            <i class="fa fa-thumbs-o-up"></i> Receber
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-        </div>-->
-
     </div>
+    
 </div>

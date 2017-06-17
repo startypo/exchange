@@ -3,21 +3,26 @@
     <h1 class="title1">Histórico de Transações</h1>
 
     <div class="row">
-        
-        <div class="col-12">
-            <h2>Livros Vendidos</h2>
-        </div>
-        <div class="card-deck col-12" *ngFor="let item of model.sending">
+        <div id="accordion" role="tablist" aria-multiselectable="true">
             <div class="card">
-                <div class="card-block">
-                    <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
-                    <h3 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h3>
-                    <p class="card-text"><a href="#">{{ item.description }}</a></p>
-                    <p class="card-price">{{ item.price | coin }}</p>
+                <div class="card-header" role="tab" id="headingOne">
+                <h5 class="mb-0">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Livros Vendidos
+                    </a>
+                </h5>
+            </div>
+            <div class="card-deck col-12" role="tabpanel" aria-labelledby="headingOne">
+                <div class="card" *ngFor="let item of model.sending">
+                    <div class="card-block">
+                        <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
+                        <h3 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h3>
+                        <p class="card-text"><a href="#">{{ item.description }}</a></p>
+                        <p class="card-price">{{ item.price | coin }}</p>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="row">
@@ -25,8 +30,8 @@
         <div class="col-12">
             <h2>Livros Comprados</h2>
         </div>
-        <div class="card-deck col-12" *ngFor="let item of model.receiving">
-            <div class="card">
+        <div class="card-deck col-12">
+            <div class="card" *ngFor="let item of model.receiving">
                 <div class="card-block">
                     <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
                     <h3 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h3>
@@ -43,8 +48,8 @@
         <div class="col-12">
             <h2>Transações Concluídas</h2>
         </div>
-        <div class="card-deck col-12" *ngFor="let item of model.completed">
-            <div class="card">
+        <div class="card-deck col-12">
+            <div class="card" *ngFor="let item of model.completed">
                 <div class="card-block">
                     <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
                     <h3 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h3>

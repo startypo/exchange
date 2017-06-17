@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UserService } from '../../modules/user';
+import { EventService } from '../../services/event.service';
 
 @Component({
     selector: 'xchs-header-auth',
@@ -10,10 +11,10 @@ import { UserService } from '../../modules/user';
 })
 export class HeaderAuthComponent {
 
-    constructor(public service: UserService, private router: Router) {}
+    constructor(public service: EventService, public userService: UserService, private router: Router) {}
 
     public logout() {
-        this.service.logout();
+        this.userService.logout();
         this.router.navigate(['/']);
     }
 

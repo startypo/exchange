@@ -15,8 +15,8 @@
             <form class="search-desktop">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Buscar por livros" 
-                           aria-describedby="basic-addon2" #searchBar (keyup.enter)="search(searchBar.value)">
-                    <button class="input-group-addon" (click)="search(searchBar.value)">
+                           aria-describedby="basic-addon2" #desktopSearch (keyup.enter)="search(desktopSearch.value)">
+                    <button class="input-group-addon" (click)="search(desktopSearch.value)">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -70,8 +70,9 @@
             </div>
             <form class="search-mobile" action="#">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Buscar por livros" aria-describedby="basic-addon2">
-                    <button class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <input type="text" class="form-control" placeholder="Buscar por livros" aria-describedby="basic-addon2" 
+                           #mobileSearch (keyup.enter)="search(mobileSearch.value)">
+                    <button class="input-group-addon" (click)="search(mobileSearch.value)"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </div>
             </form>
         </nav>

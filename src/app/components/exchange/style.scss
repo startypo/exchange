@@ -46,11 +46,6 @@ h6 { font-family: $raleway !important; }
 }
 .title2 { font-size: 1.5em; }
 
-// header,
-// .card-deck {
-//     margin-bottom: 50px;
-// }
-
 .card-img-top {
     border-radius: inherit;
     max-height: 200px;
@@ -70,6 +65,7 @@ h6 { font-family: $raleway !important; }
 }
 
 .tab-content {
+    background-color: #ddd;
     border: solid 1px #ddd;
     border-top: none;
 }

@@ -9,7 +9,7 @@
 
                 <div class="carousel-inner asset-detail-carousel" role="listbox">
                     <div class="carousel-item" *ngFor="let img of model.asset.imgs; let i = index" [class.active]="i === 0">
-                        <img class="d-block card-img-top img-fluid mx-auto" src="/api/v1/file?filename={{img}}" alt="Slide {{i}}">
+                        <img src="/api/v1/file?filename={{img}}" alt="Slide {{i}}">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev" *ngIf="model.asset.imgs.length > 1">
@@ -23,7 +23,7 @@
                 <ol class="carousel-indicators" *ngIf="model.asset.imgs.length > 1">
                     <li *ngFor="let img of model.imgs; let i = index" data-target="#carouselIndicators" 
                             data-slide-to="i" [class.active]="i === 0">
-                            <img src='http://placehold.it/100x50&text=slide' alt='' />
+                            <img src='http://placehold.it/100x50&text=slide' alt="Slide {{i}}" />
                     </li>
                 </ol>
 
@@ -35,7 +35,7 @@
 
             <h2 class="title2">{{ model.asset.name }}</h2>
             <p>{{ model.asset.description }}</p>
-            <p>Status: {{getStatus}}</p>
+            <p>Status: {{getStatus()}}</p>
             <p>Código de Rastreio: {{model.trackingCode}}</p>
             <p>Email do remetente:</p>
             <p>Email do destinatário:</p>
@@ -46,7 +46,7 @@
                     <i class="fa fa-paper-plane-o"></i> Enviar
                 </button>    
             </div>
-            <button type="button" class="btn btn-success btn-lg ml-3" *ngIf="showReceive()" (click)="receive()">
+            <button type="button" class="btn btn-success" *ngIf="showReceive()" (click)="receive()">
                 <i class="fa fa-thumbs-o-up"></i> Receber
             </button>
 

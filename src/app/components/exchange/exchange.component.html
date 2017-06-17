@@ -1,9 +1,55 @@
 <!-- Page Content -->
-<div class="container-fluid m-5">
-    <div class="d-flex flex-column">
-        <h2>Sending</h2>
-        <hr class="w-100 ">
+<div class="container-fluid mt-5 mb-5">
+    <h1>Histórico de Transações</h1>
+
+    <div class="row">
+        
+        <h2>Livros Vendidos</h2>    
+        <div class="card-deck col-12" *ngFor="let item of model.sending">
+            <div class="card">
+                <div class="card-block">
+                    <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
+                    <h3 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h3>
+                    <p class="card-text"><a href="#">{{ item.description }}</a></p>
+                    <p class="card-price">{{ item.price | coin }}</p>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <div class="row">
+        
+        <h2>Livros Comprados</h2>
+        <div class="card-deck col-12" *ngFor="let item of model.receiving">
+            <div class="card">
+                <div class="card-block">
+                    <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
+                    <h3 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h3>
+                    <p class="card-text"><a href="#">{{ item.description }}</a></p>
+                    <p class="card-price">{{ item.price | coin }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        
+        <h2>Transações Concluídas</h2>
+        <div class="card-deck col-12" *ngFor="let item of model.completed">
+            <div class="card">
+                <div class="card-block">
+                    <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
+                    <h3 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h3>
+                    <p class="card-text"><a href="#">{{ item.description }}</a></p>
+                    <p class="card-price">{{ item.price | coin }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<!--    
     <div class="d-flex flex-row justify-content-between mt-3">
         <div class="col-lg-2 col-md-6 mb-4" *ngFor="let item of model.sending">
             <div class="card h-100">
@@ -18,12 +64,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="d-flex flex-column">
-        <h2>Receiving</h2>
-        <hr class="w-100 ">
-    </div>
-    <div class="d-flex flex-row justify-content-between mt-3">
+    </div>-->
+    
+    <!--<div class="d-flex flex-row justify-content-between mt-3">
         <div class="col-lg-2 col-md-6 mb-4" *ngFor="let item of model.receiving">
             <div class="card h-100">
                 <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
@@ -37,12 +80,9 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="d-flex flex-column">
-        <h2>Completed</h2>
-        <hr class="w-100 ">
-    </div>
-    <div class="d-flex flex-row justify-content-between mt-3">
+    </div>-->
+    
+    <!--<div class="d-flex flex-row justify-content-between mt-3">
         <div class="col-lg-2 col-md-6 mb-4" *ngFor="let item of model.completed">
             <div class="card h-100">
                 <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
@@ -56,6 +96,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
 </div>
 <!-- /.container -->

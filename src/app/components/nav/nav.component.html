@@ -1,18 +1,33 @@
-<div class="overlay"></div>
-<nav class="menu-hide">
+<div class="overlay" #overlay></div>
+<nav class="menu-hide" #menu>
     <div class="menu-left container d-flex flex-column no-padding">
         <div class="menu-left-logo">
-            <a href="#">
+            <a [routerLink]="['/']">
                 <img src="assets/img/landing-page/logo-small.png" alt="Logo Exchange"   
                      srcset="assets/img/landing-page/logo-small.png 1x,assets/img/landing-page/logo-small@2x.png 2x">
             </a>
         </div>
         <ul class="list-group">
-            <li class="list-group-item"><a href="#"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-question" aria-hidden="true"></i>Quem Somos</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i>Parceiros</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Entrar</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Cadastrar</a></li>
+            <li class="list-group-item">
+                <a (click)="hideMenu()">
+                    <i class="fa fa-question" aria-hidden="true"></i>Quem Somos
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a (click)="hideMenu()">
+                    <i class="fa fa-handshake-o" aria-hidden="true"></i>Parceiros
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a [routerLink]="['/login']" (click)="hideMenu()">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i>Entrar
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a [routerLink]="['/register']" (click)="hideMenu()">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>Cadastrar
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

@@ -28,6 +28,7 @@ import { FileService } from './modules/ui/fileuploader/file.service';
 import { AssetService } from './services/asset.service';
 import { HandService } from './services/hand.service';
 import { ExchangeService } from './services/exchange.service';
+import { EventService } from './services/event.service';
 
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './components/no-content';
@@ -80,7 +81,8 @@ export interface StoreType  {
            ],
   providers: [
                ENV_PROVIDERS, APP_PROVIDERS,
-               UserService, AssetService, HandService, ExchangeService, UIService, AuthGuard, NotifyService, FileService
+               UserService, AssetService, HandService, ExchangeService, UIService, AuthGuard,
+               NotifyService, FileService, EventService
              ]
 })
 export class AppModule {

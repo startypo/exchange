@@ -1,5 +1,5 @@
-<div class="overlay"></div>
-<nav class="menu-hide" *ngIf="service.isLoggedIn()">
+<div class="overlay" #overlay></div>
+<nav class="menu-hide" #menu>
     <div class="menu-left container d-flex flex-column no-padding">
         <div class="menu-left-logo">
             <a href="#">
@@ -8,15 +8,43 @@
             </a>
         </div>
         <ul class="list-group">
-            <li class="list-group-item"><a href="#"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-question" aria-hidden="true"></i>Quem Somos</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-handshake-o" aria-hidden="true"></i>Parceiros</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-book" aria-hidden="true"></i>Seus Itens</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-exchange" aria-hidden="true"></i>Anunciar Livro</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-usd" aria-hidden="true"></i>Ganhar Pontos</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i>Reclamar Pontos</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-cog" aria-hidden="true"></i>Configurações</a></li>
-            <li class="list-group-item"><a href="#"><i class="fa fa-power-off" aria-hidden="true"></i>Logout</a></li>
+            <li class="list-group-item">
+                <a href="#">
+                    <i class="fa fa-question" aria-hidden="true"></i>Quem Somos
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="#">
+                    <i class="fa fa-handshake-o" aria-hidden="true"></i>Parceiros
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a [routerLink]="['/assets']" (click)="hideMenu()">
+                    <i class="fa fa-book" aria-hidden="true"></i>Seus Itens
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a [routerLink]="['/assets/new']" (click)="hideMenu()">
+                    <i class="fa fa-plus" aria-hidden="true"></i>Publicar Item
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a [routerLink]="['/exchanges']" (click)="hideMenu()">
+                    <i class="fa fa-exchange" aria-hidden="true"></i>Suas Trocas
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a [routerLink]="['/credits']" (click)="hideMenu()">
+                    <i class="fa fa-money" aria-hidden="true"></i>Ganhar Créditos
+                </a>
+            </li>
+            <!--<li class="list-group-item"><a href="#"><i class="fa fa-plus" aria-hidden="true"></i>Reclamar Pontos</a></li>
+            <li class="list-group-item"><a href="#"><i class="fa fa-cog" aria-hidden="true"></i>Configurações</a></li>-->
+            <li class="list-group-item">
+                <button (click)="logout()">
+                    <i class="fa fa-power-off" aria-hidden="true"></i>Logout
+                </button>
+            </li>
         </ul>
     </div>
 </nav>

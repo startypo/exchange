@@ -24,6 +24,7 @@ h6 { font-family: $raleway !important; }
     font-family: $lato;
 }
 
+
 .title1 { 
     font-size: 2em;
     border-bottom: 1px solid $primary-color !important;
@@ -42,6 +43,13 @@ h6 { font-family: $raleway !important; }
 }
 .title2 { font-size: 1.5em; }
 
+.title3 {
+    font-size: 1.5em;
+    border-bottom: dashed 1px #ddd;
+    padding-bottom: 15px;
+    font-weight: bold;
+    font-family: "Open sans",sans-serif;
+}
 .card-img-top {
     border-radius: inherit;
     max-height: 200px;
@@ -68,4 +76,10 @@ h6 { font-family: $raleway !important; }
     background-color: #ddd;
     border: solid 1px #ddd;
     border-top: none;
+}
+
+.carousel-item {
+    img {
+        max-height: 400px;
+    }
 }

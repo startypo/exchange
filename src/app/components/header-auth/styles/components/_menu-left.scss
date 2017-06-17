@@ -63,8 +63,8 @@
                 color: #fff;
                 font: .8em "Open Sans", "sans serif";        
             }
-
-            button {
+            
+            &.list-group-item button {
                 color: #fff;
                 background-color: transparent;
                 border: none;
@@ -75,6 +75,7 @@
         }
     }
 }
+
 .menu-left-logo {
     align-self: center;
     width: 100%;

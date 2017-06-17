@@ -49,8 +49,4 @@ export class NavAuthComponent implements AfterViewInit, OnDestroy {
         this.userService.logout();
         this.router.navigate(['/']);
     }
-
-    public search(term: string) {
-        this.router.navigate(['/assets/search', term]);
-    }
 }

@@ -12,4 +12,13 @@ import { EventService } from '../../services/event.service';
 export class HeaderAuthComponent {
 
     constructor(public service: EventService, public userService: UserService, private router: Router) {}
+
+    public logout() {
+        this.userService.logout();
+        this.router.navigate(['/']);
+    }
+
+    public search(term: string) {
+        this.router.navigate(['/assets/search', term]);
+    }
 }

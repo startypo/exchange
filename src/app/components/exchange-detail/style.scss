@@ -1,0 +1,71 @@
+//Imports Sass Helpers
+@import "styles/helpers/mixins";
+@import "styles/helpers/variables";
+@import "styles/helpers/utilities";
+
+//Imports Layout Structure
+@import "styles/layout/responsive";
+
+//Imports components
+@import "styles/components/card-item";
+@import "styles/components/slider";
+
+body { font-family: $open-sans !important; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { font-family: $raleway !important; }
+
+.title1,
+.title2 {
+    font-family: $lato;
+}
+
+.title1 { 
+    font-size: 2em;
+    border-bottom: 1px solid $primary-color !important;
+    color: $primary-color;
+    width: 100%;
+    margin: 30px 0;
+
+    &:after {
+        content: "";
+        background-color: $primary-color;
+        width: 50px;
+        height: 3px;
+        display: block;
+        margin-top: 1.5rem;
+    }
+}
+.title2 { font-size: 1.5em; }
+
+.card-img-top {
+    border-radius: inherit;
+    max-height: 200px;
+}
+
+.facebook {
+    img {
+        padding: 100px 0;
+        margin-right: 30px;
+    }
+    h1 { 
+        font-size: 2em;
+        color: $primary-color;
+        font-weight: bold;
+        line-height: 50px;
+    }
+}
+
+.nav-tabs {
+    font-size: .9rem;
+}
+
+.tab-content {
+    background-color: #ddd;
+    border: solid 1px #ddd;
+    border-top: none;
+}

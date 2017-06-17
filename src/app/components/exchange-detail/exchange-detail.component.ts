@@ -12,7 +12,7 @@ import { UserService } from '../../modules/user/user.service';
 @Component({
     selector: 'exchange-detail',
     templateUrl: 'exchange-detail.component.html',
-    styleUrls: ['exchange-detail.component.css']
+    styleUrls: ['exchange-detail.component.css','./style.scss']
 })
 
 export class ExchangeDetailComponent implements OnInit, OnDestroy {

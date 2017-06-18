@@ -37,9 +37,11 @@
             <p><strong>Email do remetente:</strong></p>
             <p><strong>Email do destinatário:</strong></p>
             <div class="input-group" *ngIf="showSend()">
-                <input type="text" class="form-control" placeholder="Código de Rastreio" 
-                aria-describedby="basic-addon2" #trackingCode (keyup.enter)="send(trackingCode.value)">
-                <button type="button" class="btn btn-primary" (click)="send(trackingCode.value)">
+                <validate [control]="form.controls['trackingCode']">
+                    <input type="text" class="form-control" placeholder="Código de Rastreio" 
+                    aria-describedby="basic-addon2" (keyup.enter)="send()">
+                </validate>
+                <button type="button" class="btn btn-primary" (click)="send()">
                     <i class="fa fa-paper-plane-o"></i> Enviar
                 </button>    
             </div>

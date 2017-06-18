@@ -386,25 +386,16 @@ export class CustomValidators {
         };
     }
 
-    public static remote(service: any): ValidatorFn {
-
+    public static alphaNumeric(): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
 
-            let match = null;
+            if (isEmpty(control.value))
+                return null;
 
-            service.remoteValidation(control.value).subscribe((res) => {
-
-                console.log(res);
-
-                return match ? null : {
-                    remote: {
-                        value: control.value
-                    }
-                };
-            }, (err) => console.log(err));
+            const match = !/^[a-z0-9]+$/i.test(control.value);
 
             return match ? null : {
-                remote: {
+                alphaNumeric: {
                     value: control.value
                 }
             };

@@ -22,4 +22,5 @@ export interface ValidateLangs {
     boolean?: string;
     hex?: string;
     rgb?: string;
+    alphaNumeric?: string;
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../../modules/user/user.service';
 
 @Component({
   selector: 'no-content',
@@ -7,5 +8,7 @@ import { Component } from '@angular/core';
 
 })
 export class NoContentComponent {
+
+  constructor(public service: UserService) {}
 
 }

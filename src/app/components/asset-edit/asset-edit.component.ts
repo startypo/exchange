@@ -103,7 +103,7 @@ export class AssetEditComponent implements OnInit, OnDestroy {
         }
 
         form.valueChanges.subscribe(() => this.notify.removeAll());
-        (<any> Object).assign(this.model, form.value);
+        Object.assign(this.model, form.value);
 
         if (this.model.id)
             this.service.update(this.model);

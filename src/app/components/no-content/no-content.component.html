@@ -1,4 +1,7 @@
-<div class="container">
+    <xchs-nav *ngIf="!service.isLoggedIn()"></xchs-nav>
+    <xchs-header *ngIf="!service.isLoggedIn()"></xchs-header>
+    <xchs-nav-auth *ngIf="service.isLoggedIn()"></xchs-nav-auth>
+    <xchs-header-auth *ngIf="service.isLoggedIn()"></xchs-header-auth>
     <div class="row">
         <div class="error-template">
             <h1>Oops!</h1>
@@ -8,4 +11,3 @@
             </div>
         </div>
     </div>
-</div>

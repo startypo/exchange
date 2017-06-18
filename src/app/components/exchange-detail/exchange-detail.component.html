@@ -33,7 +33,7 @@
             <h2 class="title3">{{ model.asset.name }}</h2>
             <p>{{ model.asset.description }}</p>
             <p><strong>Status:</strong> {{getStatus()}}</p>
-            <p><strong>ódigo de Rastreio:</strong> {{model.trackingCode}}</p>
+            <p><strong>Código de Rastreio:</strong> {{model.trackingCode}}</p>
             <p><strong>Email do remetente:</strong></p>
             <p><strong>Email do destinatário:</strong></p>
             <div class="input-group" *ngIf="showSend()">
@@ -50,5 +50,5 @@
         </div>
 
     </div>
-    
+
 </div>

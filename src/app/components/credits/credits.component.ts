@@ -10,7 +10,7 @@ import { HandService } from '../../services/hand.service';
 @Component({
     selector: 'credits',
     templateUrl: 'credits.component.html',
-    styleUrls: ['credits.component.css']
+    styleUrls: ['credits.component.css','./style.scss']
 })
 
 export class CreditsComponent implements OnInit, OnDestroy {

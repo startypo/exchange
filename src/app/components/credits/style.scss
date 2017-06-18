@@ -1,0 +1,113 @@
+//Imports Sass Helpers
+@import "styles/helpers/mixins";
+@import "styles/helpers/variables";
+@import "styles/helpers/utilities";
+
+//Imports Layout Structure
+@import "styles/layout/responsive";
+
+//Imports components
+@import "styles/components/card-item";
+
+body { font-family: $open-sans !important; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { font-family: $raleway !important; }
+
+.title1,
+.title2 {
+    font-family: $lato;
+}
+
+
+.title1 { 
+    font-size: 2em;
+    border-bottom: 1px solid $primary-color !important;
+    color: $primary-color;
+    width: 100%;
+    margin: 30px 0;
+
+    &:after {
+        content: "";
+        background-color: $primary-color;
+        width: 50px;
+        height: 3px;
+        display: block;
+        margin-top: 1.5rem;
+    }
+}
+.title2 { font-size: 1.5em; }
+
+.title3 {
+    font-size: 1.5em;
+    border-bottom: dashed 1px #ddd;
+    padding-bottom: 15px;
+    font-weight: bold;
+    font-family: "Open sans",sans-serif;
+}
+.card-img-top {
+    border-radius: inherit;
+    max-height: 200px;
+}
+
+.facebook {
+    img {
+        padding: 100px 0;
+        margin-right: 30px;
+    }
+    h1 { 
+        font-size: 2em;
+        color: $primary-color;
+        font-weight: bold;
+        line-height: 50px;
+    }
+}
+
+.nav-tabs {
+    font-size: .9rem;
+}
+
+.tab-content {
+    background-color: #ddd;
+    border: solid 1px #ddd;
+    border-top: none;
+}
+
+.carousel-item {
+    img {
+        max-height: 400px;
+    }
+}
+
+.carousel {
+    height: 400px;
+
+    .carousel-item {
+        background-color: rgba(221, 221, 221, 0.4);
+    }
+}
+.carousel-control-prev {
+    background: rgba(87,87,87,1);
+    background: -moz-linear-gradient(left, rgba(87,87,87,1) 0%, rgba(20,20,20,0) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(87,87,87,1)), color-stop(100%, rgba(20,20,20,0)));
+    background: -webkit-linear-gradient(left, rgba(87,87,87,1) 0%, rgba(20,20,20,0) 100%);
+    background: -o-linear-gradient(left, rgba(87,87,87,1) 0%, rgba(20,20,20,0) 100%);
+    background: -ms-linear-gradient(left, rgba(87,87,87,1) 0%, rgba(20,20,20,0) 100%);
+    background: linear-gradient(to right, rgba(87,87,87,1) 0%, rgba(20,20,20,0) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#575757', endColorstr='#141414', GradientType=1 )
+}
+
+.carousel-control-next {
+    background: rgba(20,20,20,0);
+    background: -moz-linear-gradient(left, rgba(20,20,20,0) 0%, rgba(87,87,87,1) 100%);
+    background: -webkit-gradient(left top, right top, color-stop(0%, rgba(20,20,20,0)), color-stop(100%, rgba(87,87,87,1)));
+    background: -webkit-linear-gradient(left, rgba(20,20,20,0) 0%, rgba(87,87,87,1) 100%);
+    background: -o-linear-gradient(left, rgba(20,20,20,0) 0%, rgba(87,87,87,1) 100%);
+    background: -ms-linear-gradient(left, rgba(20,20,20,0) 0%, rgba(87,87,87,1) 100%);
+    background: linear-gradient(to right, rgba(20,20,20,0) 0%, rgba(87,87,87,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#141414', endColorstr='#575757', GradientType=1 );
+}

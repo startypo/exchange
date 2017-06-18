@@ -86,15 +86,24 @@ export class ExchangeService {
         });
     }
 
-    public send(doc: IExchangeDocument, callback: (err: any, result) => void): void {
+    public send(doc: IExchangeDocument, senderId: string, callback: (err: any, result) => void): void {
 
         this.exchangeModel.findById(doc.id, (err, exchange) => {
 
-            if (err)
+            if (err) {
                 callback(err, null);
+                return;
+            }
 
-            // somente o remetente pode enviar.
-            // se já está no estado de enviado, proibir operação.
+            if (exchange.sender !== senderId) {
+                callback(new XChangesError(ErrorType.unauthorizedUser), null);
+                return;
+            }
+
+            if (exchange.status !== Status.initiated) {
+                callback(new XChangesError(ErrorType.statusChangeNotAllowed), null);
+                return;
+            }
 
             exchange.status = Status.sent;
             exchange.trackingCode = doc.trackingCode;

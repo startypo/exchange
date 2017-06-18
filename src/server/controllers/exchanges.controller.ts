@@ -41,7 +41,9 @@ export class ExchangesController extends BaseController {
     protected read = (req: Request, res: Response): void => {
 
         ExchangeModel.findOne({ asset: req.query.id })
-                     .populate('asset').exec((err, result) => {
+                     .populate('asset')
+                     .populate('sender', 'email')
+                     .populate('receiver', 'email').exec((err, result) => {
 
             if (err) {
 
@@ -61,7 +63,7 @@ export class ExchangesController extends BaseController {
 
         const service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
 
-        service.send(req.body, (err, result) => {
+        service.send(req.body, req.user.id, (err, result) => {
 
             if (err) {
 

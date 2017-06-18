@@ -34,8 +34,8 @@
             <p>{{ model.asset.description }}</p>
             <p><strong>Status:</strong> {{getStatus()}}</p>
             <p><strong>Código de Rastreio:</strong> {{model.trackingCode}}</p>
-            <p><strong>Email do remetente:</strong></p>
-            <p><strong>Email do destinatário:</strong></p>
+            <p><strong>Email do remetente:</strong> {{model.sender.email}}</p>
+            <p><strong>Email do destinatário:</strong> {{model.receiver.email}}</p>
             <div class="input-group" *ngIf="showSend()">
                 <validate [control]="form.controls['trackingCode']">
                     <input type="text" class="form-control" placeholder="Código de Rastreio" 

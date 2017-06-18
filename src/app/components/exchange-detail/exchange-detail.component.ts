@@ -64,11 +64,11 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
     }
 
     public showSend(): boolean {
-       return this.model.status === 'I' && this.model.sender === this.userService.user.id;
+       return this.model.status === 'I' && this.model.sender.id === this.userService.user.id;
     }
 
     public showReceive(): boolean {
-        return this.model.status === 'S' && this.model.receiver === this.userService.user.id;
+        return this.model.status === 'S' && this.model.receiver.id === this.userService.user.id;
     }
 
     public getStatus(): string {
@@ -92,7 +92,7 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
         return status;
     }
 
-    public send(trackingCode: string) {
+    public send() {
 
         if (!this.form.valid) {
 

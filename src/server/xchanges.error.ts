@@ -37,11 +37,27 @@ export class ErrorType {
         status: HttpStatus.BAD_REQUEST
     };
 
-     public static exchangeAlreadyExists: IXChangesError = {
+    public static exchangeAlreadyExists: IXChangesError = {
 
         name: 'Exchange Already Exist',
         message: 'An exchange you are trying to create already exists',
         code: 102,
         status: HttpStatus.BAD_REQUEST
+    };
+
+    public static statusChangeNotAllowed: IXChangesError = {
+
+        name: 'Status change not allowed',
+        message: 'The status of an exchange you are trying to change is not allowed',
+        code: 103,
+        status: HttpStatus.BAD_REQUEST
+    };
+
+    public static unauthorizedUser: IXChangesError = {
+
+        name: 'Unauthorized User',
+        message: 'The user attempting to perform this operation is not authorized',
+        code: 104,
+        status: HttpStatus.UNAUTHORIZED
     };
 }

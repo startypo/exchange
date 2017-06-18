@@ -46,6 +46,12 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
             this.notify.success('Exchange', 'O item foi enviado.');
         });
 
+        this.onReceive = this.service.onReceive.subscribe((data: Exchange) => {
+            data.asset = this.model.asset;
+            this.model = data;
+            this.notify.success('Exchange', 'A troca foi concluída.');
+        });
+
         this.onError = this.service.onError.subscribe(
             (err) => this.router.navigate(['/error'])
         );
@@ -105,7 +111,7 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
     }
 
     public receive() {
-        console.log('recebido!');
+        this.service.receive(this.model);
     }
 
     private configForm() {

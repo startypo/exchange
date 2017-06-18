@@ -14,9 +14,11 @@ export class ExchangeService extends BaseService<Exchange> {
 
     public onList: Observable<ExchangeList>;
     public onSend: Observable<Exchange>;
+    public onReceive: Observable<Exchange>;
 
     protected listSubject: Subject<ExchangeList>;
     protected sendSubject: Subject<Exchange>;
+    protected receiveSubject: Subject<Exchange>;
 
     private resourceUrl = '/exchange';
 
@@ -28,6 +30,9 @@ export class ExchangeService extends BaseService<Exchange> {
 
         this.sendSubject = new Subject<Exchange>();
         this.onSend = this.sendSubject.asObservable();
+
+        this.receiveSubject = new Subject<Exchange>();
+        this.onReceive = this.receiveSubject.asObservable();
     }
 
     public create(assetId: string): void {
@@ -65,6 +70,19 @@ export class ExchangeService extends BaseService<Exchange> {
                  .catch(err => Observable.throw(new UpdateHttpError(err.text())))
                  .subscribe(
                     (data: Exchange) => this.sendSubject.next(data),
+                    (err: UpdateHttpError) => this.errorSubject.next(err)
+                 );
+    }
+
+    public receive(exchange: Exchange): void {
+
+        this.http.put(this.apiUrl + this.resourceUrl + '/receive',
+                      JSON.stringify({ id: exchange.id, trackingCode: exchange.trackingCode }),
+                      this.getOptions())
+                 .map(res => res.json())
+                 .catch(err => Observable.throw(new UpdateHttpError(err.text())))
+                 .subscribe(
+                    (data: Exchange) => this.receiveSubject.next(data),
                     (err: UpdateHttpError) => this.errorSubject.next(err)
                  );
     }

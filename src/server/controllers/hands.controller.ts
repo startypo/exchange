@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import Passport from '../passport';
-import HttpStatus  from 'http-status-codes';
+import HttpStatus from 'http-status-codes';
 
 import { BaseController } from './base.controller';
 import { HandModel, IHandDocument } from '../models/hand.model';
 import { UserModel, IUserDocument } from '../models/user.model';
 import { Routes } from '../routes';
-
 
 export class HandsController extends BaseController {
 
@@ -42,7 +41,7 @@ export class HandsController extends BaseController {
             if (err)
                 res.status(HttpStatus.FORBIDDEN).json();
 
-            hand.credit(+req.body.time);
+            hand.createMoney(+req.body.time);
 
             hand.save((error, updated) => {
 

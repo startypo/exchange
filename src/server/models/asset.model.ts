@@ -1,11 +1,10 @@
 import { Schema, IDocument, IModel, Model, Document, Types } from 'mongoose';
-import paginate  from 'mongoose-paginate';
+import paginate from 'mongoose-paginate';
 
 import { DBConnection } from '../db.connection';
 import { BaseModel } from './base.model';
 import { IUserDocument } from './user.model';
 import { IExchangeDocument } from './exchange.model';
-
 
 export interface IAssetDocument extends IDocument {
 
@@ -17,10 +16,7 @@ export interface IAssetDocument extends IDocument {
     exchange: IExchangeDocument;
 }
 
-export interface IAssetModel extends IModel<IAssetDocument> {
-
-    toObjectId(id: string): Types.ObjectId;
-}
+export interface IAssetModel extends IModel<IAssetDocument> {}
 
 let schema = BaseModel.createSchema({
 
@@ -52,9 +48,5 @@ let schema = BaseModel.createSchema({
 });
 
 schema.plugin(paginate);
-
-schema.statics.toObjectId = function (id: string) {
-    return new Types.ObjectId(id);
-}
 
 export const AssetModel = <IAssetModel> DBConnection.getConnection().model<IAssetDocument>('assets', schema);

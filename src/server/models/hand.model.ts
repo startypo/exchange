@@ -9,6 +9,7 @@ export interface IHandDocument extends IDocument {
 
     amount: number;
     owner: IUserDocument | string;
+    createMoney(time: number): void;
     credit(value: number): void;
     debit(value: number): void;
 }
@@ -31,11 +32,19 @@ let schema = BaseModel.createSchema({
     }
 });
 
-schema.methods.credit = function(time: number): void {
+schema.methods.createMoney = function(time: number): void {
 
     let minutes: number = time / 60;
     let value: number = minutes * 0.25;
     this.amount += +value.toFixed(2);
+};
+
+schema.methods.credit = function(value: number): void {
+
+    if (value <= 0)
+        throw new XChangesError(ErrorType.debit);
+
+    this.amount += value;
 };
 
 schema.methods.debit = function(value: number): void {

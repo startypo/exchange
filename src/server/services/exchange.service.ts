@@ -35,7 +35,7 @@ export class ExchangeService {
                     return;
                 }
 
-                let exchange = new this.exchangeModel();
+                const exchange = new this.exchangeModel();
                 exchange.receiver = receiverId;
                 exchange.sender = asset.owner;
                 exchange.asset = asset;
@@ -73,7 +73,7 @@ export class ExchangeService {
 
             for (let e of exchange) {
 
-                if (e.status !== Status.received) {
+                if (e.status != Status.received) {
                     if (e.sender.toString() === userId)
                         result.sending.push(e.asset);
                     if (e.receiver.toString() === userId)
@@ -95,12 +95,12 @@ export class ExchangeService {
                 return;
             }
 
-            if (exchange.sender !== senderId) {
+            if (exchange.sender.toString() !== senderId) {
                 callback(new XChangesError(ErrorType.unauthorizedUser), null);
                 return;
             }
 
-            if (exchange.status !== Status.initiated) {
+            if (exchange.status != Status.initiated) {
                 callback(new XChangesError(ErrorType.statusChangeNotAllowed), null);
                 return;
             }
@@ -114,6 +114,53 @@ export class ExchangeService {
                     callback(err, null);
 
                 callback(null, result);
+            });
+        });
+    }
+
+    public receive(doc: IExchangeDocument, receiverId: string, callback: (err: any, result) => void): void {
+
+        this.exchangeModel.findById(doc.id).populate('asset').exec((err, exchange) => {
+
+            if (err) {
+                callback(err, null);
+                return;
+            }
+
+            if (exchange.receiver.toString() !== receiverId) {
+                callback(new XChangesError(ErrorType.unauthorizedUser), null);
+                return;
+            }
+
+            if (exchange.status != Status.sent) {
+                callback(new XChangesError(ErrorType.statusChangeNotAllowed), null);
+                return;
+            }
+
+            const asset: IAssetDocument = exchange.asset as IAssetDocument;
+            exchange.status = Status.received;
+
+            this.handModel.findOne({ owner: asset.owner }, (er, hand: IHandDocument) => {
+
+                if (er) {
+                    callback(er, null);
+                    return;
+                }
+
+                try {
+                    hand.credit(asset.price);
+                } catch (ex) {
+                    callback(ex, null);
+                }
+
+                hand.save();
+                exchange.save((e, result) => {
+
+                    if (e)
+                        callback(e, null);
+
+                    callback(null, result);
+                });
             });
         });
     }

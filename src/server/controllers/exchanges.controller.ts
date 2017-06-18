@@ -29,7 +29,7 @@ export class ExchangesController extends BaseController {
                 if (err instanceof XChangesError)
                     res.status(err.status).json(err);
                 else
-                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
+                    res.status(HttpStatus.NOT_FOUND).json();
 
                 return;
             }
@@ -50,7 +50,7 @@ export class ExchangesController extends BaseController {
                 if (err instanceof XChangesError)
                     res.status(err.status).json(err);
                 else
-                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
+                    res.status(HttpStatus.NOT_FOUND).json();
 
                 return;
             }
@@ -70,7 +70,27 @@ export class ExchangesController extends BaseController {
                 if (err instanceof XChangesError)
                     res.status(err.status).json(err);
                 else
-                    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json();
+                    res.status(HttpStatus.NOT_FOUND).json();
+
+                return;
+            }
+
+            res.status(HttpStatus.OK).json(result);
+        });
+    }
+
+    protected receive = (req: Request, res: Response): void => {
+
+        const service: ExchangeService = new ExchangeService(ExchangeModel, AssetModel, HandModel);
+
+        service.receive(req.body, req.user.id, (err, result) => {
+
+            if (err) {
+
+                if (err instanceof XChangesError)
+                    res.status(err.status).json(err);
+                else
+                    res.status(HttpStatus.NOT_FOUND).json();
 
                 return;
             }
@@ -106,5 +126,6 @@ export class ExchangesController extends BaseController {
 
         this.router.get(Routes.list, Passport.authorize('jwt', this.authOptions), this.list);
         this.router.put(Routes.send, Passport.authorize('jwt', this.authOptions), this.send);
+        this.router.put(Routes.receive, Passport.authorize('jwt', this.authOptions), this.receive);
     }
 }

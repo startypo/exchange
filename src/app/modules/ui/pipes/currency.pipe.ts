@@ -8,7 +8,7 @@ export class CurrencyPipe implements PipeTransform {
 
     private DECIMAL_SEPARATOR: string = '.';
     private THOUSANDS_SEPARATOR: string = ',';
-    private PREFIX: string = 'ϝ ';
+    private PREFIX: string = '$ ';
 
     public transform(value: number | string, fractionSize: number = 2): string {
         let [ integer, fraction = '' ] = (value).toString()

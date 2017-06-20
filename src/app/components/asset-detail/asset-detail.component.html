@@ -1,50 +1,57 @@
-<!-- Page Content -->
 <div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card mt-4">
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators" *ngIf="model.imgs.length > 1">
-                        <li *ngFor="let img of model.imgs; let i = index" data-target="#carouselExampleIndicators" 
-                             data-slide-to="i" [class.active]="i === 0">
-                        </li>
-                    </ol>
-                    <div class="carousel-inner asset-detail-carousel" role="listbox">
-                        <div class="carousel-item" *ngFor="let img of model.imgs; let i = index" [class.active]="i === 0">
-                            <img class="d-block card-img-top img-fluid mx-auto" src="/api/v1/file?filename={{img}}" alt="Slide {{i}}">
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" *ngIf="model.imgs.length > 1">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next" *ngIf="model.imgs.length > 1">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-                <div class="card-block">
-                    <h3 class="card-title">{{ model.name }}</h3>
-                    <h4>{{ model.price | coin }}</h4>
-                    <p class="card-text">{{ model.description }}</p>
-                    <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span> 4.0 stars
-                    <div class="d-flex justify-content-end">
-                        <a [routerLink]="['/assets/edit', model.id]" class="btn btn-primary btn-lg" *ngIf="userService.isOwner(model.owner)">
-                            <i class="fa fa-edit"></i> Edit
-                        </a>
-                        <button type="button" class="btn btn-danger btn-lg ml-3" 
-                                data-toggle="modal" data-target="#confirmDeletion" *ngIf="userService.isOwner(model.owner)">
-                            <i class="fa fa-trash"></i> Delete
-                        </button>
-                        <button type="button" class="btn btn-success btn-lg ml-3" 
-                                 data-toggle="modal" data-target="#confirmExchange" *ngIf="!userService.isOwner(model.owner)">
-                            <i class="fa fa-shopping-cart"></i> Exchange
-                        </button>
+
+    <h1 class="title1">Detalhes do Livro</h1>
+
+    <div class="row mt-5 mb-5">
+
+        <div class="col-sm-6">
+
+            <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+                
+                <ol class="carousel-indicators" *ngIf="model.imgs.length > 1">
+                    <li *ngFor="let img of model.imgs; let i = index" data-target="#carouselIndicators" 
+                            data-slide-to="i" [class.active]="i === 0">
+                    </li>
+                </ol>
+                <div class="carousel-inner asset-detail-carousel" role="listbox">
+                    <div class="carousel-item" *ngFor="let img of model.imgs; let i = index" [class.active]="i === 0">
+                        <img class="d-block card-img-top img-fluid mx-auto" src="/api/v1/file?filename={{img}}" alt="Slide {{i}}">
                     </div>
                 </div>
+                <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev" *ngIf="model.imgs.length > 1">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next" *ngIf="model.imgs.length > 1">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+
             </div>
+
         </div>
+
+        <div class="col-sm-6">
+
+            <h2 class="card-title">{{ model.name }}</h2>
+            <p>{{ model.asset.description }}</p>
+            <p class="card-price">{{ model.price | coin }}</p>
+            <a [routerLink]="['/assets/edit', model.id]" class="btn btn-primary" *ngIf="userService.isOwner(model.owner)">
+                <i class="fa fa-edit"></i> Editar
+            </a>
+            <button type="button" class="btn btn-danger" 
+                    data-toggle="modal" data-target="#confirmDeletion" *ngIf="userService.isOwner(model.owner)">
+                <i class="fa fa-trash"></i> Deletar
+            </button>
+            <button type="button" class="btn btn-success" 
+                        data-toggle="modal" data-target="#confirmExchange" *ngIf="!userService.isOwner(model.owner)">
+                <i class="fa fa-shopping-cart"></i> Exchange
+            </button>
+            
+        </div>
+
     </div>
+
 </div>
 
 <!-- Modals -->
@@ -52,14 +59,14 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmDeletionLabel">XChanges</h5>
+        <h5 class="modal-title" id="confirmDeletionLabel">Exchange</h5>
       </div>
       <div class="modal-body">
-        Do you confirm the deletion?
+        Deseja excluir este livro?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Yes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Sim</button>
       </div>
     </div>
   </div>
@@ -69,10 +76,10 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmDeletionLabel">XChanges</h5>
+        <h5 class="modal-title" id="confirmDeletionLabel">Exchange</h5>
       </div>
       <div class="modal-body">
-        Do you confirm the exchange?
+        Deseja confirmar a troca?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>

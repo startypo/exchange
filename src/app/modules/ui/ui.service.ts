@@ -88,14 +88,14 @@ export class UIService implements OnInit {
     };
 
     protected fileuploaderLangs: FileUploaderLangs = {
-        addFileButton: '<i class="fa fa-plus" aria-hidden="true"></i> Add',
+        addFileButton: '<i class="fa fa-plus" aria-hidden="true"></i> Adicionar',
         uploadButton: '<i class="fa fa-upload" aria-hidden="true"></i> Upload',
-        clearAllButton: '<i class="fa fa-trash-o" aria-hidden="true"></i> Clear all',
+        clearAllButton: '<i class="fa fa-trash-o" aria-hidden="true"></i> Limpar',
         removeFile: '<i class="fa fa-times"></i>',
         zeroBytes: '0 Byte',
         uploadedCounter: 'files is uploaded',
-        extensionNotAllowed: 'Extension is not allowed to upload',
-        maxNumberOfFiles: 'The maximum number of files is ' + this.fileuploaderSettings.maxNumberOfFiles
+        extensionNotAllowed: 'Extensão não permitida para upload',
+        maxNumberOfFiles: 'O número máximo de arquivos é ' + this.fileuploaderSettings.maxNumberOfFiles
     };
 
     /**
@@ -116,14 +116,14 @@ export class UIService implements OnInit {
      * Validate
      */
     protected validateLangs: ValidateLangs = {
-        email: 'Field must be a valid email address',
-        password: 'Password is incorrect',
-        required: 'Field is required',
-        minlength: 'Field must be at least :requiredLength characters',
-        maxlength: 'Field may not be greater than :requiredLength characters',
-        int: 'Field must be an integer',
-        number: 'Field must be a number',
-        date: 'Field must be valid date',
+        email: 'Informe um e-mail válido',
+        password: 'Senha incorreta',
+        required: 'Campo obrigatório',
+        minlength: 'Campo precisa ter pelo menos :requiredLength characters',
+        maxlength: 'Limite de :requiredLength characters',
+        int: 'Campo deve ser um número inteiro',
+        number: 'Campo deve ser um número',
+        date: 'Informe uma data válida',
         minDate: 'Field must be at least :date date',
         maxDate: 'Field may not be greater than :date date',
         equal: 'Field must be equal :equal',

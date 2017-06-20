@@ -29,18 +29,18 @@
         <div class="col-sm-6">
 
             <h2 class="title3">{{ model.name }}</h2>
-            <p>{{ model.asset.description }}</p>
+            <p>{{ model.description }}</p>
             <p class="card-price">{{ model.price | coin }}</p>
             <a [routerLink]="['/assets/edit', model.id]" class="btn btn-primary" *ngIf="userService.isOwner(model.owner)">
                 <i class="fa fa-edit"></i> Editar
             </a>
             <button type="button" class="btn btn-danger" 
                     data-toggle="modal" data-target="#confirmDeletion" *ngIf="userService.isOwner(model.owner)">
-                <i class="fa fa-trash"></i> Deletar
+                <i class="fa fa-trash"></i> Excluir
             </button>
             <button type="button" class="btn btn-success" 
                         data-toggle="modal" data-target="#confirmExchange" *ngIf="!userService.isOwner(model.owner)">
-                <i class="fa fa-shopping-cart"></i> Exchange
+                <i class="fa fa-exchange"></i> Trocar
             </button>
             
         </div>

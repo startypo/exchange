@@ -17,7 +17,7 @@ import { ReadHttpError } from '../../services/http-errors';
 @Component({
     selector: 'asset-edit',
     templateUrl: 'asset-edit.component.html',
-    styleUrls: ['asset-edit.component.css','./style.scss']
+    styleUrls: ['asset-edit.component.css', './style.scss']
 })
 
 export class AssetEditComponent implements OnInit, OnDestroy {

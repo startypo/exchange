@@ -8,7 +8,9 @@
 
 			<label for="email" class="col-sm-2 col-form-label">E-mail:</label>
 		    <div class="col-sm-7">
-				<input type="email" id="email" class="form-control" placeholder="seu@email.com" formControlName="email">
+				<validate [control]="form.controls['email']">
+					<input type="email" id="email" class="form-control" placeholder="seu@email.com" formControlName="email">
+				</validate>
 		    </div>
 
 		</div>
@@ -17,9 +19,7 @@
 
 			<label for="inputPassword3" class="col-sm-2 col-form-label">Senha:</label>
 			<div class="col-sm-7">
-				<validate [control]="form.controls['email']">
-					<input type="password" class="form-control" id="password" placeholder="digite sua senha" formControlName="passwd">
-				</validate>
+				<input type="password" class="form-control" id="password" placeholder="digite sua senha" formControlName="passwd">
 			</div>
 		</div>
 

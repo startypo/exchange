@@ -1,6 +1,6 @@
 <div class="container">
     
-    <h1 class="title1">Seus Livros</h1>
+    <h1 class="title1" *ngIf="isList()">Seus Livros</h1>
     <a [routerLink]="['/assets/new']" class="btn btn-primary btn mb-4" *ngIf="isList()"><i class="fa fa-plus"></i> Adicinar Livro</a>
     
     <div class="row">

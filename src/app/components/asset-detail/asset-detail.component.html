@@ -6,13 +6,8 @@
 
         <div class="col-sm-6">
 
-            <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+            <div id="carouselIndicators" class="carousel slide mb-5" data-ride="carousel">
                 
-                <ol class="carousel-indicators" *ngIf="model.imgs.length > 1">
-                    <li *ngFor="let img of model.imgs; let i = index" data-target="#carouselIndicators" 
-                            data-slide-to="i" [class.active]="i === 0">
-                    </li>
-                </ol>
                 <div class="carousel-inner asset-detail-carousel" role="listbox">
                     <div class="carousel-item" *ngFor="let img of model.imgs; let i = index" [class.active]="i === 0">
                         <img src="/api/v1/file?filename={{img}}" alt="Slide {{i}}">

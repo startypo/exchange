@@ -85,7 +85,7 @@ h6 { font-family: $raleway !important; }
 }
 
 .carousel {
-    height: 400px;
+    max-height: 400px;
 
     .carousel-item {
         background-color: rgba(221, 221, 221, 0.4);

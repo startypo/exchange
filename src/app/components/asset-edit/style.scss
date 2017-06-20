@@ -113,6 +113,6 @@ h6 { font-family: $raleway !important; }
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#141414', endColorstr='#575757', GradientType=1 );
 }
 
-label {
-    font-weight: bold;
+.validate {
+    max-width: 60%;
 }

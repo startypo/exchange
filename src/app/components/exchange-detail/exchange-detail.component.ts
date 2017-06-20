@@ -42,12 +42,16 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
 
         this.onSend = this.service.onSend.subscribe((data: Exchange) => {
             data.asset = this.model.asset;
+            data.sender = this.model.sender;
+            data.receiver = this.model.receiver;
             this.model = data;
             this.notify.success('Exchange', 'O item foi enviado.');
         });
 
         this.onReceive = this.service.onReceive.subscribe((data: Exchange) => {
             data.asset = this.model.asset;
+            data.sender = this.model.sender;
+            data.receiver = this.model.receiver;
             this.model = data;
             this.notify.success('Exchange', 'A troca foi concluída.');
         });

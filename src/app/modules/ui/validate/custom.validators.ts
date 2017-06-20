@@ -392,7 +392,7 @@ export class CustomValidators {
             if (isEmpty(control.value))
                 return null;
 
-            const match = !/^[a-z0-9]+$/i.test(control.value);
+            const match = /^(?=.*?[a-z])(?=.*?\d)[a-z\d]+$/i.test(control.value);
 
             return match ? null : {
                 alphaNumeric: {

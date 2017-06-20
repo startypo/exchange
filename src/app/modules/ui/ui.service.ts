@@ -134,7 +134,7 @@ export class UIService implements OnInit {
         boolean: 'Field must be true or false',
         hex: 'Field must be valid hex color',
         rgb: 'Field must be valid rgb color',
-        alphaNumeric: 'The field must have only alphanumeric characters'
+        alphaNumeric: 'O campo deve conter caracteres alfanumericos.'
     };
 
     protected validateSettings: ValidateSettings = {

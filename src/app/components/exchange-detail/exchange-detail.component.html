@@ -36,15 +36,13 @@
             <p><strong>Código de Rastreio:</strong> {{model.trackingCode}}</p>
             <p><strong>Email do remetente:</strong> {{model.sender.email}}</p>
             <p><strong>Email do destinatário:</strong> {{model.receiver.email}}</p>
-            <div class="input-group" *ngIf="showSend()">
-                <validate [control]="form.controls['trackingCode']">
-                    <input type="text" class="form-control" placeholder="Código de Rastreio" 
-                    aria-describedby="basic-addon2" (keyup.enter)="send()">
-                </validate>
-                <button type="button" class="btn btn-primary" (click)="send()">
-                    <i class="fa fa-paper-plane-o"></i> Enviar
-                </button>    
-            </div>
+            <validate [control]="form.controls['trackingCode']" *ngIf="showSend()">
+                <input type="text" class="form-control" placeholder="Código de Rastreio" 
+                aria-describedby="basic-addon2" (keyup.enter)="send()">
+            </validate>
+            <button type="button" class="btn btn-primary" (click)="send()">
+                <i class="fa fa-paper-plane-o"></i> Enviar
+            </button>    
             <button type="button" class="btn btn-success" *ngIf="showReceive()" (click)="receive()">
                 <i class="fa fa-thumbs-o-up"></i> Receber
             </button>

@@ -47,7 +47,6 @@ import { NavAuthComponent } from './components/nav-auth/nav.component';
 import { HeaderAuthComponent } from './components/header-auth/header.component';
 
 // import '../styles/style.scss';
-// import '../styles/landing-page.scss';
 
 // Application wide providers
 const APP_PROVIDERS = [

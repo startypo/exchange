@@ -9,7 +9,7 @@ import { CustomValidators } from '../ui/validate';
 @Component({
     selector: 'login',
     templateUrl: 'login.component.html',
-    styleUrls: ['login.component.css','style.scss']
+    styleUrls: ['login.component.css', 'style.scss']
 })
 export class LoginComponent {
 
@@ -24,27 +24,27 @@ export class LoginComponent {
         });
     }
 
-    public submit(form: FormGroup): void {
+    public submit(): void {
 
-        if (!form.valid) {
+        if (!this.form.valid) {
 
-            Object.keys(form.controls).forEach(key => {
-                form.get(key).markAsDirty();
+            Object.keys(this.form.controls).forEach(key => {
+                this.form.get(key).markAsDirty();
             });
 
             return;
         }
 
-        form.valueChanges.subscribe(() => this.notify.removeAll());
+        this.form.valueChanges.subscribe(() => this.notify.removeAll());
 
-        this.service.login(form.value).subscribe(() => {
+        this.service.login(this.form.value).subscribe(() => {
             this.router.navigate(['/main']);
         },
         (err) => {
             if (err.status === 401)
-                this.notify.error('XChanges', 'E-mail address or password are incorrect.');
+                this.notify.error('Exchange', 'O e-mail ou a senha estão incorretos.');
             else
-                this.notify.error('XChanges', 'Something went wrong.');
+                this.notify.error('Exchange', 'Algo deu errado.');
         });
     }
 }

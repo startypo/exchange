@@ -2,7 +2,7 @@
     
     <h1 class="title1">Cadastro do Usuário</h1>
     
-    <div class="form-horizontal mb-5 mx-auto" role="form" [formGroup]="form" (keyup.enter)="submit(form)">
+    <div class="form-horizontal mb-5 mx-auto" role="form" [formGroup]="form" (keyup.enter)="submit()">
         
         <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">Nome:</label>
@@ -38,7 +38,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <button type="button" class="btn btn-success" [disabled]="!form.valid" (click)="submit(form)">
+                <button type="button" class="btn btn-success" (click)="submit()">
                     <i class="fa fa-user-plus"></i> Cadastrar
                 </button>
             </div>

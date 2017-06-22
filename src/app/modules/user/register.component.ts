@@ -9,7 +9,7 @@ import { CustomValidators } from '../ui/validate';
 @Component({
     selector: 'register',
     templateUrl: 'register.component.html',
-    styleUrls: ['register.component.css','style.scss']
+    styleUrls: ['register.component.css', 'style.scss']
 })
 export class RegisterComponent {
 
@@ -25,28 +25,28 @@ export class RegisterComponent {
         });
     }
 
-    public submit(form: FormGroup): void {
+    public submit(): void {
 
-        if (!form.valid) {
+        if (!this.form.valid) {
 
-            Object.keys(form.controls).forEach(key => {
-                form.get(key).markAsDirty();
+            Object.keys(this.form.controls).forEach(key => {
+                this.form.get(key).markAsDirty();
             });
 
             return;
         }
 
-        form.valueChanges.subscribe(() => this.notify.removeAll());
+        this.form.valueChanges.subscribe(() => this.notify.removeAll());
 
-        this.service.register(form.value).subscribe(
+        this.service.register(this.form.value).subscribe(
             (res) => this.router.navigate(['/login']),
             (err) => {
                 if (err.status === 403)
-                    this.notify.error('XChanges', 'E-mail is invalid or already taken.');
+                    this.notify.error('XChanges', 'E-mail é inválido ou já existe no sistema.');
                 else
-                    this.notify.error('XChanges', 'Something went wrong.');
+                    this.notify.error('XChanges', 'Algo deu errado.');
             },
-            () => this.notify.success('XChanges', 'User successfully registered.')
+            () => this.notify.success('XChanges', 'O usuário foi cadastrado com sucesso.')
         );
     }
 }

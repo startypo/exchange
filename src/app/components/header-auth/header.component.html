@@ -28,25 +28,31 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                         <div class="arrow-up"></div>
-                        <a class="dropdown-item" pageScroll href="#assetList" [routerLink]="['/assets']">
+                        <a class="dropdown-item" pageScroll [pageScrollDuration]="300" href="#assetList"
+                        [routerLink]="['/assets']">
                             <i class="fa fa-book" aria-hidden="true"></i> Seus Livros
                         </a>
-                        <a class="dropdown-item" pageScroll href="#assetEdit" [routerLink]="['/assets/new']">
+                        <a class="dropdown-item" pageScroll [pageScrollDuration]="300" href="#assetEdit" 
+                        [routerLink]="['/assets/new']">
                             <i class="fa fa-plus" aria-hidden="true"></i> Anunciar
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" pageScroll href="#exchange" [routerLink]="['/exchanges']">
+                        <a class="dropdown-item" pageScroll [pageScrollDuration]="300" href="#exchange" 
+                        [routerLink]="['/exchanges']">
                             <i class="fa fa-exchange" aria-hidden="true"></i> Suas Trocas
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" pageScroll href="#credits" [routerLink]="['/credits']">
+                        <a class="dropdown-item" pageScroll [pageScrollDuration]="300" href="#credits" 
+                        [routerLink]="['/credits']">
                             <i class="fa fa-money" aria-hidden="true"></i> Ganhar Créditos
                         </a>
                         <!--<a class="dropdown-item" href="#"><i class="fa fa-plus" aria-hidden="true"></i> Reclamar Pontos</a>-->
                         <div class="dropdown-divider"></div>
                         <!--<a class="dropdown-item" href="#"><i class="fa fa-cog" aria-hidden="true"></i> Configurações</a>
                         <div class="dropdown-divider"></div>-->
-                        <button class="dropdown-item" (click)=logout()><i class="fa fa-power-off" aria-hidden="true"></i> Logout</button>
+                        <button class="dropdown-item" (click)=logout()>
+                            <i class="fa fa-power-off" aria-hidden="true"></i> Logout
+                        </button>
                     </div>
                 </div>
                 <a href="#">
@@ -62,25 +68,29 @@
             </div>
             <div class="collapse-mobile">
                 <div class="collapse rounded" id="collapseMenu">
-                    <a class="dropdown-item" pageScroll href="#assetList" [routerLink]="['/assets']">
+                    <a class="dropdown-item" pageScroll [pageScrollDuration]="300"  href="#assetList" 
+                    [routerLink]="['/assets']">
                         <i class="fa fa-book" aria-hidden="true"></i> Seus Livros
                     </a>
-                    <a class="dropdown-item" pageScroll href="#assetEdit" [routerLink]="['/assets/new']">
+                    <a class="dropdown-item" pageScroll [pageScrollDuration]="300" href="#assetEdit" 
+                    [routerLink]="['/assets/new']">
                         <i class="fa fa-plus" aria-hidden="true"></i> Anunciar
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" pageScroll href="#exchange" [routerLink]="['/exchanges']">
+                    <a class="dropdown-item" pageScroll [pageScrollDuration]="300" href="#exchange" 
+                    [routerLink]="['/exchanges']">
                         <i class="fa fa-exchange" aria-hidden="true"></i> Suas Trocas
                     </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" pageScroll href="#credits" [routerLink]="['/credits']">
-                        <i class="fa fa-money" aria-hidden="true"></i>Ganhar Créditos
+                    <a class="dropdown-item" pageScroll [pageScrollDuration]="300" href="#credits"
+                    [routerLink]="['/credits']">
+                        <i class="fa fa-money" aria-hidden="true"></i> Ganhar Créditos
                     </a>
                     <!--<a class="dropdown-item" href="#"><i class="fa fa-plus" aria-hidden="true"></i>Reclamar Pontos</a>
                     <a class="dropdown-item" href="#"><i class="fa fa-cog" aria-hidden="true"></i>Configurações</a>-->
                     <div class="dropdown-divider"></div>
                     <button class="dropdown-item" (click)="logout()">
-                        <i class="fa fa-power-off" aria-hidden="true"></i>Logout
+                        <i class="fa fa-power-off" aria-hidden="true"></i> Logout
                     </button>
                 </div>
             </div>
@@ -88,7 +98,9 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Buscar por livros" aria-describedby="basic-addon2" 
                            #mobileSearch (keyup.enter)="search(mobileSearch.value)">
-                    <button class="input-group-addon" (click)="search(mobileSearch.value)"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <button class="input-group-addon" (click)="search(mobileSearch.value)">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                 </div>
             </form>
         </nav>

@@ -27,8 +27,13 @@
       "express",
       "jsonwebtoken",
       "passport",
-      "passport-local",
-      "passport-jwt"
+      "passport-jwt",
+      "mongoose",
+      "mongodb",
+      "http-status-codes",
+      "mongoose-paginate",
+      "redis",
+      "multer"
     ]
   },
   "exclude": [
@@ -36,18 +41,5 @@
     "dist",
     "src/**/*.spec.ts",
     "src/**/*.e2e.ts"
-  ],
-  "awesomeTypescriptLoaderOptions": {
-    "forkChecker": true,
-    "useWebpackText": true
-  },
-  "angularCompilerOptions": {
-    "genDir": "./compiled",
-    "skipMetadataEmit": true
-  },
-  "compileOnSave": false,
-  "buildOnSave": false,
-  "atom": {
-    "rewriteTsconfig": false
-  }
+  ]
 }

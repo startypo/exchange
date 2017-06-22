@@ -1,0 +1,53 @@
+<div class="container" id="exchangeDetail">
+    <h1 class="title1">Detalhes do Livro</h1>
+    
+    <div class="row mt-5 mb-5">
+
+        <div class="col-sm-6">
+
+            <div id="carouselIndicators" class="carousel slide mb-5" data-ride="carousel">
+                
+                <div class="carousel-inner asset-detail-carousel" role="listbox">
+                    <div class="carousel-item" *ngFor="let img of model.asset.imgs; let i = index" [class.active]="i === 0">
+                        <img src="/api/v1/file?filename={{img}}" alt="Slide {{i}}">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev" *ngIf="model.asset.imgs.length > 1">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next" *ngIf="model.asset.imgs.length > 1">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>   
+                             
+            </div>
+        
+        </div>
+
+        <div class="col-sm-6">
+
+            <h2 class="title3">{{ model.asset.name }}</h2>
+            <p>{{ model.asset.description }}</p>
+            <p><strong>Status:</strong> {{getStatus()}}</p>
+            <p><strong>Código de Rastreio:</strong> {{model.trackingCode}}</p>
+            <p><strong>Email do remetente:</strong> {{model.sender.email}}</p>
+            <p><strong>Email do destinatário:</strong> {{model.receiver.email}}</p>
+            <div novalidate [formGroup]="form" role="form" *ngIf="showSend()">
+                <validate [control]="form.controls['trackingCode']" >
+                    <input type="text" class="form-control" placeholder="Código de Rastreio" 
+                    aria-describedby="basic-addon2" formControlName="trackingCode" (keyup.enter)="send()">
+                </validate>
+                <button type="button" class="btn btn-primary" (click)="send()">
+                    <i class="fa fa-paper-plane-o"></i> Confirmar Envio
+                </button>
+            </div>  
+            <button type="button" class="btn btn-success" *ngIf="showReceive()" (click)="receive()">
+                <i class="fa fa-thumbs-o-up"></i> Confirmar Recebimento
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

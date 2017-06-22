@@ -1,7 +1,22 @@
 export const Routes = {
 
-    users: '/users',
+    root: '/',
+
+    // User auth routes
+    users: '/user',
     login: '/login',
-    logout: '/logout',
-    register: '/register'
+    isRegistred: '/isregistred/:email',
+    register: '/register',
+
+    // controllers routes
+    exchanges: '/exchange',
+    assets: '/asset',
+    hands: '/hand',
+    files: '/file',
+
+    // methods routes
+    list: '/list',
+    search: '/search',
+    send: '/send',
+    receive: '/receive'
 };

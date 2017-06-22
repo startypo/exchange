@@ -1,0 +1,5 @@
+<div class="notify__item notify__type_{{ item.type }}" [class.notify__text_black]="item.type == 'message'">
+	<a href="#" class="notify__close" *ngIf="settings.closeble" (click)="close($event, item)" [class.notify__text_black]="item.type == 'message'"><i class="fa fa-close"></i></a>
+	<div class="notify__title" [innerHtml]="item.title"></div>
+	<div class="notify__content" [innerHtml]="item.content"></div>
+</div>

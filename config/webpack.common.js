@@ -4,6 +4,7 @@
 
 const webpack = require('webpack');
 const helpers = require('./helpers');
+const fs = require('fs');
 
 /*
  * Webpack Plugins
@@ -21,7 +22,8 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ngcWebpack = require('ngc-webpack');
 const autoprefixer = require('autoprefixer');
-const ProvidePlugin = require('webpack/lib/ProvidePlugin'); 
+const ProvidePlugin = require('webpack/lib/ProvidePlugin');
+const CompilerPlugin = require('compiler-webpack-plugin');
 
 /*
  * Webpack Constants
@@ -29,7 +31,7 @@ const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const HMR = helpers.hasProcessFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
 const METADATA = {
-  title: 'XChanges',
+  title: 'Exchange',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
@@ -188,6 +190,16 @@ module.exports = function (options) {
           use: 'file-loader'
         },
 
+
+         /*
+         * The expose loader adds modules to the global object. 
+         * This is useful for debugging, or supporting libraries that depend on libraries in globals.
+         */ 
+        { 
+          test: /[\/]jquery\.js$/, 
+          use: 'expose-loader?$!expose?jQuery' 
+        },
+    
         /* File loader for supporting fonts, for example, in CSS files.
         */
         /*
@@ -280,7 +292,8 @@ module.exports = function (options) {
        */
       new CopyWebpackPlugin([
         { from: 'src/assets', to: 'assets' },
-        { from: 'src/meta'}
+        { from: 'src/meta'},
+        { from: 'config/package.json', to: '..'}
       ]),
 
       /*
@@ -375,6 +388,7 @@ module.exports = function (options) {
       new ProvidePlugin({
         $: "jquery",
         jQuery: "jquery",
+        "window.$": "jquery",
         "window.jQuery": "jquery",
         Tether: "tether",
         "window.Tether": "tether",
@@ -390,6 +404,12 @@ module.exports = function (options) {
         Tab: "exports-loader?Tab!bootstrap/js/dist/tab",
         Util: "exports-loader?Util!bootstrap/js/dist/util"
       }),
+
+      new CompilerPlugin('done', function (stats) {
+          
+          if (fs.existsSync(helpers.root('dist/public/index.html')))
+            fs.rename(helpers.root('dist/public/index.html'), helpers.root('dist/index.html'));
+      })
     ],
 
     /*
@@ -405,8 +425,6 @@ module.exports = function (options) {
       module: false,
       clearImmediate: false,
       setImmediate: false,
-      net: 'mock',
-      dns: 'mock'
     }
   };
 }

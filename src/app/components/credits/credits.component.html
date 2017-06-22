@@ -1,0 +1,33 @@
+<div class="container" id="credits">
+
+    <h1 class="title1">Ganhe Créditos</h1>
+
+    <div class="row">
+
+        <div class="col-sm-8 mb-5">
+
+            <vg-player (onPlayerReady)="onPlayerReady($event)" class="d-flex justify-content-center video-display">
+                <vg-overlay-play [vgFor]="video"></vg-overlay-play>
+                <video [vgMedia]="media" #media id="video1" preload="auto" controls>
+                        <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
+                </video>
+                <vg-controls [vgFor]="video">
+                        <vg-time-display [vgFor]="video" [vgProperty]="'current'" [vgFormat]="'mm:ss'"></vg-time-display>
+                </vg-controls>
+            </vg-player>
+
+        </div>
+
+        <div class="col-sm-4 mb-5">
+            <h2 class="title3">Créditos</h2>
+            <p><strong>Você possui  {{ model.amount | coin }}</strong></p>
+            <p>
+                Para ganhar créditos basta clicar no botão play e assistir os anúncios de nossos patrocinadores. 
+                Ao final de cada vídeo nós iremos creditar o valor referente ao tempo assistido.   
+            </p>
+        </div>
+
+    </div>
+
+</div>
+<!-- /.container -->

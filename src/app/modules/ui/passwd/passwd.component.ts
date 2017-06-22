@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter, forwardRef, 
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 import { PasswordSettings, PasswordLangs } from './passwd.model';
+import { UIService } from '../ui.service';
 
 export const PASSWORD_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -29,26 +30,18 @@ export class PasswdComponent implements OnInit, OnChanges, ControlValueAccessor 
 
     @ViewChild('passwordInput') public passwordInput: ElementRef;
 
+    public strongValue: number = 0;
+    public showPassword: boolean = false;
+
     protected innerValue: any = '';
     protected defaultSettings: PasswordSettings;
     protected defaultLangs: PasswordLangs;
     protected strongAvailable: number = 5;
-    protected strongValue: number = 0;
-    protected showPassword: boolean = false;
 
-    constructor() {
+    constructor(private uiService: UIService) {
 
-        this.defaultLangs = {
-            generate : 'Generate'
-        };
-
-        this.defaultSettings = {
-
-            buttonColor: 'secondary',
-            length: 10,
-            minLength: 6,
-            size: 'md'
-        };
+        this.defaultLangs = uiService.getLangs('password');
+        this.defaultSettings = uiService.getSettings('password');
     }
 
     public ngOnInit() {

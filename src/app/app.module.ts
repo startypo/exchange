@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { NgModule, ApplicationRef } from '@angular/core';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
@@ -10,15 +10,44 @@ import { ROUTES } from './app.routes';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
 
-import { UsersModule } from './modules/users';
+import { VgCoreModule } from 'videogular2/core';
+import { VgControlsModule } from 'videogular2/controls';
+import { VgOverlayPlayModule } from 'videogular2/overlay-play';
+import { VgBufferingModule } from 'videogular2/buffering';
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
+
+import { UserModule, UserService, AuthGuard } from './modules/user';
+import { FileUploaderModule } from './modules/ui/fileuploader';
+import { EditorModule } from './modules/ui/editor';
+import { ValidateModule } from './modules/ui/validate';
+import { PaginationModule } from './modules/ui/pagination';
+import { ModalModule } from './modules/ui/modal';
+import { MaskedInputModule } from './modules/ui/masked-input';
+import { NotifyModule, NotifyService } from './modules/ui/notify';
+import { UIService } from './modules/ui/ui.service';
+import { FileService } from './modules/ui/fileuploader/file.service';
+import { AssetService } from './services/asset.service';
+import { HandService } from './services/hand.service';
+import { ExchangeService } from './services/exchange.service';
+import { EventService } from './services/event.service';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home';
 import { NoContentComponent } from './components/no-content';
-import { NavMenuComponent } from './components/nav-menu';
+import { NavComponent } from './components/nav/nav.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HomeComponent } from './components/home/home.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { AssetListComponent } from './components/asset-list';
+import { AssetDetailComponent } from './components/asset-detail';
+import { AssetEditComponent } from './components/asset-edit';
+import { CreditsComponent } from './components/credits/credits.component';
+import { ExchangeComponent } from './components/exchange/exchange.component';
+import { ExchangeDetailComponent } from './components/exchange-detail/exchange-detail.component';
+import { NavAuthComponent } from './components/nav-auth/nav.component';
+import { HeaderAuthComponent } from './components/header-auth/header.component';
 
-import '../styles/styles.scss';
-import '../styles/headings.css';
+// import '../styles/style.scss';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -26,11 +55,11 @@ const APP_PROVIDERS = [
   AppState
 ];
 
-type StoreType = {
-  state: InternalStateType,
-  restoreInputValues: () => void,
-  disposeOldHosts: () => void
-};
+export interface StoreType  {
+  state: InternalStateType;
+  restoreInputValues: () => void;
+  disposeOldHosts: () => void;
+}
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process
@@ -38,18 +67,23 @@ type StoreType = {
 @NgModule({
   bootstrap: [ AppComponent ],
   declarations: [
-    AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    NoContentComponent
-  ],
-  imports: [ BrowserModule, FormsModule, HttpModule, UsersModule,
+                  AppComponent, NoContentComponent, NavComponent, NavAuthComponent,
+                  HeaderComponent, HeaderAuthComponent, FooterComponent, LandingComponent,
+                  HomeComponent, AssetListComponent, AssetDetailComponent, AssetEditComponent,
+                  CreditsComponent, ExchangeComponent, ExchangeDetailComponent
+                ],
+  imports: [
+             BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,
+             UserModule, FileUploaderModule, EditorModule, ValidateModule, NotifyModule,
+             MaskedInputModule, PaginationModule, ModalModule, VgCoreModule, VgControlsModule,
+             VgOverlayPlayModule, VgBufferingModule, Ng2PageScrollModule.forRoot(),
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
-  providers: [ // expose our Services and Providers into Angular's dependency injection
-    ENV_PROVIDERS,
-    APP_PROVIDERS
-  ]
+  providers: [
+               ENV_PROVIDERS, APP_PROVIDERS,
+               UserService, AssetService, HandService, ExchangeService, UIService, AuthGuard,
+               NotifyService, FileService, EventService
+             ]
 })
 export class AppModule {
 
@@ -66,7 +100,7 @@ export class AppModule {
     this.appState._state = store.state;
     // set input values
     if ('restoreInputValues' in store) {
-      let restoreInputValues = store.restoreInputValues;
+      const restoreInputValues = store.restoreInputValues;
       setTimeout(restoreInputValues);
     }
 

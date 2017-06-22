@@ -1,0 +1,39 @@
+<div class="container mt-5" id="login">
+	
+	<h1 class="title1">Fazer Login</h1>
+
+	<div class="form-horizontal mb-5 mx-auto" role="form" [formGroup]="form" (keyup.enter)="submit()">
+
+		<div class="form-group row">
+
+			<label for="email" class="col-sm-2 col-form-label">E-mail:</label>
+		    <div class="col-sm-7">
+				<validate [control]="form.controls['email']">
+					<input type="email" id="email" class="form-control" placeholder="seu@email.com" formControlName="email">
+				</validate>
+		    </div>
+
+		</div>
+
+		<div class="form-group row">
+
+			<label for="inputPassword3" class="col-sm-2 col-form-label">Senha:</label>
+			<div class="col-sm-7">
+				<validate [control]="form.controls['passwd']">
+					<input type="password" class="form-control" id="password" placeholder="digite sua senha" formControlName="passwd">
+				</validate>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<button type="button" class="btn btn-success" (click)="submit()">
+					<i class="fa fa-sign-in"></i> Entrar
+				</button>
+				<a class="btn btn-link" [routerLink]="['/register']">ou Cadastre-se</a>
+			</div>
+		</div>
+
+	</div>
+
+</div>

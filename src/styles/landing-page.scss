@@ -1,0 +1,39 @@
+//Imports Sass Helpers
+@import "landing-page/helpers/mixins";
+@import "landing-page/helpers/variables";
+@import "landing-page/helpers/utilities";
+
+//Imports Layout Structure
+@import "landing-page/layout/responsive";
+
+//Imports components
+@import "landing-page/components/menu-top";
+@import "landing-page/components/menu-left";
+@import "landing-page/components/header-banner";
+@import "landing-page/components/step-by-step";
+@import "landing-page/components/slider";
+@import "landing-page/components/footer";
+
+body {
+    font-family: $open-sans !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { font-family: $raleway !important; }
+
+.facebook {
+    img {
+        padding: 100px 0;
+        margin-right: 30px;
+    }
+    h1 { 
+        font-size: 2em;
+        color: $primary-color;
+        font-weight: bold;
+        line-height: 50px;
+    }
+}

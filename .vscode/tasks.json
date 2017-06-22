@@ -8,12 +8,16 @@
     "suppressTaskName": true,
     "tasks": [
         {
-            "taskName": "build_node_server",
-            "args": ["run", "watch:node"]
+            "taskName": "watch_express",
+            "args": ["run", "watch:express"]
         },
         {
-            "taskName": "start_webpack_server",
+            "taskName": "start_hmr",
             "args": ["run", "start:hmr"]
+        },
+        {
+            "taskName": "start_dev",
+            "args": ["run", "start:dev"]
         }
     ]
 }

@@ -1,0 +1,36 @@
+//Imports Sass Helpers
+@import "styles/helpers/mixins";
+@import "styles/helpers/variables";
+@import "styles/helpers/utilities";
+
+//Imports Layout Structure
+@import "styles/layout/responsive";
+
+//Imports components
+@import "styles/components/menu-top";
+@import "styles/components/menu-left";
+@import "styles/components/header-banner";
+
+body {
+    font-family: $open-sans !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { font-family: $raleway !important; }
+
+.facebook {
+    img {
+        padding: 100px 0;
+        margin-right: 30px;
+    }
+    h1 { 
+        font-size: 2em;
+        color: $primary-color;
+        font-weight: bold;
+        line-height: 50px;
+    }
+}

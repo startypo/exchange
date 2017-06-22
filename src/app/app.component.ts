@@ -14,10 +14,8 @@ import { AppState } from './app.service';
  */
 @Component({
   selector: 'app',
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.Emulated,
   styleUrls: ['./app.component.css'],
   templateUrl: 'app.component.html'
 })
-export class AppComponent {
-
-}
+export class AppComponent {}

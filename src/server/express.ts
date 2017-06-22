@@ -1,21 +1,24 @@
-import * as path from 'path';
 import * as express from 'express';
+import * as path from 'path';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from'cookie-parser';
 import * as favicon from 'serve-favicon';
-import passport from './passport';
-
+import * as compression from 'compression';
 import { Request, Response, NextFunction } from 'express';
+
+import passport from './passport';
 import{ RoutesMap } from './routes.map';
 
 class Express {
 
   public express: express.Application;
+  private execPath = process.env.NODE_ENV === 'production' ?  path.resolve() : path.dirname(process.mainModule.filename);
 
   constructor() {
 
     this.express = express();
+
     this.configMiddleware();
     this.configRoutes();
     this.configErrorHandler();
@@ -23,12 +26,13 @@ class Express {
 
   private configMiddleware(): void {
 
-    this.express.use(favicon(path.resolve('dist', 'public', 'assets', 'icon', 'favicon.ico')));
     this.express.use(logger('dev'));
-    this.express.use(bodyParser.json());
-    this.express.use(bodyParser.urlencoded({ extended: true }));
+    this.express.use(compression());
+    this.express.use(favicon(path.join(this.execPath, 'public', 'assets', 'icon', 'favicon.ico')));
+    this.express.use(express.static(path.join(this.execPath, 'public')));
+    this.express.use(bodyParser.json({ limit: '6mb' }));
+    this.express.use(bodyParser.urlencoded({ limit: '12mb', extended: true }));
     this.express.use(cookieParser());
-    this.express.use(express.static(path.resolve('dist', 'public')));
     this.express.use(passport.initialize());
   }
 
@@ -36,7 +40,7 @@ class Express {
 
     this.express.get('/', (req, res) => {
       res.type('text/html');
-      res.sendFile('index.html', { root: path.resolve('dist', 'public') });
+      res.sendFile(path.join(this.execPath, 'index.html'));
     });
 
     this.express.use('/api/v1', RoutesMap.map());

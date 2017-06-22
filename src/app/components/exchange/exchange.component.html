@@ -1,0 +1,68 @@
+<!-- Page Content -->
+<div class="container mt-5 mb-5" id="exchange">
+    <h1 class="title1">Histórico de Transações</h1>
+    
+    <!-- Nav tabs -->
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" href="#receiving" role="tab" data-toggle="tab">Livros à Receber</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#sending" role="tab" data-toggle="tab">Livros à Enviar</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#completed" role="tab" data-toggle="tab">Trocas Concluídas</a>
+        </li>
+    </ul>
+        
+    <!-- Tab panes -->
+    <div class="tab-content">
+        
+        <div role="tabpanel" class="tab-pane active" id="receiving">
+
+            <div class="card-deck col-12 pt-4">
+                <div class="card" *ngFor="let item of model.receiving">
+                    <div class="card-block">
+                        <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
+                        <h3 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h3>
+                        <p class="card-text"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.description }}</a></p>
+                        <p class="card-price">{{ item.price | coin }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="sending">
+            <div class="card-deck col-12 pt-4">
+                <div class="card" *ngFor="let item of model.sending">
+                    <div class="card-block">
+                        <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
+                        <h3 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h3>
+                        <p class="card-text"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.description }}</a></p>
+                        <p class="card-price">{{ item.price | coin }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="completed">
+
+            <div class="card-deck col-12 pt-4">
+                <div class="card" *ngFor="let item of model.completed">
+                    <div class="card-block">
+                        <a [routerLink]="['/exchanges/detail', item.id]"><img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt=""></a>
+                        <h3 class="card-title"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.name }}</a></h3>
+                        <p class="card-text"><a [routerLink]="['/exchanges/detail', item.id]">{{ item.description }}</a></p>
+                        <p class="card-price">{{ item.price | coin }}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    
+    </div>
+
+</div>
+<!-- /.container -->

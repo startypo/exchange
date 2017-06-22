@@ -1,0 +1,13 @@
+    <xchs-nav *ngIf="!service.isLoggedIn()"></xchs-nav>
+    <xchs-header *ngIf="!service.isLoggedIn()"></xchs-header>
+    <xchs-nav-auth *ngIf="service.isLoggedIn()"></xchs-nav-auth>
+    <xchs-header-auth *ngIf="service.isLoggedIn()"></xchs-header-auth>
+    <div class="row">
+        <div class="error-template">
+            <h1>Oops!</h1>
+            <h2>404 Não Encontrado</h2>
+            <div class="error-details">
+                Desculpa, ocorreu um erro, a página não foi encontrada!<br>
+            </div>
+        </div>
+    </div>

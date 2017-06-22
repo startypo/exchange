@@ -1,0 +1,49 @@
+﻿<div class="container mt-5" id="register">
+    
+    <h1 class="title1">Cadastro do Usuário</h1>
+    
+    <div class="form-horizontal mb-5 mx-auto" role="form" [formGroup]="form" (keyup.enter)="submit()">
+        
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">Nome:</label>
+            <div class="col-sm-7">
+                <validate [control]="form.controls['name']">
+                        <input type="text" class="form-control" placeholder="digite o seu nome" formControlName="name">
+                </validate>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">E-Mail:</label>
+            <div class="col-sm-7">
+                <validate [control]="form.controls['email']">
+                    <input type="email" class="form-control" placeholder="seu@email.com" formControlName="email">
+                </validate>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">Senha:</label>
+            <div class="col-sm-7">
+                <validate [control]="form.controls['passwd']">
+                    <passwd placeholder="digite sua senha" formControlName="passwd"></passwd>
+                </validate>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="confirm" class="col-sm-2 col-form-label">Confirmar Senha:</label>
+            <div class="col-sm-7">
+                <validate [control]="form.controls['confirmPasswd']">
+                    <input type="password" class="form-control" placeholder="confirmar senha" formControlName="confirmPasswd">
+                </validate>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <button type="button" class="btn btn-success" (click)="submit()">
+                    <i class="fa fa-user-plus"></i> Cadastrar
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>

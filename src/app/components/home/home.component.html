@@ -1,36 +1,145 @@
-<!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron">
-    <div class="container">
-        <h1 class="display-3">Hello, world!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron
-            and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-        <p><a class="btn btn-primary btn-lg" [routerLink]="['/register']" role="button">Register &raquo;</a></p>
-    </div>
-</div>
-
-<div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed
-                odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+<main>
+    <section class="container">
+        <h1 class="title1">Novos Itens</h1>
+        <div class="row">
+            <div class="card-deck col-12">
+                <div class="card">
+                    <div class="card-block">
+                        <img src="assets/img/card-img.jpg" alt="Imagem do Livro">
+                        <h3 class="card-title">Sun Tzu - A arte da guerra</h3>
+                        <p class="card-text"><a href="#">Ver detalhes</a></p>
+                        <p class="card-price">$ 15</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block">
+                        <img src="assets/img/card-img.jpg" alt="Imagem do Livro">
+                        <h3 class="card-title">Sun Tzu - A arte da guerra</h3>
+                        <p class="card-text"><a href="#">Ver detalhes</a></p>
+                        <p class="card-price">$ 15</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block">
+                        <img src="assets/img/card-img.jpg" alt="Imagem do Livro">
+                        <h3 class="card-title">Sun Tzu - A arte da guerra</h3>
+                        <p class="card-text"><a href="#">Ver detalhes</a></p>
+                        <p class="card-price">$ 15</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
-                nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed
-                odio dui. </p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+    </section>
+    <section class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="secondary-slider">
+                    <h4>Mais vistos</h4>
+                    <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselIndicators" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                                <img alt="First slide" src="assets/img/slider/01.jpg">
+                                <div class="carousel-caption">
+                                    <p class="book-name">Livro do Jogador</p>
+                                    <p class="book-price">$ 169</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img alt="Second slide" src="assets/img/slider/02.jpg">
+                                <div class="carousel-caption">
+                                    <p class="book-name">Livro do Mestre</p>
+                                    <p class="book-price">$ 140</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img alt="Third slide" src="assets/img/slider/03.jpg">
+                                <div class="carousel-caption">
+                                    <p class="book-name">Manual dos Monstros</p>
+                                    <p class="book-price">$ 125</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="partner col-sm-9">
+                <h2>Patrocinado</h2>
+                <div class="card card-inverse mb-3">
+                    <div class="card-block">
+                        <p>Assista a vídeos de nossos patrocinadores e ganhe pontos que você pode trocar por livros!</p>
+                    </div>
+                </div>
+                <div class="card-deck">
+                    <div class="card card-inverse mb-3">
+                        <div class="card-block">
+                            <i class="fa fa-2x fa-youtube-play" aria-hidden="true"></i>
+                        </div>
+                        <div class="card-footer">
+                            Lord of The Rings - Battle of Helms Deep Opening
+                        </div>
+                    </div>
+                    <div class="card card-inverse mb-3">
+                        <div class="card-block">
+                            <i class="fa fa-2x fa-youtube-play" aria-hidden="true"></i>
+                        </div>
+                        <div class="card-footer">
+                            Lord of The Rings - Battle of Helms Deep Opening
+                        </div>
+                    </div>
+                    <div class="card card-inverse mb-3">
+                        <div class="card-block">
+                            <i class="fa fa-2x fa-youtube-play" aria-hidden="true"></i>
+                        </div>
+                        <div class="card-footer">
+                            Lord of The Rings - Battle of Helms Deep Opening
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-4">
-            <h2>Heading</h2>
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis
-                euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa
-                justo sit amet risus.</p>
-            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+    </section>
+    <section class="container">
+        <h1 class="title1">Sugeridos para você</h1>
+        <div class="row">
+            <div class="card-deck col-12">
+                <div class="card">
+                    <div class="card-block">
+                        <img src="assets/img/card-img.jpg" alt="Imagem do Livro">
+                        <h3 class="card-title">Sun Tzu - A arte da guerra</h3>
+                        <p class="card-text"><a href="#">Ver detalhes</a></p>
+                        <p class="card-price">$ 15</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block">
+                        <img src="assets/img/card-img.jpg" alt="Imagem do Livro">
+                        <h3 class="card-title">Sun Tzu - A arte da guerra</h3>
+                        <p class="card-text"><a href="#">Ver detalhes</a></p>
+                        <p class="card-price">$ 15</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block">
+                        <img src="assets/img/card-img.jpg" alt="Imagem do Livro">
+                        <h3 class="card-title">Sun Tzu - A arte da guerra</h3>
+                        <p class="card-text"><a href="#">Ver detalhes</a></p>
+                        <p class="card-price">$ 15</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block">
+                        <img src="assets/img/card-img.jpg" alt="Imagem do Livro">
+                        <h3 class="card-title">Sun Tzu - A arte da guerra</h3>
+                        <p class="card-text"><a href="#">Ver detalhes</a></p>
+                        <p class="card-price">$ 15</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    </section>
+</main>

@@ -1,0 +1,106 @@
+.slider {
+    padding: 70px 0;
+    background-color: #f6fbfe;
+    border-top: solid 1px #ace0ff;
+    border-bottom: solid 1px #ace0ff;
+
+    h1 { 
+        font-size: 2em;
+        color: $primary-color;
+        text-align: center;
+        font-weight: bold;
+        line-height: 50px;
+        margin-bottom: 50px;
+    }
+}
+
+.carousel-indicators {
+    li {
+        height: 15px !important;
+        max-width: 15px !important;
+        background-color: #d3d3d3 !important;
+        @include border-radius(50%);
+    }
+    
+    .active {
+        background-color: $primary-color !important;
+    }
+}
+
+.carousel-item {
+    flex-direction: column;
+    align-items: center;
+    
+    .carousel-caption {
+        position: initial !important;
+        color: #8c9494;
+        font-style: italic;
+    }
+}
+
+.quote-author {
+    color: $primary-color;
+    font-style: normal;
+    font-weight: bold;
+    font-family: $raleway;
+}
+
+// Mais Vistos
+
+.secondary-slider {
+
+    h4 {
+        font-size: 1.2em;
+        color: $primary-color;
+        font-weight: bold;
+        border-bottom: solid 1px #dddddd;
+
+        &:after {
+            content: "";
+            height: 5px;
+            margin-top: 10px;
+            display: block;
+        }
+    }
+
+    .carousel-item {
+        border-bottom: solid 1px #dddddd;
+
+        img {
+            margin-top: 30px;
+        }
+
+        .carousel-caption {
+            color: $primary-color;
+
+            .book-name {
+                font-family: $raleway;
+                font-size: 1.5em;
+                font-weight: bold;
+                font-style: normal;
+                margin: 0;
+            }
+
+            .book-price {
+                font-family: $open-sans;
+                font-size: 1em;
+                font-style: normal;
+                margin: 0;
+            }
+        }
+
+    }
+    .carousel-indicators {
+        margin-top: 15px;
+        li {
+            height: 10px !important;
+            max-width: 10px !important;
+            background-color: #d3d3d3 !important;
+            @include border-radius(50%);
+        }
+        
+        .active {
+            background-color: $primary-color !important;
+        }
+    }
+}

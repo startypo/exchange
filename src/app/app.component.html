@@ -1,12 +1,6 @@
-<nav>
-    <nav-menu></nav-menu>
-</nav>
-
-<main>
-    <router-outlet></router-outlet>
-</main>
-
-<footer class="container">
-    <hr>
-    <p>&copy; XChanges 2017</p>
-</footer>
+<router-outlet name="nav"></router-outlet>
+<router-outlet name="header"></router-outlet>
+<router-outlet></router-outlet>
+<xchs-footer></xchs-footer>
+<notify [settings]="{ duration: 10 }"></notify>
+    

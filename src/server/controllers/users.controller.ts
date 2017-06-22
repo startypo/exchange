@@ -1,72 +1,68 @@
 import { Request, Response } from 'express';
-import passport from '../passport';
-import jwt from 'jsonwebtoken';
+import Passport from '../passport';
+import HttpStatus from 'http-status-codes';
 
 import { BaseController } from './base.controller';
 import { Routes } from '../routes';
-import { Config } from '../config';
-import { User } from '../models/user.model';
+import { UserModel, IUserDocument } from '../models/user.model';
 
 export class UsersController extends BaseController {
 
+    constructor() {
+        super(UserModel);
+        this.config();
+    }
+
     public login(req: Request, res: Response ): void {
 
-        let _email = req.body.email;
-        let _passwd = req.body.passwd;
+        let params = req.body;
 
-        if (!_email || !_passwd)
-            res.status(401).json();
-
-        User.find({ email: _email }, (err, user: User) => {
+        UserModel.login(params.email, params.passwd, (err, logedin: boolean, user: IUserDocument, token: string) => {
 
             if (err)
-                res.status(401).json();
-            if (!user)
-                res.status(401).json();
-            if (!user.verifyPassword(_passwd))
-                res.status(401).json();
+                return res.status(HttpStatus.UNAUTHORIZED).json();
+            if (!logedin)
+                return res.status(HttpStatus.UNAUTHORIZED).json();
 
-            let payload = {
-                iss: Config.security.issuer,
-                aud: Config.security.audience,
-                iat: Config.security.issuedAt,
-                sub: {
-                    id: user.id,
-                    eml: user.email,
-                    nam: user.name,
-                    prf: user.profile
-                }
-            };
-
-            let token = jwt.sign(payload, Config.security.secret);
-            res.json({ auth: token });
+            res.json({ id: user.id, name: user.name, token: token });
         });
     }
 
-    public logout(req: Request, res: Response ): void {
+    public isRegistred(req: Request, res: Response): void {
 
-        res.json({ auth: '' });
+        let email: string = req.params.email;
+
+        if (!email) {
+            res.status(HttpStatus.BAD_REQUEST).json();
+            return;
+        }
+
+        UserModel.isRegistred(email, (err, registred) => {
+            res.status(registred ? HttpStatus.OK : HttpStatus.NOT_FOUND).json();
+        });
     }
 
     public register(req: Request, res: Response): void {
 
-        let user = req.body.user;
+        let newUser = req.body;
 
-        res.status(200);
-        res.json();
+        UserModel.register(newUser, (err, user) => {
+
+            if (err) {
+                res.status(HttpStatus.FORBIDDEN).json();
+                return;
+            }
+
+            res.status(HttpStatus.OK).json();
+        });
     }
 
-    public getAll(req: Request, res: Response): void {
-        res.json(User.list());
-    };
+    protected config(): void {
 
-    protected config() {
+        this.router.delete(Routes.root + ':id', this.delete);
 
-        this.router.post(Routes.register, this.register);
         this.router.post(Routes.login, this.login);
-        this.router.post(Routes.logout, passport.authenticate('jwt', { session: false} ), this.logout);
-        this.router.get('/', passport.authenticate('jwt', { session: false }), this.getAll);
+        this.router.get(Routes.isRegistred, this.isRegistred);
+        this.router.post(Routes.register, this.register);
     }
 }
-
-export default new UsersController().router;

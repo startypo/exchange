@@ -1,0 +1,85 @@
+<div class="container" id="assetDetail">
+
+    <h1 class="title1">Detalhes do Livro</h1>
+
+    <div class="row mt-5 mb-5">
+
+        <div class="col-sm-6">
+
+            <div id="carouselIndicators" class="carousel slide mb-5" data-ride="carousel">
+                
+                <div class="carousel-inner asset-detail-carousel" role="listbox">
+                    <div class="carousel-item" *ngFor="let img of model.imgs; let i = index" [class.active]="i === 0">
+                        <img src="/api/v1/file?filename={{img}}" alt="Slide {{i}}">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev" *ngIf="model.imgs.length > 1">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next" *ngIf="model.imgs.length > 1">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-6">
+
+            <h2 class="title3">{{ model.name }}</h2>
+            <p>{{ model.description }}</p>
+            <p class="card-price">{{ model.price | coin }}</p>
+            <a [routerLink]="['/assets/edit', model.id]" class="btn btn-primary" *ngIf="userService.isOwner(model.owner)">
+                <i class="fa fa-edit"></i> Editar
+            </a>
+            <button type="button" class="btn btn-danger" 
+                    data-toggle="modal" data-target="#confirmDeletion" *ngIf="userService.isOwner(model.owner)">
+                <i class="fa fa-trash"></i> Excluir
+            </button>
+            <button type="button" class="btn btn-success" 
+                        data-toggle="modal" data-target="#confirmExchange" *ngIf="!userService.isOwner(model.owner)">
+                <i class="fa fa-exchange"></i> Trocar
+            </button>
+            
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="confirmDeletion" tabindex="-1" role="dialog" aria-labelledby="confirmDeletionLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeletionLabel">Exchange</h5>
+      </div>
+      <div class="modal-body">
+        Deseja excluir este livro?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete()">Sim</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="confirmExchange" tabindex="-1" role="dialog" aria-labelledby="confirmDeletionLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmDeletionLabel">Exchange</h5>
+      </div>
+      <div class="modal-body">
+        Deseja confirmar a troca?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="exchange()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,115 @@
+//Imports Sass Helpers
+@import "styles/helpers/mixins";
+@import "styles/helpers/variables";
+@import "styles/helpers/utilities";
+
+//Imports Layout Structure
+@import "styles/layout/responsive";
+
+//Imports components
+@import "styles/components/menu-top";
+@import "styles/components/menu-left";
+
+body { font-family: $open-sans !important; }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { font-family: $raleway !important; }
+
+.title1,
+.title2 {
+    font-family: $lato;
+}
+
+.title1 { 
+    font-size: 2em;
+    border-bottom: 1px solid $primary-color !important;
+    color: $primary-color;
+    width: 100%;
+    margin: 30px 0;
+
+    &:after {
+        content: "";
+        background-color: $primary-color;
+        width: 50px;
+        height: 3px;
+        display: block;
+        margin-top: 1.5rem;
+    }
+}
+.title2 { font-size: 1.5em; }
+
+.partner {
+
+    h2 {
+        font-family: $raleway;
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+
+    .card {
+
+        .card-block {
+            background-color: #dddddd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            font-family: $open-sans;
+            font-size: 1.5em;
+            color: $primary-color;
+            text-align: center;
+            padding: 50px;
+
+            p {
+                max-width: 80%;
+            }
+
+            i {
+                //color: #e62117;
+                color: $branco;
+            }
+        }
+    }
+
+    .card-deck {
+        
+        .card-block {
+            padding: 45px 0;
+            background-color: #3c424d;
+        }
+
+        .card {
+            border: none;
+
+            .card-footer {
+                padding: 0;
+                font-family: $open-sans;
+                font-size: .9em;
+                font-weight: bold;
+                color: $preto;
+            }
+        }        
+    }
+}
+
+header,
+.card-deck {
+    margin-bottom: 50px;
+}
+
+.facebook {
+    img {
+        padding: 100px 0;
+        margin-right: 30px;
+    }
+    h1 { 
+        font-size: 2em;
+        color: $primary-color;
+        font-weight: bold;
+        line-height: 50px;
+    }
+}

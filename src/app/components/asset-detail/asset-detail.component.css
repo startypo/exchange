@@ -1,0 +1,8 @@
+.asset-detail-carousel {
+    background-color: lightgray !important;
+}
+
+.asset-detail-carousel img {
+    max-width: 1120px !important;
+    max-height: 440px !important;
+}

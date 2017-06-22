@@ -1,0 +1,17 @@
+.notify {
+	position: fixed;
+    width: 300px;
+    z-index: 9999;
+}
+.notify_position_top {
+	top: 10px;
+}
+.notify_position_bottom {
+	bottom: 10px;
+}
+.notify_position_right {
+	right: 10px;
+}
+.notify_position_left {
+	left: 10px;
+}

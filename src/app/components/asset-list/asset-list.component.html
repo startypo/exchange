@@ -1,0 +1,35 @@
+<div class="container" id="assetList">
+    
+    <h1 class="title1" *ngIf="isList()">Seus Livros</h1>
+    <h1 class="title1" *ngIf="!isList()">Livros disponíveis</h1>
+    <a [routerLink]="['/assets/new']" class="btn btn-primary btn mb-4" *ngIf="isList()"><i class="fa fa-plus"></i> Adicionar Livro</a>
+    
+    <div class="row">
+        
+        <div class="card-deck col-12">
+            
+            <div class="card" *ngFor="let item of model.docs">
+                <div class="card-block">
+                    <a [routerLink]="['/assets/detail', item.id]">
+                        <img class="card-img-top img-fluid" src="/api/v1/file?filename={{item.imgs[0]}}" alt="">
+                    </a>
+                    <h3 class="card-title">
+                        <a [routerLink]="['/assets/detail', item.id]">{{ item.name }}</a>
+                    </h3>
+                    <p class="card-text">{{ item.description }}</p>
+                    <p class="card-price">{{ item.price | coin }}</p>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+    <div class="row">
+    
+        <div class="col-12">
+            <pagination [settings]="{max: 5}" [(ngModel)]="model.page" [total]="model.pages" class="ml-3" (selected)="paginate($event.page, term)"></pagination>
+        </div>
+
+    </div>
+
+</div>

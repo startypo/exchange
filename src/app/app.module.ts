@@ -14,6 +14,7 @@ import { VgCoreModule } from 'videogular2/core';
 import { VgControlsModule } from 'videogular2/controls';
 import { VgOverlayPlayModule } from 'videogular2/overlay-play';
 import { VgBufferingModule } from 'videogular2/buffering';
+import { Ng2PageScrollModule } from 'ng2-page-scroll';
 
 import { UserModule, UserService, AuthGuard } from './modules/user';
 import { FileUploaderModule } from './modules/ui/fileuploader';
@@ -75,7 +76,7 @@ export interface StoreType  {
              BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,
              UserModule, FileUploaderModule, EditorModule, ValidateModule, NotifyModule,
              MaskedInputModule, PaginationModule, ModalModule, VgCoreModule, VgControlsModule,
-             VgOverlayPlayModule, VgBufferingModule,
+             VgOverlayPlayModule, VgBufferingModule, Ng2PageScrollModule.forRoot(),
              RouterModule.forRoot(ROUTES, { useHash: false, preloadingStrategy: PreloadAllModules })
            ],
   providers: [

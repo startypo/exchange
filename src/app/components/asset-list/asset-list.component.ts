@@ -12,7 +12,7 @@ import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
 
     selector: 'asset-list',
     templateUrl: 'asset-list.component.html',
-    styleUrls: ['asset-list.component.css','./style.scss']
+    styleUrls: ['asset-list.component.css', './style.scss']
 })
 
 export class AssetListComponent implements OnInit, OnDestroy {

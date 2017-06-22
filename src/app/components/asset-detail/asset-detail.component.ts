@@ -12,7 +12,7 @@ import { Asset } from '../../models/asset.model';
 @Component({
     selector: 'asset-detail',
     templateUrl: 'asset-detail.component.html',
-    styleUrls: ['asset-detail.component.css','./style.scss']
+    styleUrls: ['asset-detail.component.css', './style.scss']
 })
 
 export class AssetDetailComponent implements OnInit, OnDestroy {

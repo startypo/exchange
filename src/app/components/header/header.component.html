@@ -18,10 +18,10 @@
             </div>
             
             <div class="d-flex justify-content-around align-items-center">
-                <a [routerLink]="['/login']" class="login-mobile">Entrar</a>
+                <a pageScroll href="#loginAnchor" [routerLink]="['/login']" class="login-mobile">Entrar</a>
                 <div class="login-desktop">
-                    <a [routerLink]="['/register']" class="">Cadastrar</a>
-                    <a [routerLink]="['/login']" class="">Entrar</a>
+                    <a pageScroll href="#register" [routerLink]="['/register']" class="">Cadastrar</a>
+                    <a pageScroll href="#login" [routerLink]="['/login']" class="">Entrar</a>
                 </div>
             </div>
         </nav>
@@ -34,7 +34,7 @@
                         <u>troca</u> de livros</h1>
                     <p class="caption-banner">Feito por gente que também acredita na
                         <u>mágica</u> dos livros. Cadastre-se e saiba mais</p>
-                    <a class="btn" [routerLink]="['/register']">Cadastrar</a>
+                    <a pageScroll href="#register" [routerLink]="['/register']" class="btn" >Cadastrar</a>
                 </div>
                 <div class="col img-banner">
                     <img src="assets/img/landing-page/banner-img.png" alt="Imagem de um livro com letras saíndo dele"

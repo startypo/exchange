@@ -9,7 +9,7 @@ import { CurrencyPipe } from '../../modules/ui/pipes/currency.pipe';
 import { Exchange } from '../../models/exchange.model';
 import { UserService } from '../../modules/user/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from "../../modules/ui/validate/custom.validators";
+import { CustomValidators } from '../../modules/ui/validate/custom.validators';
 
 @Component({
     selector: 'exchange-detail',

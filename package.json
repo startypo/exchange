@@ -97,6 +97,7 @@
     "morgan": "1.8.2",
     "multer": "1.3.0",
     "ng2-img-cropper": "0.8.8",
+    "ng2-page-scroll": "^4.0.0-beta.9",
     "passport": "0.3.2",
     "passport-jwt": "2.2.1",
     "preboot": "5.0.0-rc.10",

@@ -2,13 +2,13 @@ import * as express from 'express';
 import * as path from 'path';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
-import * as cookieParser from'cookie-parser';
+import * as cookieParser from 'cookie-parser';
 import * as favicon from 'serve-favicon';
 import * as compression from 'compression';
 import { Request, Response, NextFunction } from 'express';
 
 import passport from './passport';
-import{ RoutesMap } from './routes.map';
+import { RoutesMap } from './routes.map';
 
 class Express {
 

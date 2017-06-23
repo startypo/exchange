@@ -13,7 +13,7 @@ import { RoutesMap } from './routes.map';
 class Express {
 
   public express: express.Application;
-  private execPath = process.env.NODE_ENV === 'production' ?  path.resolve() : path.dirname(process.mainModule.filename);
+  private execPath = process.env.NODE_ENV ? path.dirname(process.mainModule.filename) : path.resolve();
 
   constructor() {
 
@@ -50,7 +50,7 @@ class Express {
 
     // catch 404 and forward to error handler
     this.express.use((req: any, res: any , next: any) => {
-      let err: any = new Error('Not Found');
+      const err: any = new Error('Not Found');
       err.status = 404;
       next(err);
     });

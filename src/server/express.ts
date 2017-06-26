@@ -13,7 +13,7 @@ import { RoutesMap } from './routes.map';
 class Express {
 
   public express: express.Application;
-  private execPath = process.env.NODE_ENV ? path.resolve() : path.dirname(process.mainModule.filename);
+  private execPath = process.env.NODE_ENV === true ? path.resolve() : path.dirname(process.mainModule.filename);
 
   constructor() {
 

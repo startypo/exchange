@@ -30,6 +30,7 @@ import { AssetService } from './services/asset.service';
 import { HandService } from './services/hand.service';
 import { ExchangeService } from './services/exchange.service';
 import { EventService } from './services/event.service';
+import { BellService } from './services/bell.service';
 
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './components/no-content';
@@ -46,6 +47,7 @@ import { ExchangeComponent } from './components/exchange/exchange.component';
 import { ExchangeDetailComponent } from './components/exchange-detail/exchange-detail.component';
 import { NavAuthComponent } from './components/nav-auth/nav.component';
 import { HeaderAuthComponent } from './components/header-auth/header.component';
+import { BellComponent } from './components/bell/bell.component';
 
 // import '../styles/style.scss';
 
@@ -70,7 +72,7 @@ export interface StoreType  {
                   AppComponent, NoContentComponent, NavComponent, NavAuthComponent,
                   HeaderComponent, HeaderAuthComponent, FooterComponent, LandingComponent,
                   HomeComponent, AssetListComponent, AssetDetailComponent, AssetEditComponent,
-                  CreditsComponent, ExchangeComponent, ExchangeDetailComponent
+                  CreditsComponent, ExchangeComponent, ExchangeDetailComponent, BellComponent
                 ],
   imports: [
              BrowserModule, FormsModule, ReactiveFormsModule, HttpModule,
@@ -82,7 +84,7 @@ export interface StoreType  {
   providers: [
                ENV_PROVIDERS, APP_PROVIDERS,
                UserService, AssetService, HandService, ExchangeService, UIService, AuthGuard,
-               NotifyService, FileService, EventService
+               NotifyService, FileService, EventService, BellService
              ]
 })
 export class AppModule {

@@ -28,16 +28,20 @@ export class NotificationController extends BaseController {
 
     protected read = (req: Request, res: Response): void => {
 
-      
+        NotificationModel.find({ deletedAt: null, receiver: req.user.id }, (err, result) => {
+
+            if (err)
+                res.status(HttpStatus.BAD_REQUEST).json();
+
+            res.status(HttpStatus.OK).json(result);
+        });
     }
 
-    protected update = (req: Request, res: Response): void => {
-
-      
-    }
+    protected update = (req: Request, res: Response): void => {}
 
     protected config(): void {
 
+        this.router.post(Routes.root, Passport.authorize('jwt', this.authOptions), this.create);
         this.router.get(Routes.root, Passport.authorize('jwt', this.authOptions), this.read);
         this.router.put(Routes.root, Passport.authorize('jwt', this.authOptions), this.update);
     }

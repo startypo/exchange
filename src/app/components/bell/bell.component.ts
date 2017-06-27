@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { BellNotification } from '../../models/bell-notification.model';
@@ -12,7 +12,7 @@ import { BellService } from '../../services/bell.service';
 
 export class BellComponent implements OnInit, OnDestroy {
 
-    public model: BellNotification[];
+    public model: BellNotification[] = [];
 
     private onRouteChange: Subscription;
     private onRead: Subscription;
@@ -36,7 +36,10 @@ export class BellComponent implements OnInit, OnDestroy {
         );
 
         this.service.read();
-        this.onRouteChange = this.router.events.subscribe(e => this.service.read());
+        this.onRouteChange = this.router
+                                 .events
+                                 .filter(e => e instanceof NavigationStart)
+                                 .subscribe(e => this.service.read());
     }
 
     public remove(notificationId: string) {}

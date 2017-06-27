@@ -10,7 +10,7 @@ import { CreateHttpError, ReadHttpError, UpdateHttpError, DeleteHttpError } from
 @Injectable()
 export class BellService extends BaseService<BellNotification[]> {
 
-    private resourceUrl = '/bell';
+    private resourceUrl = '/notification';
 
     constructor(protected http: Http) {
         super(http);

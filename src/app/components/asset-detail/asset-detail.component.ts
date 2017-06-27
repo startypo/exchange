@@ -6,8 +6,10 @@ import { AssetService } from '../../services/asset.service';
 import { ExchangeService } from '../../services/exchange.service';
 import { UserService } from '../../modules/user/user.service';
 import { NotifyService } from '../../modules/ui/notify/notify.service';
+import { BellService } from '../../services/bell.service';
 
 import { Asset } from '../../models/asset.model';
+import { BellNotification } from '../../models/bell-notification.model';
 
 @Component({
     selector: 'asset-detail',
@@ -27,7 +29,7 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
 
     constructor(private service: AssetService, private exchangeService: ExchangeService,
                 private notify: NotifyService, public userService: UserService,
-                private router: Router, private route: ActivatedRoute) {}
+                private bellService: BellService, private router: Router, private route: ActivatedRoute) {}
 
     public ngOnInit(): void {
 
@@ -45,6 +47,8 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
         );
 
         this.onExchangeCreate = this.exchangeService.onCreate.subscribe(() => {
+
+            this.sendBellNotification();
             this.notify.success('Exchange', 'A troca foi iniciada.');
             this.router.navigate(['/exchanges']);
         });
@@ -75,5 +79,16 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
 
     public exchange() {
         this.exchangeService.create(this.model.id);
+    }
+
+    private sendBellNotification() {
+
+        const ntf = new BellNotification();
+        ntf.title = 'Troca Iniciada';
+        ntf.msg = this.userService.user.name + ': Solicitou uma troca.';
+        ntf.receiver = this.model.owner;
+        ntf.resourceId = this.model.id;
+
+        this.bellService.create(ntf);
     }
 }

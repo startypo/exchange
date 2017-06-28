@@ -32,12 +32,15 @@ export class CreditsComponent implements OnInit, OnDestroy {
             (data: Hand) => this.model = data
         );
 
-        this.onCredit = this.service.onCredit.subscribe(
-            (data: Hand) => this.model = data
-        );
+        this.onCredit = this.service.onCredit.subscribe((data: Hand) => {
+
+            const amount = data.amount - this.model.amount;
+            this.model = data;
+            this.notify.info('Exchange', 'você recebeu ϝ ' + amount.toFixed(2));
+        });
 
         this.onError = this.service.onError.subscribe(
-            (err) => this.notify.error('XChanges', 'Something went wrong.')
+              (err) => this.router.navigate(['/error'])
         );
 
         this.service.read();
@@ -60,14 +63,4 @@ export class CreditsComponent implements OnInit, OnDestroy {
             this.service.credit(this.api.getDefaultMedia().currentTime);
         });
     }
-
-    // @HostListener('window:beforeunload', [ '$event' ])
-    // public beforeUnloadHander(e) {
-    //     console.log(this.api.getDefaultMedia().time);
-    // }
-
-    // @HostListener('window:popstate', ['$event'])
-    // public onPopState(e) {
-    //    console.log(this.api.getDefaultMedia().time);
-    // }
 }

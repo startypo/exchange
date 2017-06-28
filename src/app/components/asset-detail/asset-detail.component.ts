@@ -48,15 +48,14 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
 
         this.onExchangeCreate = this.exchangeService.onCreate.subscribe(() => {
 
-            this.sendBellNotification();
+            this.bellNotification();
             this.notify.success('Exchange', 'A troca foi iniciada.');
             this.router.navigate(['/exchanges']);
         });
 
-        this.onExchangeError = this.exchangeService.onError.subscribe((err) => {
-            console.log(err);
-            this.notify.warning('Exchange', 'Não há créditos suficientes para realizar esta troca.');
-        });
+        this.onExchangeError = this.exchangeService.onError.subscribe(
+            (err) => this.notify.warning('Exchange', 'Não há créditos suficientes para realizar esta troca.')
+        );
 
         const id = this.route.snapshot.params['id'];
 
@@ -81,11 +80,11 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
         this.exchangeService.create(this.model.id);
     }
 
-    private sendBellNotification() {
+    private bellNotification() {
 
         const ntf = new BellNotification();
         ntf.title = 'Troca Iniciada';
-        ntf.msg = this.userService.user.name + ': Solicitou uma troca.';
+        ntf.msg = this.userService.user.name + ' solicitou uma troca.';
         ntf.receiver = this.model.owner;
         ntf.resourceId = this.model.id;
 

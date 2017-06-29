@@ -7,7 +7,8 @@ import { BellService } from '../../services/bell.service';
 
 @Component({
     selector: 'bell',
-    templateUrl: 'bell.component.html'
+    templateUrl: 'bell.component.html',
+    styleUrls: ['./style.scss']
 })
 
 export class BellComponent implements OnInit, OnDestroy {

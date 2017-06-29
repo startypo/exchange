@@ -1,13 +1,31 @@
-    <xchs-nav *ngIf="!service.isLoggedIn()"></xchs-nav>
-    <xchs-header *ngIf="!service.isLoggedIn()"></xchs-header>
-    <xchs-nav-auth *ngIf="service.isLoggedIn()"></xchs-nav-auth>
-    <xchs-header-auth *ngIf="service.isLoggedIn()"></xchs-header-auth>
-    <div class="row">
-        <div class="error-template">
+<xchs-nav *ngIf="!service.isLoggedIn()"></xchs-nav>
+<xchs-header *ngIf="!service.isLoggedIn()"></xchs-header>
+<xchs-nav-auth *ngIf="service.isLoggedIn()"></xchs-nav-auth>
+<xchs-header-auth *ngIf="service.isLoggedIn()"></xchs-header-auth>
+
+<div class="container mb-5">
+        <div class="row">
+
+        <div class="err-text col-sm-5">
+            
             <h1>Oops!</h1>
-            <h2>404 Não Encontrado</h2>
-            <div class="error-details">
-                Desculpa, ocorreu um erro, a página não foi encontrada!<br>
+
+            <h2>We`ve got Rick`rolled</h2>
+
+            <div>
+                Desculpe-nos por <u>deixa-lo pra baixo</u>, mas não encontramos a sua página.<br>
             </div>
+
         </div>
+
+        <div class="col-sm-7">
+            
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+            </div>
+        
+        </div>
+
     </div>
+
+</div>

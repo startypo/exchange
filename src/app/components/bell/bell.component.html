@@ -5,16 +5,17 @@
         <span class="number">{{ model.length }}</span>
     </a>
 
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown" *ngFor="let item of model">
-        <div class="dropdown-item">
-            <a [routerLink]="['/exchanges/detail/', item.resourceid]">
-                <span>{{ item.title }}</span>
-                <span>{{ item.msg }}</span>
-            </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown" >
+        <div class="arrow-up"></div>
+        <div class="dropdown-item" *ngFor="let item of model">
             <input (click)="markAsRead(item.id)" [checked]="item.readed" type="radio" title="Marcar como Lido" />
-            <button (click)="delete(item.id)">Excluir</button>
+            <a [routerLink]="['/exchanges/detail/', item.resourceid]">
+                {{ item.msg }}
+            </a>
+            <button type="button" class="close" aria-label="Close" (click)="delete(item.id)">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-        <div class="dropdown-divider"></div>
     </div>
 
 <div>

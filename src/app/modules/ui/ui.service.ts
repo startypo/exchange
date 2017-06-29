@@ -182,10 +182,10 @@ export class UIService implements OnInit {
     };
 
     protected paginationLangs: PaginationLangs = {
-        first: 'First',
-        prev: 'Previous',
-        next: 'Next',
-        last: 'Last'
+        first: 'Primeira',
+        prev: 'Anterior',
+        next: 'Próxima',
+        last: 'Última'
     };
 
     /**

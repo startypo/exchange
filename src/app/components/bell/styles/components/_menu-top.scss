@@ -1,0 +1,127 @@
+header {
+
+    section {
+        background-color: $primary-color;
+
+        .dropdown-menu {
+            padding: 10px 0;
+            margin-top: 5px;
+            background-color: $branco;
+            font-family: $open-sans;
+            font-size: .9em;
+            border: none;
+            border-radius: 0px;
+            margin-right: .1rem;
+
+
+            .dropdown-item {
+                i { width: 30px; }                
+            }
+
+            .arrow-up {
+                right: .0;
+                top: -11px;
+                position: absolute;
+                border-left: 10px solid transparent;
+                border-right: 10px solid transparent;
+                border-top: 1px solid transparent;
+                border-bottom: 10px solid $branco;
+                border-style: solid outset solid solid;
+            }
+        }
+
+        .collapse-mobile {
+            width: 100%;
+                
+            .collapse,
+            .collapsing,
+            .show {
+                padding: 10px 0;
+                margin: 15px auto 0 auto;
+                background-color: rgba(41, 128, 185, 0.28);
+                font-family: $open-sans;
+                font-size: .9em;
+                border: solid 1px $secondary-color;
+
+                .dropdown-divider { background-color: $secondary-color !important; }
+                .dropdown-item {
+                    color: $branco !important;
+                    i { width: 30px; }                
+                }
+            }
+        }
+    }
+    
+    nav {
+        padding: 5px 0 !important;
+    }
+}
+
+.itens-menu {   
+    a {
+        color: $branco;
+        margin: 0 15px;
+    }
+}
+
+.input-hide {
+    transition: all .2s linear;
+}
+
+.search-desktop { width: 40%; }
+.search-mobile { 
+    width: 100%;
+    margin-top: 15px;
+}
+
+.search-desktop,
+.search-mobile {
+    
+    input[type="text"],
+    button {
+        background-color: $secondary-color;
+        border: none;
+        color: $branco;
+    }
+
+    input[type="text"] {
+        padding: 1px 10px;
+    }
+
+    input::placeholder {
+        font-size: .8em;
+        color: $branco;
+        text-transform: uppercase;
+    }
+}
+
+.itens-menu,
+.login-mobile,
+.login-desktop {
+    font-size: .9em;
+    color: $branco;
+    font-family: "Open Sans", "sans serif";
+}
+
+.login-desktop {
+    p {
+        margin: 0 !important;
+    }
+
+    img {
+        margin-left: 15px;
+    }
+
+    .dropdown-toggle {
+        text-decoration: none;
+    }
+
+    .dropdown-toggle::after {
+        border: none !important;
+    }
+}
+
+.login-mobile, 
+.login-desktop {
+    cursor: pointer;
+}

@@ -17,24 +17,12 @@ export interface INotificationDocument extends IDocument {
 
 const schema = BaseModel.createSchema({
 
-    title: {
-        type: String,
-        required: true
-    },
     msg: {
         type: String,
         required: true
     },
-    resourceRoute: {
-        type: String
-    },
     resourceId: {
         type: String
-    },
-    readed: {
-        type: Boolean,
-        default: false,
-        required: true
     },
     receiver: {
         type: Schema.Types.ObjectId,

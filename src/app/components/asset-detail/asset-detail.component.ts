@@ -83,8 +83,7 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
     private bellNotification() {
 
         const ntf = new BellNotification();
-        ntf.title = 'Troca Iniciada';
-        ntf.msg = this.userService.user.name + ' solicitou uma troca.';
+        ntf.msg = this.userService.user.name + ': solicitou uma troca.';
         ntf.receiver = this.model.owner;
         ntf.resourceId = this.model.id;
 

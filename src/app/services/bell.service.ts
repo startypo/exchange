@@ -37,16 +37,6 @@ export class BellService extends BaseService<BellNotification[]> {
         );
     }
 
-   public update(ntf: BellNotification): void {
-
-        this.http.put(this.apiUrl + this.resourceUrl, JSON.stringify({ id: ntf.id }), this.getOptions())
-                 .catch(err => Observable.throw(new UpdateHttpError(err.text())))
-                 .subscribe(
-                    (res: Response) => this.updateSubject.next(),
-                    (err: UpdateHttpError) => this.errorSubject.next(err)
-        );
-    }
-
     public delete(id: string): void {
 
         const params = new URLSearchParams();

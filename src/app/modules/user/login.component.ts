@@ -44,7 +44,7 @@ export class LoginComponent {
             if (err.status === 401)
                 this.notify.error('Exchange', 'O e-mail ou a senha estão incorretos.');
             else
-                this.notify.error('Exchange', 'Algo deu errado.');
+                this.router.navigate(['/error']);
         });
     }
 }

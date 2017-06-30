@@ -20,7 +20,7 @@ export class AssetsController extends BaseController {
 
         const query = { owner: req.user.id, deletedAt: null, exchange: null };
         const pageNumber: number = +req.query.page;
-        const paginateInfo = { select: 'id name description price imgs createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
+        const paginateInfo = { select: 'id name description price imgs owner createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
 
         AssetModel.paginate(query, paginateInfo, (err, result) => {
 
@@ -56,7 +56,7 @@ export class AssetsController extends BaseController {
             }]
         };
 
-        const paginateInfo = { select: 'id name description price imgs createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
+        const paginateInfo = { select: 'id name description price owner imgs createdAt', page: pageNumber, limit: 15, sort: { createdAt: -1 } };
 
         AssetModel.paginate(query, paginateInfo, (err, result) => {
 
@@ -190,6 +190,8 @@ export class AssetsController extends BaseController {
                 source.on('error', (err) => console.log(err));
             }
 
+            // Prevents owner change
+            doc.owner = asset.owner;
             asset.set(doc);
 
             asset.save((saveErr, updatedAsset) => {

@@ -14,11 +14,11 @@ import { BellService } from '../../services/bell.service';
 export class BellComponent implements OnInit, OnDestroy {
 
     public model: BellNotification[] = [];
+    private removedIndex: number;
 
     private onRouteChange: Subscription;
     private onRead: Subscription;
     private OnDelete: Subscription;
-    private OnUpdate: Subscription;
 
     constructor(public service: BellService, private router: Router) { }
 
@@ -28,12 +28,8 @@ export class BellComponent implements OnInit, OnDestroy {
             (data: BellNotification[]) => this.model = data
         );
 
-        this.OnUpdate = this.service.onUpdate.subscribe(
-
-        );
-
         this.OnDelete = this.service.onDelete.subscribe(
-
+            () => this.model.splice(this.removedIndex)
         );
 
         this.service.read();
@@ -43,11 +39,15 @@ export class BellComponent implements OnInit, OnDestroy {
                                  .subscribe(e => this.service.read());
     }
 
-    public remove(notificationId: string) {}
+    public remove(i: number) {
 
-    public markAsRead(notificationId: string){}
+        this.removedIndex = i;
+        const ntf: BellNotification = this.model[this.removedIndex];
+        this.service.delete(ntf.id);
+    }
 
     public ngOnDestroy(): void {
+
         this.onRouteChange.unsubscribe();
         this.onRead.unsubscribe();
     }

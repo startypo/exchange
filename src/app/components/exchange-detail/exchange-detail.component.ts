@@ -47,7 +47,7 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
             data.sender = this.model.sender;
             data.receiver = this.model.receiver;
             this.model = data;
-            this.bellNotification('Livro Enviado', ' enviou o livro.', this.model.receiver.id);
+            this.bellNotification(': enviou o livro.', this.model.receiver.id);
             this.notify.success('Exchange', 'O item foi enviado.');
         });
 
@@ -56,7 +56,7 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
             data.sender = this.model.sender;
             data.receiver = this.model.receiver;
             this.model = data;
-            this.bellNotification('Livro Recebido', ' recebeu o livro.', this.model.sender.id);
+            this.bellNotification(': recebeu o livro.', this.model.sender.id);
             this.notify.success('Exchange', 'A troca foi concluída.');
         });
 
@@ -129,10 +129,9 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    private bellNotification(title: string, msg: string, receiver: string) {
+    private bellNotification(msg: string, receiver: string) {
 
         const ntf = new BellNotification();
-        ntf.title = title;
         ntf.msg = this.userService.user.name + msg;
         ntf.receiver = receiver;
         ntf.resourceId = this.model.asset.id;

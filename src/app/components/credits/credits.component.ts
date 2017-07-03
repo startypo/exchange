@@ -36,7 +36,7 @@ export class CreditsComponent implements OnInit, OnDestroy {
 
             const amount = data.amount - this.model.amount;
             this.model = data;
-            this.notify.info('Exchange', 'você recebeu ϝ ' + amount.toFixed(2));
+            this.notify.info('Exchange', 'Você recebeu ϝ ' + amount.toFixed(2));
         });
 
         this.onError = this.service.onError.subscribe(

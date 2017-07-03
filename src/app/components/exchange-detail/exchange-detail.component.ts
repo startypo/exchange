@@ -48,7 +48,7 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
             data.receiver = this.model.receiver;
             this.model = data;
             this.bellNotification(': enviou o livro.', this.model.receiver.id);
-            this.notify.success('Exchange', 'O item foi enviado.');
+            this.notify.success('Exchange', 'O livro foi enviado.');
         });
 
         this.onReceive = this.service.onReceive.subscribe((data: Exchange) => {

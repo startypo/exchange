@@ -45,7 +45,7 @@ export class AssetEditComponent implements OnInit, OnDestroy {
 
         this.onCreate = this.service.onCreate.subscribe(
             asset => {
-                this.notify.success('Exchange', 'Criado com sucesso.');
+                this.notify.success('Exchange', 'O livro foi anunciado com sucesso.');
                 this.router.navigate(['/assets']);
             }
         );
@@ -57,7 +57,7 @@ export class AssetEditComponent implements OnInit, OnDestroy {
 
         this.onUpdate = this.service.onUpdate.subscribe(
             asset => {
-                this.notify.success('Exchange', 'Atualizado com sucesso.');
+                this.notify.success('Exchange', 'O livro foi atualizado com sucesso.');
                 this.router.navigate(['/assets']);
             }
         );
@@ -73,7 +73,7 @@ export class AssetEditComponent implements OnInit, OnDestroy {
         );
 
         this.onError = this.service.onError.subscribe(
-            err => this.notify.error('Exhange', 'Algo deu errado.')
+            err => this.router.navigate(['/error'])
         );
 
         this.model.id = this.route.snapshot.params['id'];
@@ -120,11 +120,11 @@ export class AssetEditComponent implements OnInit, OnDestroy {
     }
 
     public uploadError(event: any) {
-        this.notify.error('File Upload', 'Something went wrong.');
+        this.notify.error('Upload de Arquivo', 'Algo deu errado.');
     }
 
     public rejected(event: any) {
-        this.notify.warning('File Upload', event.reason);
+        this.notify.warning('Upload de Arquivo', event.reason);
     }
 
     private configForm() {

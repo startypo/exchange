@@ -5,11 +5,11 @@
         <span class="number">{{ model.length }}</span>
     </a>
 
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown" >
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown" *ngIf="model.length">
         <div class="arrow-up"></div>
         <div class="dropdown-item" *ngFor="let item of model; let i = index">
             
-            <a [routerLink]="['/exchanges/detail/', item.resourceid]">
+            <a [routerLink]="['/exchanges/detail/', item.resourceId]">
                 {{ item.msg }}
             </a>
             

@@ -38,7 +38,7 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
         );
 
         this.onDelete = this.service.onDelete.subscribe(() => {
-            this.notify.success('Exchange', 'Excluído com sucesso.');
+            this.notify.success('Exchange', 'O livro foi excluído com sucesso.');
             this.router.navigate(['/assets']);
         });
 

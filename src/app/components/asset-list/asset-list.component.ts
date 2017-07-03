@@ -39,7 +39,7 @@ export class AssetListComponent implements OnInit, OnDestroy {
         );
 
         this.onError = this.service.onError.subscribe(
-            (err) => this.notify.error('Exchange', 'Algo deu errado.')
+            (err) => this.router.navigate(['/error'])
         );
 
         if (this.isList())

@@ -13,9 +13,7 @@ export class Config {
 
         user: 'xchs_user',
         passwd: 'JT#H\a]&:D52YmjF',
-        connString: process.env.CUSTOMCONNSTR_DB_CONN ?
-                    process.env.CUSTOMCONNSTR_DB_CONN :
-                    'mongodb://172.17.0.2:27017/xchs'
+        connString: process.env.CUSTOMCONNSTR_DB_CONN // 'mongodb://104.41.45.249:27017/xchs_dev'
     };
 
     public static redis = {

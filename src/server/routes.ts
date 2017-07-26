@@ -12,6 +12,7 @@ export const Routes = {
     exchanges: '/exchange',
     assets: '/asset',
     hands: '/hand',
+    notifications: '/notification',
     files: '/file',
 
     // methods routes

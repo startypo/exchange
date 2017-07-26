@@ -11,7 +11,7 @@ import { ExchangeList } from '../../models/exchange-list.model';
 @Component({
     selector: 'exchange',
     templateUrl: 'exchange.component.html',
-    styleUrls: ['exchange.component.css','./style.scss']
+    styleUrls: ['exchange.component.css', './style.scss']
 })
 
 export class ExchangeComponent implements OnInit, OnDestroy {
@@ -31,7 +31,7 @@ export class ExchangeComponent implements OnInit, OnDestroy {
         );
 
         this.onError = this.service.onError.subscribe(
-            (err) => this.notify.error('Xchanges', 'Something went wrong.')
+            (err) => this.router.navigate(['/error'])
         );
 
         this.service.list();

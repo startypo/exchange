@@ -44,7 +44,7 @@ export class RegisterComponent {
                 if (err.status === 403)
                     this.notify.error('XChanges', 'E-mail é inválido ou já existe no sistema.');
                 else
-                    this.notify.error('XChanges', 'Algo deu errado.');
+                    this.router.navigate(['/error']);
             },
             () => this.notify.success('XChanges', 'O usuário foi cadastrado com sucesso.')
         );

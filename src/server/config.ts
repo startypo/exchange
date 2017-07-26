@@ -13,7 +13,7 @@ export class Config {
 
         user: 'xchs_user',
         passwd: 'JT#H\a]&:D52YmjF',
-        connString: process.env.NODE_ENV === 'production' ? 'mongodb://104.41.45.249:27017/xchs' : 'mongodb://172.17.0.2:27017/xchs'
+        connString: process.env.CUSTOMCONNSTR_DB_CONN // 'mongodb://104.41.45.249:27017/xchs_dev'
     };
 
     public static redis = {
@@ -29,7 +29,10 @@ export class Config {
         profile: 'admin'
     };
 
-    public static uploadPath = path.join(process.env.NODE_ENV === 'production' ?
-                               path.resolve() :
-                               path.dirname(process.mainModule.filename), 'uploads');
+    public static execPath = process.env.NODE_ENV === 'local' ?
+                             path.dirname(process.mainModule.filename) :
+                             path.resolve();
+
+    public static uploadPath = path.join(Config.execPath, 'uploads');
+
 }

@@ -8,15 +8,4 @@ import { UserService } from '../../modules/user';
     templateUrl: 'footer.component.html',
     styleUrls: ['./style.scss', './footer.component.css']
 })
-export class FooterComponent {
-
-    constructor(public service: UserService, private router: Router) {}
-
-    public logout() {
-        this.service.logout();
-    }
-
-    public search(term: string) {
-        this.router.navigate(['/assets/search', term]);
-    }
-}
+export class FooterComponent {}

@@ -7,7 +7,6 @@ import { Hand } from '../models/hand.model';
 
 import { CreateHttpError, ReadHttpError, UpdateHttpError, DeleteHttpError } from './http-errors';
 
-
 @Injectable()
 export class HandService extends BaseService<Hand> {
 

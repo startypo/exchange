@@ -10,6 +10,8 @@ import { Exchange } from '../../models/exchange.model';
 import { UserService } from '../../modules/user/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from '../../modules/ui/validate/custom.validators';
+import { BellNotification } from "../../models/bell-notification.model";
+import { BellService } from "../../services/bell.service";
 
 @Component({
     selector: 'exchange-detail',
@@ -28,8 +30,8 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
     private onError: Subscription;
 
     constructor(private service: ExchangeService, private userService: UserService,
-                private notify: NotifyService, private router: Router,
-                private route: ActivatedRoute, private fb: FormBuilder) {
+                private notify: NotifyService, private bellService: BellService,
+                private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
 
         this.configForm();
     }
@@ -45,7 +47,8 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
             data.sender = this.model.sender;
             data.receiver = this.model.receiver;
             this.model = data;
-            this.notify.success('Exchange', 'O item foi enviado.');
+            this.bellNotification(': enviou o livro.', this.model.receiver.id);
+            this.notify.success('Exchange', 'O livro foi enviado.');
         });
 
         this.onReceive = this.service.onReceive.subscribe((data: Exchange) => {
@@ -53,6 +56,7 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
             data.sender = this.model.sender;
             data.receiver = this.model.receiver;
             this.model = data;
+            this.bellNotification(': recebeu o livro.', this.model.sender.id);
             this.notify.success('Exchange', 'A troca foi concluída.');
         });
 
@@ -123,5 +127,15 @@ export class ExchangeDetailComponent implements OnInit, OnDestroy {
         this.form = this.fb.group({
             trackingCode: ['', Validators.compose([Validators.required, CustomValidators.alphaNumeric()])]
         });
+    }
+
+    private bellNotification(msg: string, receiver: string) {
+
+        const ntf = new BellNotification();
+        ntf.msg = this.userService.user.name + msg;
+        ntf.receiver = receiver;
+        ntf.resourceId = this.model.asset.id;
+
+        this.bellService.create(ntf);
     }
 }

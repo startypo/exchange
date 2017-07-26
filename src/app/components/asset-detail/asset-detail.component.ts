@@ -6,8 +6,10 @@ import { AssetService } from '../../services/asset.service';
 import { ExchangeService } from '../../services/exchange.service';
 import { UserService } from '../../modules/user/user.service';
 import { NotifyService } from '../../modules/ui/notify/notify.service';
+import { BellService } from '../../services/bell.service';
 
 import { Asset } from '../../models/asset.model';
+import { BellNotification } from '../../models/bell-notification.model';
 
 @Component({
     selector: 'asset-detail',
@@ -27,7 +29,7 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
 
     constructor(private service: AssetService, private exchangeService: ExchangeService,
                 private notify: NotifyService, public userService: UserService,
-                private router: Router, private route: ActivatedRoute) {}
+                private bellService: BellService, private router: Router, private route: ActivatedRoute) {}
 
     public ngOnInit(): void {
 
@@ -36,7 +38,7 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
         );
 
         this.onDelete = this.service.onDelete.subscribe(() => {
-            this.notify.success('Exchange', 'Excluído com sucesso.');
+            this.notify.success('Exchange', 'O livro foi excluído com sucesso.');
             this.router.navigate(['/assets']);
         });
 
@@ -45,14 +47,15 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
         );
 
         this.onExchangeCreate = this.exchangeService.onCreate.subscribe(() => {
+
+            this.bellNotification();
             this.notify.success('Exchange', 'A troca foi iniciada.');
             this.router.navigate(['/exchanges']);
         });
 
-        this.onExchangeError = this.exchangeService.onError.subscribe((err) => {
-            console.log(err);
-            this.notify.warning('Exchange', 'Não há créditos suficientes para realizar esta troca.');
-        });
+        this.onExchangeError = this.exchangeService.onError.subscribe(
+            (err) => this.notify.warning('Exchange', 'Não há créditos suficientes para realizar esta troca.')
+        );
 
         const id = this.route.snapshot.params['id'];
 
@@ -75,5 +78,15 @@ export class AssetDetailComponent implements OnInit, OnDestroy {
 
     public exchange() {
         this.exchangeService.create(this.model.id);
+    }
+
+    private bellNotification() {
+
+        const ntf = new BellNotification();
+        ntf.msg = this.userService.user.name + ': solicitou uma troca.';
+        ntf.receiver = this.model.owner;
+        ntf.resourceId = this.model.id;
+
+        this.bellService.create(ntf);
     }
 }

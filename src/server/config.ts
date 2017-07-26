@@ -29,7 +29,10 @@ export class Config {
         profile: 'admin'
     };
 
-    public static uploadPath = path.join(process.env.NODE_ENV === 'production' ?
-                               path.resolve() :
-                               path.dirname(process.mainModule.filename), 'uploads');
+    public static execPath = process.env.NODE_ENV === 'local' ?
+                             path.dirname(process.mainModule.filename) :
+                             path.resolve();
+
+    public static uploadPath = path.join(Config.execPath, 'uploads');
+
 }

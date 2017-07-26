@@ -9,11 +9,11 @@ import { Request, Response, NextFunction } from 'express';
 
 import passport from './passport';
 import { RoutesMap } from './routes.map';
+import { Config } from './config';
 
 class Express {
 
   public express: express.Application;
-  private execPath = process.env.NODE_ENV === true ? path.resolve() : path.dirname(process.mainModule.filename);
 
   constructor() {
 
@@ -28,8 +28,8 @@ class Express {
 
     this.express.use(logger('dev'));
     this.express.use(compression());
-    this.express.use(favicon(path.join(this.execPath, 'public', 'assets', 'icon', 'favicon.ico')));
-    this.express.use(express.static(path.join(this.execPath, 'public')));
+    this.express.use(favicon(path.join(Config.execPath, 'public', 'assets', 'icon', 'favicon.ico')));
+    this.express.use(express.static(path.join(Config.execPath, 'public')));
     this.express.use(bodyParser.json({ limit: '6mb' }));
     this.express.use(bodyParser.urlencoded({ limit: '12mb', extended: true }));
     this.express.use(cookieParser());
@@ -40,7 +40,7 @@ class Express {
 
     this.express.get('/', (req, res) => {
       res.type('text/html');
-      res.sendFile(path.join(this.execPath, 'index.html'));
+      res.sendFile(path.join(Config.execPath, 'index.html'));
     });
 
     this.express.use('/api/v1', RoutesMap.map());
@@ -59,7 +59,7 @@ class Express {
 
       // set locals, only providing error in development
       res.locals.message = err.message;
-      res.locals.error = req.app.get('env') === 'development' ? err : {};
+      res.locals.error = req.app.get('env') === 'local' ? err : {};
 
       // render the error page
       res.status(err.status || 500);

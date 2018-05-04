@@ -10,10 +10,9 @@ export class Config {
     };
 
     public static db = {
-
-        user: 'xchs_user',
-        passwd: 'JT#H\a]&:D52YmjF',
-        connString: process.env.CUSTOMCONNSTR_DB_CONN // 'mongodb://104.41.45.249:27017/xchs_dev'
+        uri: 'mongodb://ds014648.mlab.com:14648/exchange',
+        user: 'exchange',
+        pass: 'gads2014N'
     };
 
     public static redis = {
@@ -34,5 +33,4 @@ export class Config {
                              path.resolve();
 
     public static uploadPath = path.join(Config.execPath, 'uploads');
-
 }

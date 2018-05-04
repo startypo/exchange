@@ -10,15 +10,10 @@ export class DBConnection {
         if (this.conn)
             return this.conn;
 
-        this.conn = mongoose.createConnection(Config.db.connString, (err) => {
-
-            if (err) {
-                console.log(err);
-                return;
-            }
-
-            console.log('Mongoose: connected at: %s', Config.db.connString);
-        });
+        this.conn = mongoose.createConnection(Config.db.uri, {
+                                                user: Config.db.user,
+                                                pass: Config.db.pass
+                                             });
 
         return this.conn;
     }

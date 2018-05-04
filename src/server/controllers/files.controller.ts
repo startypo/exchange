@@ -20,13 +20,13 @@ export class FileController extends BaseController {
 
     public create = (req: any, res: Response): void => {
 
-        let uploadPath = path.join(Config.uploadPath, req.user.id);
+        const uploadPath = path.join(Config.uploadPath, req.user.id);
 
-        let upload = multer({ storage: multer.diskStorage({
+        const upload = multer({ storage: multer.diskStorage({
                 destination: uploadPath,
                 filename: (request, file, cb) => {
                     let extension = path.extname(file.originalname);
-                    extension = extension.length > 1 ? extension : '.' + mime.extension(file.mimetype);
+                    extension = extension.length > 1 ? extension : '.' + mime.getExtension(file.mimetype);
                     crypto.pseudoRandomBytes(16, function(err, raw) {
                             cb(err, err ? undefined : raw.toString('hex') + extension);
                     });
@@ -41,8 +41,8 @@ export class FileController extends BaseController {
 
     public read = (req: any, res: Response): void => {
 
-        let filePath = path.join(Config.uploadPath, req.query.filename);
-        let mimeType = mime.lookup(filePath, '');
+        const filePath = path.join(Config.uploadPath, req.query.filename);
+        const mimeType = mime.getType(filePath);
         res.setHeader('Content-type', mimeType);
 
         res.download(path.join(Config.uploadPath, req.query.filename), req.query.filename);
@@ -50,7 +50,7 @@ export class FileController extends BaseController {
 
     public delete = (req: any, res: Response): void => {
 
-        let filePath = path.join(Config.uploadPath, req.query.filename);
+        const filePath = path.join(Config.uploadPath, req.query.filename);
 
         fs.access(filePath, fs.constants.W_OK, (err) => {
 

@@ -26,4 +26,4 @@ export class BaseModel {
 
         return schema;
     }
-};
+}

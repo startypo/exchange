@@ -5,6 +5,8 @@
   "author": "Carlos de Carvalho, Daniel Neto, Renan Garcia",
   "homepage": "https://startypo-exchange.herokuapp.com",
   "scripts": {
+    "start": "node dist/server.js",
+    "heroku-postbuild" : "npm run build:prod && npm run build:express",
     "build:aot:prod": "npm run clean:dist && npm run clean:aot && webpack --config config/webpack.prod.js  --progress --profile --bail",
     "build:aot": "npm run build:aot:prod",
     "build:dev": "npm run clean:dist && webpack --config config/webpack.dev.js --progress --profile",
@@ -47,7 +49,6 @@
     "server": "npm run server:dev",
     "start:hmr": "npm run server:dev:hmr",
     "start:dev": "nodemon --inspect dist/server.js",
-    "start": "npm run build:prod && npm run build:express && node dist/server.js",
     "test": "npm run lint && karma start",
     "tslint": "tslint",
     "typedoc": "typedoc",

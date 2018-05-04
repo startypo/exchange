@@ -28,8 +28,10 @@ class Express {
 
     this.express.use(logger('dev'));
     this.express.use(compression());
-    this.express.use(favicon(path.join(Config.execPath, 'public', 'assets', 'icon', 'favicon.ico')));
-    this.express.use(express.static(path.join(Config.execPath, 'public')));
+    this.express.use(favicon(path.join(
+                            path.dirname(process.mainModule.filename),
+                            'public', 'assets', 'icon', 'favicon.ico')));
+    this.express.use(express.static(path.join(path.dirname(process.mainModule.filename), 'public')));
     this.express.use(bodyParser.json({ limit: '6mb' }));
     this.express.use(bodyParser.urlencoded({ limit: '12mb', extended: true }));
     this.express.use(cookieParser());
@@ -40,7 +42,7 @@ class Express {
 
     this.express.get('/', (req, res) => {
       res.type('text/html');
-      res.sendFile(path.join(Config.execPath, 'index.html'));
+      res.sendFile(path.join(path.dirname(process.mainModule.filename), 'index.html'));
     });
 
     this.express.use('/api/v1', RoutesMap.map());
